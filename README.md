@@ -50,14 +50,14 @@ pnpm dev
 
 ## Available Scripts
 
-| Script                          | What it does                                                       |
-| ------------------------------- | ------------------------------------------------------------------ |
-| `pnpm dev`                      | Next.js dev server                                                 |
-| `pnpm build` / `pnpm start`     | Production build and server                                        |
-| `pnpm lint`                     | ESLint                                                             |
-| `pnpm type-check`               | TypeScript without emitting                                        |
-| `pnpm format` / `format:fix`    | Prettier check / write                                             |
-| `pnpm test`                     | Vitest unit tests (never calls a model)                            |
-| `pnpm db:migrate:create --name` | Create a migration without applying it                             |
-| `pnpm db:migrate`               | Apply migrations                                                   |
-| `pnpm check:vertex`             | One plain and one search-grounded Vertex call, traced to Langfuse  |
+| Script                          | What it does                                                      |
+| ------------------------------- | ----------------------------------------------------------------- |
+| `pnpm dev`                      | Next.js dev server                                                |
+| `pnpm build` / `pnpm start`     | Production build and server                                       |
+| `pnpm lint`                     | ESLint                                                            |
+| `pnpm type-check`               | TypeScript without emitting                                       |
+| `pnpm format` / `format:fix`    | Prettier check / write                                            |
+| `pnpm test`                     | Vitest unit tests (never calls a model)                           |
+| `pnpm db:migrate:create --name` | Create a migration without applying it                            |
+| `pnpm db:migrate`               | Apply migrations                                                  |
+| `pnpm check:vertex`             | One plain and one search-grounded Vertex call, traced to Langfuse |
