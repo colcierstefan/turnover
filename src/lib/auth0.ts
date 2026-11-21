@@ -9,7 +9,7 @@ const auth0 = new Auth0Client({
   clientId: env.auth0.clientId,
   clientSecret: env.auth0.clientSecret,
   secret: env.auth0.secret,
-  appBaseUrl: env.auth0.appBaseUrl,
+  appBaseUrl: env.app.baseUrl,
 });
 
 export default auth0;

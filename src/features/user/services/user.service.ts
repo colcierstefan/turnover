@@ -2,17 +2,28 @@ import "server-only";
 
 import userRepository from "@/features/user/repositories/user.repository";
 import auth0 from "@/lib/auth0";
-import { ValidationError } from "@/lib/errors";
+import { ForbiddenError, ValidationError } from "@/lib/errors";
 
 class UserService {
   async getCurrentUser() {
     const session = await auth0.getSession();
     if (!session) return null;
 
-    const { sub, email, name } = session.user;
+    const { sub, email, name, email_verified } = session.user;
     if (!email) throw new ValidationError(`Auth0 user ${sub} has no email`);
 
-    return userRepository.upsertByAuth0Id({ auth0Id: sub, email, name });
+    const user = await userRepository.upsertByAuth0Id({
+      auth0Id: sub,
+      email,
+      name,
+    });
+    return { ...user, isEmailVerified: email_verified === true };
+  }
+
+  async requireCurrentUser() {
+    const user = await this.getCurrentUser();
+    if (!user) throw new ForbiddenError("Not signed in");
+    return user;
   }
 }
 

@@ -8,8 +8,62 @@ datasource db {
 }
 
 model User {
-  id      String  @id @default(uuid())
-  auth0Id String  @unique
-  email   String
-  name    String?
+  id              String       @id @default(uuid())
+  auth0Id         String       @unique
+  email           String
+  name            String?
+  createdAt       DateTime     @default(now())
+  membership      Membership?
+  sentInvitations Invitation[]
+}
+
+model Organization {
+  id          String       @id @default(uuid())
+  name        String
+  createdAt   DateTime     @default(now())
+  memberships Membership[]
+  invitations Invitation[]
+  units       Unit[]
+}
+
+enum MembershipRole {
+  OWNER
+  MANAGER
+}
+
+model Membership {
+  organizationId String
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String         @unique
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role           MembershipRole
+  createdAt      DateTime       @default(now())
+
+  @@id([organizationId, userId])
+}
+
+model Invitation {
+  id             String       @id @default(uuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String
+  invitedById    String
+  invitedBy      User         @relation(fields: [invitedById], references: [id], onDelete: Cascade)
+  token          String       @unique
+  expiresAt      DateTime
+  acceptedAt     DateTime?
+  createdAt      DateTime     @default(now())
+}
+
+model Unit {
+  id                   String       @id @default(uuid())
+  organizationId       String
+  organization         Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  name                 String
+  address              String
+  reportToken          String       @unique
+  reportTokenRotatedAt DateTime?
+  createdAt            DateTime     @default(now())
+
+  @@index([organizationId])
 }

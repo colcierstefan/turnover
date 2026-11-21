@@ -28,6 +28,9 @@ const variables = envSchema.parse(process.env);
 
 const env = {
   nodeEnv: variables.NODE_ENV,
+  app: {
+    baseUrl: variables.APP_BASE_URL,
+  },
   database: {
     url: variables.DATABASE_URL,
   },
@@ -36,7 +39,6 @@ const env = {
     clientId: variables.AUTH0_CLIENT_ID,
     clientSecret: variables.AUTH0_CLIENT_SECRET,
     secret: variables.AUTH0_SECRET,
-    appBaseUrl: variables.APP_BASE_URL,
   },
   vertex: {
     project: variables.GOOGLE_CLOUD_PROJECT,

@@ -1,0 +1,174 @@
+import "server-only";
+
+import { INVITATION_TTL_MS } from "@/features/organization/constants/organization.constants";
+import invitationRepository from "@/features/organization/repositories/invitation.repository";
+import membershipRepository from "@/features/organization/repositories/membership.repository";
+import organizationRepository from "@/features/organization/repositories/organization.repository";
+import type {
+  AcceptInvitationInput,
+  CreateOrganizationInput,
+  InviteManagerInput,
+  RemoveManagerInput,
+} from "@/features/organization/schemas/organization.schema";
+import prisma from "@/lib/db";
+import { ForbiddenError, NotFoundError, ValidationError } from "@/lib/errors";
+import { generateToken } from "@/utils/token.utils";
+
+type InvitationStatus = "PENDING" | "ACCEPTED" | "EXPIRED";
+
+class OrganizationService {
+  getMembershipForUser(userId: string) {
+    return membershipRepository.findByUserId(userId);
+  }
+
+  async requireMembership(userId: string, organizationId?: string) {
+    const membership = await membershipRepository.findByUserId(userId);
+    if (!membership) {
+      throw new ForbiddenError(`User ${userId} has no organization`);
+    }
+    if (organizationId && membership.organizationId !== organizationId) {
+      throw new ForbiddenError(
+        `User ${userId} is not a member of organization ${organizationId}`,
+      );
+    }
+    return membership;
+  }
+
+  async createOrganization(userId: string, input: CreateOrganizationInput) {
+    if (await membershipRepository.findByUserId(userId)) {
+      throw new ValidationError("You already belong to an organization");
+    }
+
+    return prisma.$transaction(async (transaction) => {
+      const organization = await organizationRepository.create(
+        { name: input.name },
+        transaction,
+      );
+      await membershipRepository.create(
+        { organizationId: organization.id, userId, role: "OWNER" },
+        transaction,
+      );
+      return organization;
+    });
+  }
+
+  async getTeam(userId: string) {
+    const membership = await this.requireMembership(userId);
+    const [members, pendingInvitations] = await Promise.all([
+      membershipRepository.listByOrganizationId(membership.organizationId),
+      invitationRepository.listPendingByOrganizationId(
+        membership.organizationId,
+        new Date(),
+      ),
+    ]);
+    return { members, pendingInvitations };
+  }
+
+  async inviteManager(userId: string, input: InviteManagerInput) {
+    const membership = await this.requireOwner(userId);
+
+    const existingMember =
+      await membershipRepository.findByOrganizationIdAndEmail(
+        membership.organizationId,
+        input.email,
+      );
+    if (existingMember) {
+      throw new ValidationError(`${input.email} is already in your team`);
+    }
+
+    return invitationRepository.create({
+      organizationId: membership.organizationId,
+      email: input.email,
+      invitedById: userId,
+      token: generateToken(),
+      expiresAt: new Date(Date.now() + INVITATION_TTL_MS),
+    });
+  }
+
+  async removeManager(userId: string, input: RemoveManagerInput) {
+    const membership = await this.requireOwner(userId);
+
+    const target = await membershipRepository.findByUserId(input.userId);
+    if (!target || target.organizationId !== membership.organizationId) {
+      throw new NotFoundError(`User ${input.userId} is not in this team`);
+    }
+    if (target.role === "OWNER") {
+      throw new ValidationError("The owner cannot be removed");
+    }
+
+    await membershipRepository.delete(membership.organizationId, input.userId);
+  }
+
+  async getInvitation(token: string) {
+    const invitation = await invitationRepository.findByToken(token);
+    if (!invitation) return null;
+
+    return {
+      email: invitation.email,
+      organizationName: invitation.organization.name,
+      status: getInvitationStatus(invitation),
+    };
+  }
+
+  async acceptInvitation(
+    user: Readonly<{ id: string; email: string; isEmailVerified: boolean }>,
+    input: AcceptInvitationInput,
+  ) {
+    const invitation = await invitationRepository.findByToken(input.token);
+    if (!invitation) throw new NotFoundError("This invitation does not exist");
+
+    const status = getInvitationStatus(invitation);
+    if (status === "ACCEPTED") {
+      throw new ValidationError("This invitation was already used");
+    }
+    if (status === "EXPIRED") {
+      throw new ValidationError("This invitation has expired");
+    }
+    if (!user.isEmailVerified) {
+      throw new ForbiddenError("Verify your email address first");
+    }
+    if (user.email.toLowerCase() !== invitation.email) {
+      throw new ForbiddenError(
+        `This invitation is for ${invitation.email}, but you are signed in as ${user.email}`,
+      );
+    }
+    if (await membershipRepository.findByUserId(user.id)) {
+      throw new ValidationError("You already belong to an organization");
+    }
+
+    await prisma.$transaction(async (transaction) => {
+      await membershipRepository.create(
+        {
+          organizationId: invitation.organizationId,
+          userId: user.id,
+          role: "MANAGER",
+        },
+        transaction,
+      );
+      await invitationRepository.markAccepted(
+        invitation.id,
+        new Date(),
+        transaction,
+      );
+    });
+  }
+
+  private async requireOwner(userId: string) {
+    const membership = await this.requireMembership(userId);
+    if (membership.role !== "OWNER") {
+      throw new ForbiddenError("Only the owner can manage the team");
+    }
+    return membership;
+  }
+}
+
+const getInvitationStatus = (
+  invitation: Readonly<{ acceptedAt: Date | null; expiresAt: Date }>,
+): InvitationStatus => {
+  if (invitation.acceptedAt) return "ACCEPTED";
+  if (invitation.expiresAt <= new Date()) return "EXPIRED";
+  return "PENDING";
+};
+
+const organizationService = new OrganizationService();
+export default organizationService;
