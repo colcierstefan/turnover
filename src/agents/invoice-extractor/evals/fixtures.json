@@ -1,0 +1,233 @@
+{
+  "invoices": [
+    {
+      "id": "emag-single-washer",
+      "seller": {
+        "brand": "eMAG",
+        "legalName": "Dante International S.A.",
+        "address": "Șos. Virtuții 148, București"
+      },
+      "series": "EMG 0012345",
+      "date": "15.03.2024",
+      "priceMode": "gross",
+      "hasWarrantyColumn": true,
+      "lines": [
+        {
+          "description": "Mașină de spălat rufe Bosch Serie 4 WAN28262BY, 8 kg, 1400 rpm, clasa C",
+          "quantity": 1,
+          "unitPrice": 2199.99,
+          "warranty": "24 luni"
+        },
+        { "description": "Taxa timbru verde", "quantity": 1, "unitPrice": 10.0 }
+      ],
+      "expected": {
+        "shopName": ["eMAG", "Dante International S.A.", "Dante International"],
+        "purchaseDate": "2024-03-15",
+        "items": [
+          {
+            "category": "WASHING_MACHINE",
+            "brand": "Bosch",
+            "model": "WAN28262BY",
+            "quantity": 1,
+            "unitPriceRon": 2199.99,
+            "warrantyMonths": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "altex-three-appliances",
+      "seller": {
+        "brand": "ALTEX",
+        "legalName": "Altex Romania S.R.L.",
+        "address": "Bd. Biruinței 2, Pantelimon, Ilfov"
+      },
+      "series": "ALX 0456789",
+      "date": "02.06.2024",
+      "priceMode": "gross",
+      "hasWarrantyColumn": true,
+      "lines": [
+        {
+          "description": "Frigider cu o ușă Arctic AK60350M40W, 312 l, clasa E, alb",
+          "quantity": 1,
+          "unitPrice": 1599.99,
+          "warranty": "36 luni"
+        },
+        {
+          "description": "Cuptor cu microunde Samsung MS23K3513AW, 23 l, 800 W",
+          "quantity": 2,
+          "unitPrice": 469.9,
+          "warranty": "24 luni"
+        },
+        {
+          "description": "Plită cu inducție încorporabilă Beko HII64400MT, 4 zone",
+          "quantity": 1,
+          "unitPrice": 1299.99,
+          "warranty": "24 luni"
+        },
+        { "description": "Timbru verde", "quantity": 4, "unitPrice": 12.5 }
+      ],
+      "expected": {
+        "shopName": ["Altex", "Altex Romania S.R.L.", "Altex Romania"],
+        "purchaseDate": "2024-06-02",
+        "items": [
+          {
+            "category": "FRIDGE",
+            "brand": "Arctic",
+            "model": "AK60350M40W",
+            "quantity": 1,
+            "unitPriceRon": 1599.99,
+            "warrantyMonths": 36
+          },
+          {
+            "category": "MICROWAVE",
+            "brand": "Samsung",
+            "model": "MS23K3513AW",
+            "quantity": 2,
+            "unitPriceRon": 469.9,
+            "warrantyMonths": 24
+          },
+          {
+            "category": "HOB",
+            "brand": "Beko",
+            "model": "HII64400MT",
+            "quantity": 1,
+            "unitPriceRon": 1299.99,
+            "warrantyMonths": 24
+          }
+        ]
+      }
+    },
+    {
+      "id": "flanco-delivery-extended-warranty",
+      "seller": {
+        "brand": "Flanco",
+        "legalName": "Flanco Retail S.A.",
+        "address": "Bd. Iuliu Maniu 7, București"
+      },
+      "series": "FLR 0098765",
+      "date": "20.01.2025",
+      "priceMode": "gross",
+      "hasWarrantyColumn": true,
+      "lines": [
+        {
+          "description": "Combină frigorifică LG GBP62PZNCN1, No Frost, 384 l, clasa C",
+          "quantity": 1,
+          "unitPrice": 3299.0,
+          "warranty": "24 luni"
+        },
+        {
+          "description": "Garanție extinsă Flanco +3 ani pentru LG GBP62PZNCN1",
+          "quantity": 1,
+          "unitPrice": 349.0
+        },
+        {
+          "description": "Transport la domiciliu",
+          "quantity": 1,
+          "unitPrice": 49.99
+        }
+      ],
+      "expected": {
+        "shopName": ["Flanco", "Flanco Retail S.A.", "Flanco Retail"],
+        "purchaseDate": "2025-01-20",
+        "items": [
+          {
+            "category": "FRIDGE",
+            "brand": "LG",
+            "model": "GBP62PZNCN1",
+            "quantity": 1,
+            "unitPriceRon": 3299.0,
+            "warrantyMonths": 60
+          }
+        ]
+      }
+    },
+    {
+      "id": "emag-ac-installation-no-warranty",
+      "seller": {
+        "brand": "eMAG",
+        "legalName": "Dante International S.A.",
+        "address": "Șos. Virtuții 148, București"
+      },
+      "series": "EMG 0034567",
+      "date": "10.07.2023",
+      "priceMode": "gross",
+      "hasWarrantyColumn": false,
+      "lines": [
+        {
+          "description": "Aparat de aer condiționat Daikin Sensira FTXF35D/RXF35D, 12000 BTU, Inverter, A++",
+          "quantity": 1,
+          "unitPrice": 2899.0
+        },
+        {
+          "description": "Montaj standard aer condiționat (până la 3 m traseu)",
+          "quantity": 1,
+          "unitPrice": 600.0
+        }
+      ],
+      "expected": {
+        "shopName": ["eMAG", "Dante International S.A.", "Dante International"],
+        "purchaseDate": "2023-07-10",
+        "items": [
+          {
+            "category": "AIR_CONDITIONER",
+            "brand": "Daikin",
+            "model": ["FTXF35D/RXF35D", "FTXF35D"],
+            "quantity": 1,
+            "unitPriceRon": 2899.0,
+            "warrantyMonths": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "altex-net-prices-with-vat",
+      "seller": {
+        "brand": "ALTEX",
+        "legalName": "Altex Romania S.R.L.",
+        "address": "Bd. Biruinței 2, Pantelimon, Ilfov"
+      },
+      "series": "ALX 0612345",
+      "date": "18.09.2025",
+      "priceMode": "net",
+      "vatRate": 0.21,
+      "hasWarrantyColumn": true,
+      "lines": [
+        {
+          "description": "Mașină de spălat vase Electrolux ESF5545LOW, 13 seturi, clasa E",
+          "quantity": 1,
+          "unitPrice": 1999.0,
+          "warranty": "24 luni"
+        },
+        {
+          "description": "Uscător de rufe cu pompă de căldură Beko DS8433RX, 8 kg",
+          "quantity": 1,
+          "unitPrice": 2199.0,
+          "warranty": "24 luni"
+        }
+      ],
+      "expected": {
+        "shopName": ["Altex", "Altex Romania S.R.L.", "Altex Romania"],
+        "purchaseDate": "2025-09-18",
+        "items": [
+          {
+            "category": "DISHWASHER",
+            "brand": "Electrolux",
+            "model": "ESF5545LOW",
+            "quantity": 1,
+            "unitPriceRon": 1999.0,
+            "warrantyMonths": 24
+          },
+          {
+            "category": "DRYER",
+            "brand": "Beko",
+            "model": "DS8433RX",
+            "quantity": 1,
+            "unitPriceRon": 2199.0,
+            "warrantyMonths": 24
+          }
+        ]
+      }
+    }
+  ]
+}

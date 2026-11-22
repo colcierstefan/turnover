@@ -1,24 +1,33 @@
 "use client";
 
-import Button from "@/components/button";
+import ConfirmButton from "@/components/confirm-button";
 import { deleteUnit } from "@/features/unit/actions/unit.actions";
 
 export default function UnitDeleteButton({
   unit,
-}: Readonly<{ unit: { id: string; name: string } }>) {
+  applianceCount,
+  documentCount,
+}: Readonly<{
+  unit: { id: string; name: string };
+  applianceCount: number;
+  documentCount: number;
+}>) {
+  const contents =
+    applianceCount + documentCount > 0
+      ? ` This also deletes ${pluralize(applianceCount, "appliance")} and ${pluralize(documentCount, "document")}.`
+      : "";
+
   return (
-    <form
-      action={deleteUnit}
-      onSubmit={(event) => {
-        if (!window.confirm(`Delete ${unit.name}? This cannot be undone.`)) {
-          event.preventDefault();
-        }
-      }}
+    <ConfirmButton
+      variant="danger"
+      className="w-full"
+      confirmMessage={`Delete ${unit.name}?${contents} This cannot be undone.`}
+      onConfirm={() => deleteUnit({ unitId: unit.id })}
     >
-      <input type="hidden" name="unitId" value={unit.id} />
-      <Button type="submit" variant="danger" className="w-full">
-        Delete unit
-      </Button>
-    </form>
+      Delete unit
+    </ConfirmButton>
   );
 }
+
+const pluralize = (count: number, noun: string) =>
+  `${count} ${noun}${count === 1 ? "" : "s"}`;

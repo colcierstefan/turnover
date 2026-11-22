@@ -64,6 +64,77 @@ model Unit {
   reportToken          String       @unique
   reportTokenRotatedAt DateTime?
   createdAt            DateTime     @default(now())
+  appliances           Appliance[]
+  documents            Document[]
 
   @@index([organizationId])
+}
+
+enum ApplianceCategory {
+  FRIDGE
+  FREEZER
+  OVEN
+  HOB
+  MICROWAVE
+  DISHWASHER
+  WASHING_MACHINE
+  DRYER
+  WASHER_DRYER
+  AIR_CONDITIONER
+  WATER_HEATER
+  EXTRACTOR_HOOD
+  TV
+  COFFEE_MACHINE
+  OTHER
+}
+
+model Appliance {
+  id               String              @id @default(uuid())
+  unitId           String
+  unit             Unit                @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  category         ApplianceCategory
+  brand            String?
+  model            String?
+  serialNumber     String?
+  // Partial ISO date as printed on the label: "2019", "2019-06" or "2019-06-14".
+  manufactureDate  String?
+  purchaseDate     DateTime?           @db.Date
+  purchasePriceRon Decimal?            @db.Decimal(10, 2)
+  warrantyUntil    DateTime?           @db.Date
+  notes            String?
+  createdAt        DateTime            @default(now())
+  documents        ApplianceDocument[]
+
+  @@index([unitId])
+}
+
+enum DocumentKind {
+  LABEL_PHOTO
+  INVOICE
+  PHOTO
+}
+
+model Document {
+  id            String              @id @default(uuid())
+  unitId        String
+  unit          Unit                @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  kind          DocumentKind
+  storagePath   String
+  contentType   String
+  extractedData Json?
+  reviewedAt    DateTime?
+  createdAt     DateTime            @default(now())
+  appliances    ApplianceDocument[]
+
+  @@index([unitId])
+}
+
+model ApplianceDocument {
+  applianceId String
+  appliance   Appliance @relation(fields: [applianceId], references: [id], onDelete: Cascade)
+  documentId  String
+  document    Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@id([applianceId, documentId])
+  @@index([documentId])
 }

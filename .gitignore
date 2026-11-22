@@ -43,3 +43,6 @@ next-env.d.ts
 
 # prisma
 /src/generated/prisma
+
+# label-extractor eval images downloaded from the web
+/src/agents/label-extractor/evals/images/

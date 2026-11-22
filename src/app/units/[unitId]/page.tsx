@@ -3,6 +3,10 @@ import Link from "next/link";
 
 import AppHeader from "@/components/app-header";
 import Card from "@/components/card";
+import ApplianceList from "@/features/appliance/components/appliance/appliance-list";
+import DocumentUnreviewedList from "@/features/appliance/components/document/document-unreviewed-list";
+import applianceService from "@/features/appliance/services/appliance.service";
+import documentService from "@/features/appliance/services/document.service";
 import { getSignedInMembership } from "@/features/organization/server/organization-membership.server";
 import UnitDeleteButton from "@/features/unit/components/unit/unit-delete-button";
 import UnitEditForm from "@/features/unit/components/unit/unit-edit-form";
@@ -36,16 +40,42 @@ async function Unit({
   const { user } = await getSignedInMembership(`/units/${unitId}`);
   const unit = await unitService.getUnit(user.id, unitId);
   const reportUrl = getReportUrl(unit.reportToken);
-  const qrSvg = await createReportQrSvg(reportUrl);
+  const [qrSvg, appliances, unreviewedDocuments, contents] = await Promise.all([
+    createReportQrSvg(reportUrl),
+    applianceService.listAppliances(user.id, unitId),
+    documentService.listUnreviewedDocuments(user.id, unitId),
+    applianceService.countUnitContents(user.id, unitId),
+  ]);
 
   return (
     <>
       <h1 className="text-2xl font-semibold">{unit.name}</h1>
+      <Card title="Appliances">
+        <ApplianceList unitId={unit.id} appliances={appliances} />
+        <Link
+          href={`/units/${unit.id}/appliances/new`}
+          className="rounded bg-foreground px-4 py-2 text-center font-medium text-background"
+        >
+          Add appliance
+        </Link>
+      </Card>
+      {unreviewedDocuments.length > 0 && (
+        <Card title="Waiting for review">
+          <DocumentUnreviewedList
+            unitId={unit.id}
+            documents={unreviewedDocuments}
+          />
+        </Card>
+      )}
       <UnitReportLinkCard unit={unit} reportUrl={reportUrl} qrSvg={qrSvg} />
       <Card title="Details">
         <UnitEditForm unit={unit} />
       </Card>
-      <UnitDeleteButton unit={unit} />
+      <UnitDeleteButton
+        unit={unit}
+        applianceCount={contents.applianceCount}
+        documentCount={contents.documentCount}
+      />
     </>
   );
 }

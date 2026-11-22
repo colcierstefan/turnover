@@ -7,6 +7,8 @@ import type {
   UpdateUnitInput,
 } from "@/features/unit/schemas/unit.schema";
 import { NotFoundError } from "@/lib/errors";
+import { bucket } from "@/lib/storage";
+import { getUnitStoragePrefix } from "@/utils/storage.utils";
 import { generateToken } from "@/utils/token.utils";
 
 class UnitService {
@@ -43,6 +45,7 @@ class UnitService {
   async deleteUnit(userId: string, unitId: string) {
     await this.getUnit(userId, unitId);
     await unitRepository.delete(unitId);
+    await bucket.deleteFiles({ prefix: getUnitStoragePrefix(unitId) });
   }
 
   async regenerateReportToken(userId: string, unitId: string) {
