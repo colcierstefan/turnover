@@ -10,13 +10,14 @@ export default function AppHeader({
   const text = MANAGER_TEXT[language].header;
 
   return (
-    <header className="flex items-center gap-4 border-b border-foreground/10 px-6 py-3 text-sm">
+    <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-foreground/10 px-6 py-3 text-sm">
       <Link href="/units" className="font-semibold">
         Turnover
       </Link>
-      <nav className="flex flex-1 gap-4">
+      <nav className="flex flex-1 flex-wrap gap-x-4 gap-y-2">
         <Link href="/units">{text.units}</Link>
         <Link href="/issues">{text.issues}</Link>
+        <Link href="/handymen">{text.handymen}</Link>
         <Link href="/team">{text.team}</Link>
         <Link href="/settings">{text.settings}</Link>
       </nav>

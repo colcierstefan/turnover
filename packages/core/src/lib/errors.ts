@@ -6,7 +6,8 @@ export type UserErrorReason =
   | "INVITATION_EXPIRED"
   | "EMAIL_NOT_VERIFIED"
   | "INVITATION_EMAIL_MISMATCH"
-  | "DOCUMENT_ALREADY_REVIEWED";
+  | "DOCUMENT_ALREADY_REVIEWED"
+  | "HANDYMAN_PHONE_TAKEN";
 
 export class AppError extends Error {
   constructor(

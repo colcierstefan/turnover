@@ -2,9 +2,9 @@ import type {
   ApplianceCategory,
   DocumentKind,
 } from "@turnover/core/appliance/constants/appliance.constants";
+import type { HandymanTrade } from "@turnover/core/handyman/constants/handyman.constants";
 import type {
   EmergencyType,
-  HandymanTrade,
   IssueCategory,
   IssueStatus,
   ReporterRole,
@@ -28,6 +28,8 @@ type FormErrorField =
   | "name"
   | "address"
   | "contactPhone"
+  | "phone"
+  | "trades"
   | "email"
   | "description"
   | "photos"
@@ -51,6 +53,7 @@ type ManagerText = {
     units: string;
     issues: string;
     team: string;
+    handymen: string;
     settings: string;
     logOut: string;
   };
@@ -146,6 +149,55 @@ type ManagerText = {
     newApplianceCost: string;
     costRange: (minRon: string, maxRon: string) => string;
   };
+  handymen: {
+    title: string;
+    intro: string;
+    empty: string;
+    addTitle: string;
+    nameLabel: string;
+    phoneLabel: string;
+    phonePlaceholder: string;
+    tradesLabel: string;
+    notesLabel: string;
+    addHandyman: string;
+    allHandymen: string;
+    detailsTitle: string;
+    saved: string;
+    deleteHandyman: string;
+    deleteConfirm: (name: string) => string;
+  };
+  handymanContact: {
+    title: string;
+    warrantyHint: string;
+    yourHandymenTitle: string;
+    noHandymen: string;
+    matchesTrade: string;
+    someoneElseTitle: string;
+    phoneLabel: string;
+    nameLabel: string;
+    writeMessage: string;
+    chooseChatInWhatsApp: string;
+    drafting: string;
+    draftFailed: string;
+    messageTo: (recipient: string) => string;
+    messageToChosenChat: string;
+    messageRoLabel: string;
+    messageEnLabel: string;
+    romanianPreviewLabel: string;
+    updateRomanian: string;
+    updatingRomanian: string;
+    romanianOutdated: string;
+    openInWhatsApp: string;
+    sharePhotos: string;
+    changeRecipient: string;
+    saveAsHandymanTitle: string;
+    saveAsHandyman: string;
+    notNow: string;
+    savedAsHandyman: string;
+    historyTitle: string;
+    chosenInWhatsApp: string;
+    openedOn: (date: string) => string;
+  };
   newIssue: {
     title: string;
     intro: string;
@@ -234,6 +286,8 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       name: "Enter a name of up to 100 characters.",
       address: "Enter an address of up to 300 characters.",
       contactPhone: "Enter a phone number, e.g. +40 712 345 678.",
+      phone: "Enter a valid phone number, e.g. 0712 345 678.",
+      trades: "Choose at least one trade.",
       email: "Enter a valid email.",
       description: "Describe the problem in up to 2000 characters.",
       photos: "Add up to 3 photos, each under 10 MB.",
@@ -261,11 +315,14 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       INVITATION_EMAIL_MISMATCH:
         "This invite is for a different email address than the one you are signed in with.",
       DOCUMENT_ALREADY_REVIEWED: "This upload was already reviewed.",
+      HANDYMAN_PHONE_TAKEN:
+        "A handyman with this phone number is already saved.",
     },
     header: {
       units: "Units",
       issues: "Issues",
       team: "Team",
+      handymen: "Handymen",
       settings: "Settings",
       logOut: "Log out",
     },
@@ -399,6 +456,59 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       newApplianceCost: "Comparable new appliance",
       costRange: (minRon, maxRon) => `${minRon} to ${maxRon} RON`,
     },
+    handymen: {
+      title: "Handymen",
+      intro:
+        "Your own contacts. The issue view offers them when an issue needs their trade.",
+      empty: "No handymen yet.",
+      addTitle: "Add a handyman",
+      nameLabel: "Name",
+      phoneLabel: "Phone",
+      phonePlaceholder: "e.g. 0712 345 678",
+      tradesLabel: "Trades",
+      notesLabel: "Notes (optional)",
+      addHandyman: "Add handyman",
+      allHandymen: "← All handymen",
+      detailsTitle: "Details",
+      saved: "Saved.",
+      deleteHandyman: "Delete handyman",
+      deleteConfirm: (name) =>
+        `Delete ${name}? Messages already sent stay in the issues' history.`,
+    },
+    handymanContact: {
+      title: "Contact a handyman",
+      warrantyHint:
+        "This appliance is under warranty. Contact the shop or the brand's service first.",
+      yourHandymenTitle: "Your handymen",
+      noHandymen: "No saved handymen yet.",
+      matchesTrade: "matches",
+      someoneElseTitle: "Someone else",
+      phoneLabel: "Phone",
+      nameLabel: "Name (optional)",
+      writeMessage: "Write message",
+      chooseChatInWhatsApp: "Choose the chat in WhatsApp",
+      drafting: "Writing the message…",
+      draftFailed: "Could not write the message. Try again.",
+      messageTo: (recipient) => `Message to ${recipient}`,
+      messageToChosenChat: "Message for a chat you choose in WhatsApp",
+      messageRoLabel: "Message (Romanian)",
+      messageEnLabel: "Message (English, edit here)",
+      romanianPreviewLabel: "Romanian text that will be sent",
+      updateRomanian: "Update Romanian text",
+      updatingRomanian: "Updating…",
+      romanianOutdated:
+        "You changed the English. Update the Romanian text before sending.",
+      openInWhatsApp: "Open in WhatsApp",
+      sharePhotos: "Share photos",
+      changeRecipient: "Choose someone else",
+      saveAsHandymanTitle: "Save as a handyman for next time?",
+      saveAsHandyman: "Save handyman",
+      notNow: "Not now",
+      savedAsHandyman: "Saved to your handymen.",
+      historyTitle: "Messages sent",
+      chosenInWhatsApp: "Chat chosen in WhatsApp",
+      openedOn: (date) => `Opened in WhatsApp ${date}`,
+    },
     newIssue: {
       title: "Report an issue",
       intro: "The issue is diagnosed as soon as you send it.",
@@ -522,6 +632,8 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       name: "Introdu un nume de cel mult 100 de caractere.",
       address: "Introdu o adresă de cel mult 300 de caractere.",
       contactPhone: "Introdu un număr de telefon, de ex. +40 712 345 678.",
+      phone: "Introdu un număr de telefon valid, de ex. 0712 345 678.",
+      trades: "Alege cel puțin o meserie.",
       email: "Introdu o adresă de email validă.",
       description: "Descrie problema în cel mult 2000 de caractere.",
       photos: "Adaugă cel mult 3 fotografii, fiecare sub 10 MB.",
@@ -549,11 +661,14 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       INVITATION_EMAIL_MISMATCH:
         "Invitația este pentru altă adresă de email decât cea cu care ești conectat.",
       DOCUMENT_ALREADY_REVIEWED: "Acest fișier a fost deja verificat.",
+      HANDYMAN_PHONE_TAKEN:
+        "Un meșter cu acest număr de telefon este deja salvat.",
     },
     header: {
       units: "Unități",
       issues: "Probleme",
       team: "Echipă",
+      handymen: "Meșteri",
       settings: "Setări",
       logOut: "Deconectare",
     },
@@ -692,6 +807,59 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       labourCost: "Manoperă",
       newApplianceCost: "Aparat nou comparabil",
       costRange: (minRon, maxRon) => `între ${minRon} și ${maxRon} lei`,
+    },
+    handymen: {
+      title: "Meșteri",
+      intro:
+        "Contactele tale. Pagina problemei ți le propune când e nevoie de meseria lor.",
+      empty: "Niciun meșter încă.",
+      addTitle: "Adaugă un meșter",
+      nameLabel: "Nume",
+      phoneLabel: "Telefon",
+      phonePlaceholder: "ex. 0712 345 678",
+      tradesLabel: "Meserii",
+      notesLabel: "Notițe (opțional)",
+      addHandyman: "Adaugă meșterul",
+      allHandymen: "← Toți meșterii",
+      detailsTitle: "Detalii",
+      saved: "Salvat.",
+      deleteHandyman: "Șterge meșterul",
+      deleteConfirm: (name) =>
+        `Ștergi pe ${name}? Mesajele deja trimise rămân în istoricul problemelor.`,
+    },
+    handymanContact: {
+      title: "Contactează un meșter",
+      warrantyHint:
+        "Aparatul este în garanție. Contactează întâi magazinul sau service-ul mărcii.",
+      yourHandymenTitle: "Meșterii tăi",
+      noHandymen: "Niciun meșter salvat încă.",
+      matchesTrade: "potrivit",
+      someoneElseTitle: "Altcineva",
+      phoneLabel: "Telefon",
+      nameLabel: "Nume (opțional)",
+      writeMessage: "Scrie mesajul",
+      chooseChatInWhatsApp: "Alege conversația în WhatsApp",
+      drafting: "Se scrie mesajul…",
+      draftFailed: "Mesajul nu a putut fi scris. Încearcă din nou.",
+      messageTo: (recipient) => `Mesaj către ${recipient}`,
+      messageToChosenChat: "Mesaj pentru o conversație aleasă în WhatsApp",
+      messageRoLabel: "Mesaj",
+      messageEnLabel: "Mesaj (engleză)",
+      romanianPreviewLabel: "Textul în română care se trimite",
+      updateRomanian: "Actualizează textul în română",
+      updatingRomanian: "Se actualizează…",
+      romanianOutdated:
+        "Ai modificat textul în engleză. Actualizează textul în română înainte de trimitere.",
+      openInWhatsApp: "Deschide în WhatsApp",
+      sharePhotos: "Trimite fotografiile",
+      changeRecipient: "Alege pe altcineva",
+      saveAsHandymanTitle: "Îl salvezi ca meșter pentru data viitoare?",
+      saveAsHandyman: "Salvează meșterul",
+      notNow: "Nu acum",
+      savedAsHandyman: "Salvat la meșterii tăi.",
+      historyTitle: "Mesaje trimise",
+      chosenInWhatsApp: "Conversație aleasă în WhatsApp",
+      openedOn: (date) => `Deschis în WhatsApp ${date}`,
     },
     newIssue: {
       title: "Raportează o problemă",

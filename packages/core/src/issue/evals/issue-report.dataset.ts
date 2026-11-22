@@ -1,11 +1,11 @@
 import { readFile } from "node:fs/promises";
 import { z } from "zod";
 
-import { HANDYMAN_TRADES } from "@turnover/core/issue/constants/issue.constants";
 import type { UnitAppliance } from "@turnover/core/issue/schemas/report-triage.schema";
 import {
   ApplianceCategory,
   EmergencyType,
+  HandymanTrade,
   IssueCategory,
   ReporterLanguage,
   ReporterRole,
@@ -47,7 +47,7 @@ const issueReportEvalCaseSchema = z.object({
         z.enum(ApplianceCategory),
       ).optional(),
       category: expectedValueSchema(z.enum(IssueCategory)).optional(),
-      trade: expectedValueSchema(z.enum(HANDYMAN_TRADES)).optional(),
+      trade: expectedValueSchema(z.enum(HandymanTrade)).optional(),
     }),
   }),
 });

@@ -14,7 +14,8 @@
     "evals:invoice-extraction": "tsx --env-file=../../.env --conditions=react-server src/appliance/evals/invoice-extraction.eval.ts",
     "evals:report-triage": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/report-triage.eval.ts",
     "evals:self-help-tips": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/self-help-tips.eval.ts",
-    "evals:issue-diagnosis": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/issue-diagnosis.eval.ts"
+    "evals:issue-diagnosis": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/issue-diagnosis.eval.ts",
+    "evals:handyman-message-draft": "tsx --env-file=../../.env --conditions=react-server src/handyman/evals/handyman-message-draft.eval.ts"
   },
   "dependencies": {
     "@ai-sdk/google-vertex": "5.0.144",
@@ -33,6 +34,7 @@
     "@prisma/adapter-pg": "7.10.1",
     "@turnover/db": "workspace:*",
     "ai": "7.0.179",
+    "libphonenumber-js": "1.13.17",
     "pino": "10.4.0",
     "server-only": "^0.0.1",
     "zod": "4.6.7"

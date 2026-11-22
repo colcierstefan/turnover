@@ -31,6 +31,7 @@ model Organization {
   memberships  Membership[]
   invitations Invitation[]
   units       Unit[]
+  handymen    Handyman[]
 }
 
 enum MembershipRole {
@@ -203,6 +204,7 @@ model Issue {
   createdAt          DateTime         @default(now())
   photos             IssuePhoto[]
   followUps          IssueFollowUp[]
+  handymanMessages   HandymanMessage[]
 
   @@index([unitId, createdAt])
   @@index([applianceId])
@@ -228,4 +230,46 @@ model IssueFollowUp {
   createdAt DateTime @default(now())
 
   @@index([issueId])
+}
+
+enum HandymanTrade {
+  PLUMBER
+  ELECTRICIAN
+  APPLIANCE_TECHNICIAN
+  AC_TECHNICIAN
+  LOCKSMITH
+  GENERAL_HANDYMAN
+}
+
+model Handyman {
+  id             String            @id @default(uuid())
+  organizationId String
+  organization   Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  name           String
+  // E.164, e.g. "+40712345678".
+  phone          String
+  trades         HandymanTrade[]
+  notes          String?
+  createdAt      DateTime          @default(now())
+  messages       HandymanMessage[]
+
+  @@unique([organizationId, phone])
+}
+
+model HandymanMessage {
+  id                 String    @id @default(uuid())
+  issueId            String
+  issue              Issue     @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  handymanId         String?
+  handyman           Handyman? @relation(fields: [handymanId], references: [id], onDelete: SetNull)
+  recipientName      String?
+  // Both recipient fields empty: the manager chose the chat in WhatsApp.
+  recipientPhone     String?
+  textRo             String
+  textEn             String?
+  openedInWhatsAppAt DateTime
+  createdAt          DateTime  @default(now())
+
+  @@index([issueId])
+  @@index([handymanId])
 }

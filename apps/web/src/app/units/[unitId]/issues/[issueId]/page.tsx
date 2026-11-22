@@ -2,9 +2,12 @@ import { Suspense } from "react";
 import Link from "next/link";
 
 import applianceService from "@turnover/core/appliance/services/appliance.service";
+import handymanService from "@turnover/core/handyman/services/handyman.service";
 import issueService from "@turnover/core/issue/services/issue.service";
 
 import AppHeader from "@/components/app-header";
+import HandymanContactCard from "@/features/handyman/components/contact/handyman-contact-card";
+import HandymanMessageHistory from "@/features/handyman/components/contact/handyman-message-history";
 import IssueDiagnosisCard from "@/features/issue/components/diagnosis/issue-diagnosis-card";
 import IssueReporterDetails from "@/features/issue/components/issue/issue-reporter-details";
 import { getSignedInMembership } from "@/features/organization/server/organization-membership.server";
@@ -30,10 +33,12 @@ async function Issue({
     `/units/${unitId}/issues/${issueId}`,
   );
   const issue = await issueService.getIssue(user.id, issueId);
-  const appliances = await applianceService.listAppliances(
-    user.id,
-    issue.unitId,
-  );
+  const trade = issue.diagnosis?.trade ?? null;
+  const [appliances, handymen, messages] = await Promise.all([
+    applianceService.listAppliances(user.id, issue.unitId),
+    handymanService.listHandymen(user.id, trade),
+    handymanService.listMessages(user.id, issue.id),
+  ]);
   const text = MANAGER_TEXT[user.language];
 
   return (
@@ -55,6 +60,18 @@ async function Issue({
           appliances={appliances}
           language={user.language}
         />
+        <HandymanContactCard
+          issueId={issue.id}
+          handymen={handymen}
+          preferredTrade={trade}
+          isUnderWarranty={issue.appliance?.warrantyStatus === "UNDER_WARRANTY"}
+          photoUrls={issue.photos.map(
+            (photo) =>
+              `/units/${issue.unitId}/issues/${issue.id}/photos/${photo.id}`,
+          )}
+          language={user.language}
+        />
+        <HandymanMessageHistory messages={messages} language={user.language} />
       </main>
     </>
   );

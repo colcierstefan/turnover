@@ -1,0 +1,156 @@
+{
+  "draftCases": [
+    {
+      "id": "ro-water-washer-hose-burst",
+      "reportCaseId": "ro-water-washer-hose-burst",
+      "description": null,
+      "guestName": null,
+      "applianceCategory": "WASHING_MACHINE",
+      "likelyCause": "Furtunul de alimentare al mașinii de spălat s-a fisurat sau s-a desprins de la robinet.",
+      "trade": "PLUMBER",
+      "unitAddress": "Str. Memorandumului 1, ap. 4, Cluj-Napoca",
+      "addressParts": ["Memorandumului", "Cluj-Napoca"],
+      "recipientName": "Ion",
+      "managerLanguage": "RO"
+    },
+    {
+      "id": "en-electrical-socket-hot",
+      "reportCaseId": "en-electrical-socket-hot",
+      "description": null,
+      "guestName": null,
+      "applianceCategory": null,
+      "likelyCause": "A loose connection inside the socket is overheating.",
+      "trade": "ELECTRICIAN",
+      "unitAddress": "Bd. Unirii 12, bl. A3, ap. 15, București",
+      "addressParts": ["Unirii", "A3", "15", "București"],
+      "recipientName": null,
+      "managerLanguage": "EN"
+    },
+    {
+      "id": "ro-ac-blowing-warm",
+      "reportCaseId": "ro-ac-blowing-warm",
+      "description": null,
+      "guestName": null,
+      "applianceCategory": "AIR_CONDITIONER",
+      "likelyCause": "Cel mai probabil instalația a pierdut agent frigorific (freon).",
+      "trade": "AC_TECHNICIAN",
+      "unitAddress": "Str. Republicii 8, Brașov",
+      "addressParts": ["Republicii", "8", "Brașov"],
+      "recipientName": "Mihai",
+      "managerLanguage": "EN"
+    },
+    {
+      "id": "ro-dishwasher-e15",
+      "reportCaseId": "ro-dishwasher-e15",
+      "description": null,
+      "guestName": null,
+      "applianceCategory": "DISHWASHER",
+      "likelyCause": "Senzorul de scurgere a detectat apă în baza mașinii, probabil de la o mică pierdere.",
+      "trade": "APPLIANCE_TECHNICIAN",
+      "unitAddress": "Str. Memorandumului 1, ap. 4, Cluj-Napoca",
+      "addressParts": ["Memorandumului", "Cluj-Napoca"],
+      "recipientName": "Vasile",
+      "managerLanguage": "RO"
+    },
+    {
+      "id": "en-fridge-not-cooling",
+      "reportCaseId": "en-fridge-not-cooling",
+      "description": null,
+      "guestName": null,
+      "applianceCategory": "FRIDGE",
+      "likelyCause": "The compressor or its start relay has failed.",
+      "trade": "APPLIANCE_TECHNICIAN",
+      "unitAddress": "Bd. Unirii 12, bl. A3, ap. 15, București",
+      "addressParts": ["Unirii", "A3", "15", "București"],
+      "recipientName": null,
+      "managerLanguage": "EN"
+    },
+    {
+      "id": "en-toilet-keeps-running",
+      "reportCaseId": "en-toilet-keeps-running",
+      "description": null,
+      "guestName": null,
+      "applianceCategory": null,
+      "likelyCause": "The flush valve seal in the cistern is worn and lets water through.",
+      "trade": "PLUMBER",
+      "unitAddress": "Str. Republicii 8, Brașov",
+      "addressParts": ["Republicii", "8", "Brașov"],
+      "recipientName": "Gheorghe",
+      "managerLanguage": "RO"
+    },
+    {
+      "id": "ro-microwave-not-heating",
+      "reportCaseId": "ro-microwave-not-heating",
+      "description": null,
+      "guestName": null,
+      "applianceCategory": "MICROWAVE",
+      "likelyCause": "Magnetronul sau dioda de înaltă tensiune s-a defectat.",
+      "trade": "APPLIANCE_TECHNICIAN",
+      "unitAddress": "Str. Memorandumului 1, ap. 4, Cluj-Napoca",
+      "addressParts": ["Memorandumului", "Cluj-Napoca"],
+      "recipientName": "Andrei",
+      "managerLanguage": "EN"
+    },
+    {
+      "id": "en-washer-banging-spin",
+      "reportCaseId": "en-washer-banging-spin",
+      "description": null,
+      "guestName": null,
+      "applianceCategory": "WASHING_MACHINE",
+      "likelyCause": "The drum's shock absorbers or the bearings are worn.",
+      "trade": "APPLIANCE_TECHNICIAN",
+      "unitAddress": "Bd. Unirii 12, bl. A3, ap. 15, București",
+      "addressParts": ["Unirii", "A3", "15", "București"],
+      "recipientName": null,
+      "managerLanguage": "RO"
+    },
+    {
+      "id": "en-guest-oven-checkout",
+      "reportCaseId": null,
+      "description": "Hi, this is Sarah Miller, we booked until Sunday. The oven does not heat at all, the fan runs but it stays cold. We check out tomorrow at 11, please have it fixed before the next guests arrive.",
+      "guestName": "Sarah",
+      "applianceCategory": "OVEN",
+      "likelyCause": "The heating element has failed.",
+      "trade": "APPLIANCE_TECHNICIAN",
+      "unitAddress": "Str. Republicii 8, Brașov",
+      "addressParts": ["Republicii", "8", "Brașov"],
+      "recipientName": "Ion",
+      "managerLanguage": "EN"
+    },
+    {
+      "id": "ro-guest-no-hot-water",
+      "reportCaseId": null,
+      "description": "Bună, sunt Andreea, avem rezervarea până vineri. De azi dimineață nu mai avem deloc apă caldă la duș și becul de pe boiler nu se mai aprinde. Suntem cu un copil mic, vă rog rezolvați repede.",
+      "guestName": "Andreea",
+      "applianceCategory": "WATER_HEATER",
+      "likelyCause": "Termostatul sau rezistența boilerului s-a defectat.",
+      "trade": "ELECTRICIAN",
+      "unitAddress": "Str. Memorandumului 1, ap. 4, Cluj-Napoca",
+      "addressParts": ["Memorandumului", "Cluj-Napoca"],
+      "recipientName": null,
+      "managerLanguage": "RO"
+    }
+  ],
+  "translationCases": [
+    {
+      "id": "translation-washer-key-box",
+      "textEn": "Good afternoon Ion, the Bosch WAN28262BY washing machine at Str. Memorandumului 1, ap. 4, Cluj-Napoca does not drain the water. Could you come tomorrow after 4 pm? The code for the key box is 4821.",
+      "mustContain": ["Ion", "Bosch", "WAN28262BY", "Memorandumului", "4821"]
+    },
+    {
+      "id": "translation-ac-call-first",
+      "textEn": "Hello, the Daikin FTXM25R air conditioner in the bedroom blows warm air. The address is Bd. Unirii 12, bl. A3, ap. 15, București. Can you come on Thursday morning? Please call me before you come.",
+      "mustContain": ["Daikin", "FTXM25R", "Unirii", "A3"]
+    },
+    {
+      "id": "translation-toilet-not-saturday",
+      "textEn": "Hi Gheorghe, the toilet at Str. Republicii 8, Brașov keeps running after flushing. No rush, any day this week works, just not Saturday.",
+      "mustContain": ["Gheorghe", "Republicii"]
+    },
+    {
+      "id": "translation-microwave-neighbour-key",
+      "textEn": "Hello, the Whirlpool MWP 253 W microwave turns and lights up but does not heat. I will leave the key with the neighbour in apartment 7. When could you come?",
+      "mustContain": ["Whirlpool", "MWP 253 W", "7"]
+    }
+  ]
+}
