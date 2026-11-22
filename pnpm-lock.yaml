@@ -7,6 +7,79 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      '@ianvs/prettier-plugin-sort-imports':
+        specifier: 4.7.1
+        version: 4.7.1(prettier@3.10.1)
+      '@types/node':
+        specifier: ^20
+        version: 20.19.43
+      eslint:
+        specifier: ^9
+        version: 9.39.5(jiti@2.7.0)
+      eslint-config-next:
+        specifier: 16.4.6
+        version: 16.4.6(@typescript-eslint/parser@8.73.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
+      prettier:
+        specifier: 3.10.1
+        version: 3.10.1
+      prettier-plugin-tailwindcss:
+        specifier: 0.8.1
+        version: 0.8.1(@ianvs/prettier-plugin-sort-imports@4.7.1(prettier@3.10.1))(prettier@3.10.1)
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+
+  apps/web:
+    dependencies:
+      '@opentelemetry/sdk-trace-node':
+        specifier: 2.12.1
+        version: 2.12.1(@opentelemetry/api@1.9.1)
+      '@turnover/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      next:
+        specifier: 16.4.6
+        version: 16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.9.1)(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      qrcode:
+        specifier: 1.5.4
+        version: 1.5.4
+      react:
+        specifier: 19.3.0
+        version: 19.3.0
+      react-dom:
+        specifier: 19.3.0
+        version: 19.3.0(react@19.3.0)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+    devDependencies:
+      '@tailwindcss/turbopack':
+        specifier: 4.3.3
+        version: 4.3.3
+      '@types/node':
+        specifier: ^20
+        version: 20.19.43
+      '@types/qrcode':
+        specifier: 1.5.6
+        version: 1.5.6
+      '@types/react':
+        specifier: ^19
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.3.0(@types/react@19.3.0)
+      dotenv-cli:
+        specifier: ^7.4.4
+        version: 7.4.4
+      tailwindcss:
+        specifier: 4.3.3
+        version: 4.3.3
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+
+  packages/core:
     dependencies:
       '@auth0/nextjs-auth0':
         specifier: 4.33.0
@@ -47,24 +120,12 @@ importers:
       '@prisma/adapter-pg':
         specifier: 7.10.1
         version: 7.10.1
-      '@prisma/client':
-        specifier: 7.10.1
-        version: 7.10.1(prisma@7.10.1(@types/node@20.19.43)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3))(typescript@5.9.3)
-      next:
-        specifier: 16.4.6
-        version: 16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.9.1)(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@turnover/db':
+        specifier: workspace:*
+        version: link:../db
       pino:
         specifier: 10.4.0
         version: 10.4.0
-      qrcode:
-        specifier: 1.5.4
-        version: 1.5.4
-      react:
-        specifier: 19.3.0
-        version: 19.3.0
-      react-dom:
-        specifier: 19.3.0
-        version: 19.3.0(react@19.3.0)
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
@@ -72,60 +133,33 @@ importers:
         specifier: 4.6.7
         version: 4.6.7
     devDependencies:
-      '@ianvs/prettier-plugin-sort-imports':
-        specifier: 4.7.1
-        version: 4.7.1(prettier@3.10.1)
-      '@tailwindcss/turbopack':
-        specifier: 4.3.3
-        version: 4.3.3
       '@types/node':
         specifier: ^20
         version: 20.19.43
       '@types/pdfkit':
         specifier: 0.17.7
         version: 0.17.7
-      '@types/qrcode':
-        specifier: 1.5.6
-        version: 1.5.6
-      '@types/react':
-        specifier: ^19
-        version: 19.3.0
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.3.0(@types/react@19.3.0)
       dejavu-fonts-ttf:
         specifier: 2.37.3
         version: 2.37.3
-      dotenv:
-        specifier: ^18.0.10
-        version: 18.0.10
-      eslint:
-        specifier: ^9
-        version: 9.39.5(jiti@2.7.0)
-      eslint-config-next:
+      next:
         specifier: 16.4.6
-        version: 16.4.6(@typescript-eslint/parser@8.73.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
+        version: 16.4.6(@babel/core@7.29.13)(@opentelemetry/api@1.9.1)(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       pdfkit:
         specifier: 0.20.2
         version: 0.20.2
       pino-pretty:
         specifier: 13.2.0
         version: 13.2.0
-      prettier:
-        specifier: 3.10.1
-        version: 3.10.1
-      prettier-plugin-tailwindcss:
-        specifier: 0.8.1
-        version: 0.8.1(@ianvs/prettier-plugin-sort-imports@4.7.1(prettier@3.10.1))(prettier@3.10.1)
-      prisma:
-        specifier: 7.10.1
-        version: 7.10.1(@types/node@20.19.43)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3)
+      react:
+        specifier: 19.3.0
+        version: 19.3.0
+      react-dom:
+        specifier: 19.3.0
+        version: 19.3.0(react@19.3.0)
       sharp:
         specifier: 0.35.5
         version: 0.35.5(@types/node@20.19.43)
-      tailwindcss:
-        specifier: 4.3.3
-        version: 4.3.3
       tsx:
         specifier: ^4.23.15
         version: 4.23.15
@@ -135,6 +169,25 @@ importers:
       vitest:
         specifier: 5.1.1
         version: 5.1.1(@opentelemetry/api@1.9.1)(@types/node@20.19.43)(vite@8.3.8(@types/node@20.19.43)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15))
+
+  packages/db:
+    dependencies:
+      '@prisma/client':
+        specifier: 7.10.1
+        version: 7.10.1(prisma@7.10.1(@types/node@20.19.43)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3))(typescript@5.9.3)
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.19.43
+      dotenv:
+        specifier: ^18.0.10
+        version: 18.0.10
+      prisma:
+        specifier: 7.10.1
+        version: 7.10.1(@types/node@20.19.43)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3)
+      typescript:
+        specifier: ^5
+        version: 5.9.3
 
 packages:
 
@@ -1912,6 +1965,18 @@ packages:
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
+
+  dotenv-cli@7.4.4:
+    resolution: {integrity: sha512-XkBYCG0tPIes+YZr4SpfFv76SQrV/LeCE8CI7JSEMi3VR9MvTihCGTOtbIexD6i2mXF+6px7trb1imVCXSNMDw==}
+    hasBin: true
+
+  dotenv-expand@10.0.0:
+    resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==}
+    engines: {node: '>=12'}
+
+  dotenv@16.6.1:
+    resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
+    engines: {node: '>=12'}
 
   dotenv@17.4.2:
     resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
@@ -5511,6 +5576,17 @@ snapshots:
   doctrine@2.1.0:
     dependencies:
       esutils: 2.0.3
+
+  dotenv-cli@7.4.4:
+    dependencies:
+      cross-spawn: 7.0.6
+      dotenv: 16.6.1
+      dotenv-expand: 10.0.0
+      minimist: 1.2.8
+
+  dotenv-expand@10.0.0: {}
+
+  dotenv@16.6.1: {}
 
   dotenv@17.4.2: {}
 

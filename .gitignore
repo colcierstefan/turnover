@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -14,8 +14,8 @@
 /coverage
 
 # next.js
-/.next/
-/out/
+.next/
+out/
 
 # production
 /build
@@ -42,7 +42,7 @@ next-env.d.ts
 !.env.example
 
 # prisma
-/src/generated/prisma
+/packages/db/src/generated/prisma
 
 # label-extractor eval images downloaded from the web
-/src/agents/label-extractor/evals/images/
+/packages/core/src/appliance/label-extractor/evals/images/
