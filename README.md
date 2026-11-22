@@ -11,6 +11,18 @@ Mobile-first web app for short-term rental hosts and property managers in Romani
 - Langfuse for tracing (OpenTelemetry)
 - Vitest, ESLint, Prettier
 
+## Structure
+
+A pnpm workspace. Every command runs from the repo root.
+
+| Package          | Folder          | Holds                                                                    |
+| ---------------- | --------------- | ------------------------------------------------------------------------ |
+| `@turnover/web`  | `apps/web`      | Next.js routes, components, hooks, server actions                        |
+| `@turnover/core` | `packages/core` | Services, repositories, schemas, model calls, evals, tests, clients, env |
+| `@turnover/db`   | `packages/db`   | Prisma schema, migrations and generated client                           |
+
+`web` depends on `core`, `core` depends on `db`; `web` cannot import Prisma. One `.env` at the root serves all three.
+
 ## Prerequisites
 
 - Node.js 22 and pnpm 10
@@ -33,7 +45,7 @@ gcloud auth application-default set-quota-project <project-id>
 # 1. Install dependencies (also generates the Prisma client)
 pnpm install
 
-# 2. Copy the env file and fill in the Auth0, Google Cloud and Langfuse values
+# 2. Copy the root env file and fill in the Auth0, Google Cloud and Langfuse values
 cp .env.example .env
 
 # 3. Start Postgres
@@ -50,14 +62,16 @@ pnpm dev
 
 ## Available Scripts
 
-| Script                          | What it does                                                      |
-| ------------------------------- | ----------------------------------------------------------------- |
-| `pnpm dev`                      | Next.js dev server                                                |
-| `pnpm build` / `pnpm start`     | Production build and server                                       |
-| `pnpm lint`                     | ESLint                                                            |
-| `pnpm type-check`               | TypeScript without emitting                                       |
-| `pnpm format` / `format:fix`    | Prettier check / write                                            |
-| `pnpm test`                     | Vitest unit tests (never calls a model)                           |
-| `pnpm db:migrate:create --name` | Create a migration without applying it                            |
-| `pnpm db:migrate`               | Apply migrations                                                  |
-| `pnpm check:vertex`             | One plain and one search-grounded Vertex call, traced to Langfuse |
+| Script                          | What it does                                                          |
+| ------------------------------- | --------------------------------------------------------------------- |
+| `pnpm dev`                      | Next.js dev server                                                    |
+| `pnpm build` / `pnpm start`     | Production build and server                                           |
+| `pnpm lint`                     | ESLint                                                                |
+| `pnpm type-check`               | TypeScript without emitting                                           |
+| `pnpm format` / `format:fix`    | Prettier check / write                                                |
+| `pnpm test`                     | Vitest unit tests (never calls a model)                               |
+| `pnpm db:migrate:create --name` | Create a migration without applying it                                |
+| `pnpm db:migrate`               | Apply migrations                                                      |
+| `pnpm check:vertex`             | One plain and one search-grounded Vertex call, traced to Langfuse     |
+| `pnpm evals:label-extractor`    | Label extraction evals against Vertex (`--limit N`, `--only id,id`)   |
+| `pnpm evals:invoice-extractor`  | Invoice extraction evals against Vertex (`--limit N`, `--only id,id`) |

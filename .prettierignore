@@ -1,2 +1,2 @@
-src/generated
+packages/db/src/generated
 pnpm-lock.yaml
