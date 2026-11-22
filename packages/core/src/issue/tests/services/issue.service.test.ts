@@ -101,7 +101,7 @@ const buildIssue = (
   overrides: Partial<{
     unitId: string;
     applianceId: string | null;
-    status: "NEW" | "CONTACTED" | "RESOLVED";
+    status: "NEW" | "DIAGNOSED" | "CONTACTED" | "SCHEDULED" | "RESOLVED";
     isEmergency: boolean;
   }> = {},
 ) => ({
@@ -509,6 +509,30 @@ describe("IssueService", () => {
         issueService.diagnoseIssue(manager, issueId),
       ).rejects.toThrow(NotFoundError);
       expect(issueDiagnosisService.diagnose).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("markIssueContacted", () => {
+    it("moves a diagnosed issue to contacted", async () => {
+      vi.mocked(issueRepository.findById).mockResolvedValue(
+        buildIssue({ status: "DIAGNOSED" }),
+      );
+
+      await issueService.markIssueContacted(issueId);
+
+      expect(issueRepository.update).toHaveBeenCalledWith(issueId, {
+        status: "CONTACTED",
+      });
+    });
+
+    it("leaves a scheduled issue scheduled", async () => {
+      vi.mocked(issueRepository.findById).mockResolvedValue(
+        buildIssue({ status: "SCHEDULED" }),
+      );
+
+      await issueService.markIssueContacted(issueId);
+
+      expect(issueRepository.update).not.toHaveBeenCalled();
     });
   });
 

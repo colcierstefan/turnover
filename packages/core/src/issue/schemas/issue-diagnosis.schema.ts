@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 import {
-  HANDYMAN_TRADES,
   REPORT_PHOTO_CONTENT_TYPES,
   WARRANTY_STATUSES,
 } from "@turnover/core/issue/constants/issue.constants";
 import {
   ApplianceCategory,
   EmergencyType,
+  HandymanTrade,
   IssueCategory,
   ReporterRole,
   UserLanguage,
@@ -70,7 +70,7 @@ export const issueDiagnosisResultSchema = z.object({
       "What the manager should do next, most important first, each one short sentence in the requested language.",
     ),
   trade: z
-    .enum(HANDYMAN_TRADES)
+    .enum(HandymanTrade)
     .nullable()
     .describe("The trade that should do the work, or null for SELF_FIX."),
   partCostRon: costRangeSchema

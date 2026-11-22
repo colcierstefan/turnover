@@ -237,6 +237,14 @@ class IssueService {
     await issueRepository.update(issue.id, { applianceId: input.applianceId });
   }
 
+  async markIssueContacted(issueId: string) {
+    const issue = await issueRepository.findById(issueId);
+    if (!issue) throw new NotFoundError(`Issue ${issueId} not found`);
+    if (issue.status === "NEW" || issue.status === "DIAGNOSED") {
+      await issueRepository.update(issueId, { status: "CONTACTED" });
+    }
+  }
+
   async getIssuePhotoFile(userId: string, photoId: string) {
     const photo = await issuePhotoRepository.findById(photoId);
     if (!photo) throw new NotFoundError(`Issue photo ${photoId} not found`);

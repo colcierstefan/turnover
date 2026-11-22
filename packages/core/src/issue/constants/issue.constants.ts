@@ -27,15 +27,6 @@ export const REPORT_PHOTO_CONTENT_TYPES = [
   "image/heif",
 ] as const;
 export const EMERGENCY_PHONE_NUMBER = "112";
-export const HANDYMAN_TRADES = [
-  "PLUMBER",
-  "ELECTRICIAN",
-  "APPLIANCE_TECHNICIAN",
-  "AC_TECHNICIAN",
-  "LOCKSMITH",
-  "GENERAL_HANDYMAN",
-] as const;
-export type HandymanTrade = (typeof HANDYMAN_TRADES)[number];
 export const WARRANTY_STATUSES = [
   "UNDER_WARRANTY",
   "EXPIRED",
