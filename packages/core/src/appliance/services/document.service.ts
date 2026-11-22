@@ -2,10 +2,6 @@ import "server-only";
 
 import { randomUUID } from "node:crypto";
 
-import { extractInvoice } from "@turnover/core/appliance/invoice-extractor/invoice-extractor.agent";
-import { invoiceExtractorInputSchema } from "@turnover/core/appliance/invoice-extractor/schemas/invoice-extractor.schema";
-import { extractLabel } from "@turnover/core/appliance/label-extractor/label-extractor.agent";
-import { labelExtractorInputSchema } from "@turnover/core/appliance/label-extractor/schemas/label-extractor.schema";
 import applianceDocumentRepository from "@turnover/core/appliance/repositories/appliance-document.repository";
 import applianceRepository from "@turnover/core/appliance/repositories/appliance.repository";
 import documentRepository from "@turnover/core/appliance/repositories/document.repository";
@@ -13,6 +9,10 @@ import type {
   SaveDocumentReviewInput,
   UploadDocumentInput,
 } from "@turnover/core/appliance/schemas/document.schema";
+import { invoiceExtractionInputSchema } from "@turnover/core/appliance/schemas/invoice-extraction.schema";
+import { labelExtractionInputSchema } from "@turnover/core/appliance/schemas/label-extraction.schema";
+import invoiceExtractionService from "@turnover/core/appliance/services/invoice-extraction.service";
+import labelExtractionService from "@turnover/core/appliance/services/label-extraction.service";
 import { toApplianceData } from "@turnover/core/appliance/utils/appliance.utils";
 import { buildDocumentReview } from "@turnover/core/appliance/utils/document-review.utils";
 import prisma from "@turnover/core/lib/db";
@@ -127,9 +127,13 @@ const extractDocument = async (
 ) => {
   try {
     if (document.kind === "LABEL_PHOTO") {
-      return await extractLabel(labelExtractorInputSchema.parse(document));
+      return await labelExtractionService.extract(
+        labelExtractionInputSchema.parse(document),
+      );
     }
-    return await extractInvoice(invoiceExtractorInputSchema.parse(document));
+    return await invoiceExtractionService.extract(
+      invoiceExtractionInputSchema.parse(document),
+    );
   } catch (error) {
     logger.error(
       { err: error, documentId: document.id },

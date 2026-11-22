@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import { MAX_UPLOAD_BYTES } from "@turnover/core/appliance/constants/appliance.constants";
-import { invoiceExtractorInputSchema } from "@turnover/core/appliance/invoice-extractor/schemas/invoice-extractor.schema";
-import { labelExtractorInputSchema } from "@turnover/core/appliance/label-extractor/schemas/label-extractor.schema";
 import { applianceFieldsSchema } from "@turnover/core/appliance/schemas/appliance.schema";
+import { invoiceExtractionInputSchema } from "@turnover/core/appliance/schemas/invoice-extraction.schema";
+import { labelExtractionInputSchema } from "@turnover/core/appliance/schemas/label-extraction.schema";
 
 const uploadFileSchema = (contentTypeSchema: z.ZodType) =>
   z
@@ -19,12 +19,12 @@ export const uploadDocumentInputSchema = z.discriminatedUnion("kind", [
   z.object({
     unitId: z.uuid(),
     kind: z.literal("LABEL_PHOTO"),
-    file: uploadFileSchema(labelExtractorInputSchema.shape.contentType),
+    file: uploadFileSchema(labelExtractionInputSchema.shape.contentType),
   }),
   z.object({
     unitId: z.uuid(),
     kind: z.literal("INVOICE"),
-    file: uploadFileSchema(invoiceExtractorInputSchema.shape.contentType),
+    file: uploadFileSchema(invoiceExtractionInputSchema.shape.contentType),
   }),
 ]);
 export type UploadDocumentInput = z.infer<typeof uploadDocumentInputSchema>;

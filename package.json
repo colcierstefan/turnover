@@ -15,8 +15,8 @@
     "db:migrate:create": "pnpm --filter @turnover/db db:migrate:create",
     "db:migrate": "pnpm --filter @turnover/db db:migrate",
     "check:vertex": "pnpm --filter @turnover/core check:vertex",
-    "evals:label-extractor": "pnpm --filter @turnover/core evals:label-extractor",
-    "evals:invoice-extractor": "pnpm --filter @turnover/core evals:invoice-extractor"
+    "evals:label-extraction": "pnpm --filter @turnover/core evals:label-extraction",
+    "evals:invoice-extraction": "pnpm --filter @turnover/core evals:invoice-extraction"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.7.1",

@@ -7,7 +7,7 @@ Mobile-first web app for short-term rental hosts and property managers in Romani
 - Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4
 - Prisma 7 with PostgreSQL (Docker locally)
 - Auth0 for manager login
-- Gemini on Vertex AI (`@google/genai`), Zod structured outputs
+- Gemini on Vertex AI through the AI SDK (`ai`, `@ai-sdk/google-vertex`), Zod structured outputs
 - Langfuse for tracing (OpenTelemetry)
 - Vitest, ESLint, Prettier
 
@@ -73,5 +73,5 @@ pnpm dev
 | `pnpm db:migrate:create --name` | Create a migration without applying it                                |
 | `pnpm db:migrate`               | Apply migrations                                                      |
 | `pnpm check:vertex`             | One plain and one search-grounded Vertex call, traced to Langfuse     |
-| `pnpm evals:label-extractor`    | Label extraction evals against Vertex (`--limit N`, `--only id,id`)   |
-| `pnpm evals:invoice-extractor`  | Invoice extraction evals against Vertex (`--limit N`, `--only id,id`) |
+| `pnpm evals:label-extraction`   | Label extraction evals against Vertex (`--limit N`, `--only id,id`)   |
+| `pnpm evals:invoice-extraction` | Invoice extraction evals against Vertex (`--limit N`, `--only id,id`) |

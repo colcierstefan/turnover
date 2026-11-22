@@ -1,4 +1,4 @@
-export const buildLabelExtractorPrompt = () =>
+export const buildLabelExtractionPrompt = () =>
   `You read the rating plate (type label) of a household appliance from a photo.
 
 Return the appliance kind, brand, model, serial number and production date.

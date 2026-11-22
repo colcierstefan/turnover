@@ -6,21 +6,21 @@ import {
   loadLabelEvalCases,
   WEB_IMAGES_DIR,
   type LabelEvalCase,
-} from "@turnover/core/appliance/label-extractor/evals/label-extractor-agent.dataset";
-import { scoreLabelExtraction } from "@turnover/core/appliance/label-extractor/evals/label-extractor-agent.evaluators";
-import { extractLabel } from "@turnover/core/appliance/label-extractor/label-extractor.agent";
-import { labelExtractorInputSchema } from "@turnover/core/appliance/label-extractor/schemas/label-extractor.schema";
+} from "@turnover/core/appliance/evals/label-extraction.dataset";
+import { scoreLabelExtraction } from "@turnover/core/appliance/evals/label-extraction.evaluators";
+import { labelExtractionInputSchema } from "@turnover/core/appliance/schemas/label-extraction.schema";
+import labelExtractionService from "@turnover/core/appliance/services/label-extraction.service";
 import { langfuseSpanProcessor } from "@turnover/core/lib/langfuse";
 import logger from "@turnover/core/lib/logger";
 import {
-  fetchGenerationUsage,
+  fetchModelCallUsage,
   parseEvalArgs,
   selectEvalCases,
   summarizeFieldScores,
   uploadEvalFile,
 } from "@turnover/core/utils/eval.utils";
 
-const AGENT_NAME = "label-extractor";
+const CALL_NAME = "label-extraction";
 const DOWNLOAD_USER_AGENT = "Mozilla/5.0 (compatible; turnover-evals/0.1)";
 const IMAGE_TYPES = [
   ["jpg", "image/jpeg"],
@@ -55,17 +55,17 @@ try {
     }
     const { localPath, contentType } = image;
     const fileUri = await uploadEvalFile(
-      AGENT_NAME,
+      CALL_NAME,
       path.basename(localPath),
       localPath,
       contentType,
     );
-    const actual = await extractLabel(
-      labelExtractorInputSchema.parse({ fileUri, contentType }),
-    ).catch((error: unknown) => {
-      logger.error({ id: evalCase.id, err: error }, "extraction failed");
-      return null;
-    });
+    const actual = await labelExtractionService
+      .extract(labelExtractionInputSchema.parse({ fileUri, contentType }))
+      .catch((error: unknown) => {
+        logger.error({ id: evalCase.id, err: error }, "extraction failed");
+        return null;
+      });
     const score = actual
       ? scoreLabelExtraction(evalCase.expected, actual)
       : FAILED_SCORE;
@@ -92,7 +92,7 @@ logger.info(
   "per-field accuracy",
 );
 logger.info(
-  await fetchGenerationUsage(AGENT_NAME, startedAt, scores.length),
+  await fetchModelCallUsage(CALL_NAME, startedAt, scores.length),
   "usage from Langfuse",
 );
 

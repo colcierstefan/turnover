@@ -1,4 +1,4 @@
-export const buildInvoiceExtractorPrompt = () =>
+export const buildInvoiceExtractionPrompt = () =>
   `You read a purchase invoice from a Romanian shop (photo or PDF) and list the household appliances bought on it.
 
 Return the shop, the invoice date and one item per appliance line.

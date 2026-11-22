@@ -4,8 +4,8 @@ import path from "node:path";
 import PDFDocument from "pdfkit";
 import { z } from "zod";
 
-const EVALS_DIR = "src/appliance/invoice-extractor/evals";
-const OUTPUT_DIR = path.join(EVALS_DIR, "fixtures");
+const EVALS_DIR = "src/appliance/evals";
+const OUTPUT_DIR = path.join(EVALS_DIR, "fixtures", "invoice-extraction");
 const FONT = "node_modules/dejavu-fonts-ttf/ttf/DejaVuSans.ttf";
 const FONT_BOLD = "node_modules/dejavu-fonts-ttf/ttf/DejaVuSans-Bold.ttf";
 const PAGE_MARGIN = 40;
@@ -36,7 +36,12 @@ type Invoice = z.infer<typeof invoiceSchema>;
 const fixtures = z
   .object({ invoices: z.array(invoiceSchema) })
   .parse(
-    JSON.parse(await readFile(path.join(EVALS_DIR, "fixtures.json"), "utf8")),
+    JSON.parse(
+      await readFile(
+        path.join(EVALS_DIR, "invoice-extraction.fixtures.json"),
+        "utf8",
+      ),
+    ),
   );
 
 await mkdir(OUTPUT_DIR, { recursive: true });

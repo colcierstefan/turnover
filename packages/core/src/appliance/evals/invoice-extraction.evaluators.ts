@@ -1,12 +1,12 @@
-import type { InvoiceExpected } from "@turnover/core/appliance/invoice-extractor/evals/invoice-extractor-agent.dataset";
-import type { InvoiceExtractorOutput } from "@turnover/core/appliance/invoice-extractor/schemas/invoice-extractor.schema";
+import type { InvoiceExpected } from "@turnover/core/appliance/evals/invoice-extraction.dataset";
+import type { InvoiceExtractionOutput } from "@turnover/core/appliance/schemas/invoice-extraction.schema";
 import { isSameText, matchesExpected } from "@turnover/core/utils/eval.utils";
 
 const PRICE_TOLERANCE_RON = 0.01;
 
 export const scoreInvoiceExtraction = (
   expected: InvoiceExpected,
-  actual: InvoiceExtractorOutput,
+  actual: InvoiceExtractionOutput,
 ) => ({
   invoice: {
     shopName: matchesExpected(expected.shopName, actual.shopName, isSameText),

@@ -3,8 +3,8 @@ import path from "node:path";
 import sharp from "sharp";
 import { z } from "zod";
 
-const EVALS_DIR = "src/appliance/label-extractor/evals";
-const OUTPUT_DIR = path.join(EVALS_DIR, "fixtures", "rendered");
+const EVALS_DIR = "src/appliance/evals";
+const OUTPUT_DIR = path.join(EVALS_DIR, "fixtures", "label-extraction");
 const WIDTH = 800;
 const HEIGHT = 420;
 const SPECS_ROW = `
@@ -35,7 +35,12 @@ type RenderedCase = z.infer<typeof renderedCaseSchema>;
 const fixtures = z
   .object({ rendered: z.array(renderedCaseSchema) })
   .parse(
-    JSON.parse(await readFile(path.join(EVALS_DIR, "fixtures.json"), "utf8")),
+    JSON.parse(
+      await readFile(
+        path.join(EVALS_DIR, "label-extraction.fixtures.json"),
+        "utf8",
+      ),
+    ),
   );
 
 await mkdir(OUTPUT_DIR, { recursive: true });

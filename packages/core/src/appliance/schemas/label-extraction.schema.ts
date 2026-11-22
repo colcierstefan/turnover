@@ -3,7 +3,7 @@ import { z } from "zod";
 import { PARTIAL_ISO_DATE_PATTERN } from "@turnover/core/utils/date.utils";
 import { ApplianceCategory } from "@turnover/db/enums";
 
-export const labelExtractorInputSchema = z.object({
+export const labelExtractionInputSchema = z.object({
   fileUri: z.string().startsWith("gs://"),
   contentType: z.enum([
     "image/jpeg",
@@ -13,9 +13,9 @@ export const labelExtractorInputSchema = z.object({
     "image/heif",
   ]),
 });
-export type LabelExtractorInput = z.infer<typeof labelExtractorInputSchema>;
+export type LabelExtractionInput = z.infer<typeof labelExtractionInputSchema>;
 
-export const labelExtractorOutputSchema = z.object({
+export const labelExtractionOutputSchema = z.object({
   category: z
     .enum(ApplianceCategory)
     .describe(
@@ -45,4 +45,4 @@ export const labelExtractorOutputSchema = z.object({
       'Production date only when printed as a date: "YYYY", "YYYY-MM" or "YYYY-MM-DD", with only the parts that are printed. Null when no date is printed, including when it is only encoded in a serial or FD number.',
     ),
 });
-export type LabelExtractorOutput = z.infer<typeof labelExtractorOutputSchema>;
+export type LabelExtractionOutput = z.infer<typeof labelExtractionOutputSchema>;
