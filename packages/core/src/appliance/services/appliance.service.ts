@@ -29,6 +29,10 @@ class ApplianceService {
     return applianceRepository.listByUnitId(unit.id);
   }
 
+  listAppliancesByUnitId(unitId: string) {
+    return applianceRepository.listByUnitId(unitId);
+  }
+
   async getAppliance(userId: string, applianceId: string) {
     const appliance = await applianceRepository.findById(applianceId);
     if (!appliance)

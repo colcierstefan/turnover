@@ -1,9 +1,12 @@
 import { readFile } from "node:fs/promises";
 import { z } from "zod";
 
+import { HANDYMAN_TRADES } from "@turnover/core/issue/constants/issue.constants";
 import type { UnitAppliance } from "@turnover/core/issue/schemas/report-triage.schema";
 import {
+  ApplianceCategory,
   EmergencyType,
+  IssueCategory,
   ReporterLanguage,
   ReporterRole,
 } from "@turnover/db/enums";
@@ -24,6 +27,9 @@ export const EVAL_UNIT_APPLIANCES: ReadonlyArray<UnitAppliance> = [
   { category: "COFFEE_MACHINE", brand: "DeLonghi", model: "ECAM22.110.B" },
 ];
 
+const expectedValueSchema = <Value extends z.ZodType>(value: Value) =>
+  z.union([value.nullable(), z.array(value.nullable())]);
+
 const issueReportEvalCaseSchema = z.object({
   id: z.string(),
   language: z.enum(ReporterLanguage),
@@ -36,6 +42,13 @@ const issueReportEvalCaseSchema = z.object({
       z.array(z.enum(EmergencyType).nullable()),
     ]),
     hasTips: z.boolean().nullable(),
+    diagnosis: z.object({
+      applianceCategory: expectedValueSchema(
+        z.enum(ApplianceCategory),
+      ).optional(),
+      category: expectedValueSchema(z.enum(IssueCategory)).optional(),
+      trade: expectedValueSchema(z.enum(HANDYMAN_TRADES)).optional(),
+    }),
   }),
 });
 export type IssueReportEvalCase = z.infer<typeof issueReportEvalCaseSchema>;

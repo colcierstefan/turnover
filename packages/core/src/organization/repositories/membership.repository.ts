@@ -11,6 +11,16 @@ class MembershipRepository {
     });
   }
 
+  findOwnerByOrganizationId(
+    organizationId: string,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.membership.findFirstOrThrow({
+      where: { organizationId, role: "OWNER" },
+      include: { user: true },
+    });
+  }
+
   findByOrganizationIdAndEmail(
     organizationId: string,
     email: string,

@@ -1,0 +1,361 @@
+{
+  "cases": [
+    {
+      "id": "price-washer-door-seal",
+      "language": "EN",
+      "description": "The rubber seal around the washing machine door is torn at the bottom and water leaks onto the floor during washing.",
+      "prices": {
+        "partRon": {
+          "minRon": 91,
+          "maxRon": 155,
+          "source": "eMAG, Bosch door seal for WAN28262BY and compatible 00680768",
+          "url": "https://www.emag.ro/search/garnitura%20hublou%20bosch",
+          "checkedOn": "2026-11-22"
+        },
+        "repairTotalRon": {
+          "minRon": 200,
+          "maxRon": 350,
+          "source": "brig.ro 2026 guide, door seal replacement with part",
+          "url": "https://brig.ro/reparatii-electrocasnice/dieci",
+          "checkedOn": "2026-11-22"
+        },
+        "newApplianceRon": {
+          "minRon": 1999,
+          "maxRon": 2099,
+          "source": "eMAG, Bosch WAN2826SBY and Seria 4 WAN2406NBY, 8 kg",
+          "url": "https://www.emag.ro/search/masina%20de%20spalat%20rufe%20bosch%208%20kg%20seria%204",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-washer-drain-pump",
+      "language": "RO",
+      "description": "Mașina de spălat nu mai evacuează apa, rămâne plină la final și se aude un bâzâit, dar nu pompează.",
+      "prices": {
+        "partRon": {
+          "minRon": 110,
+          "maxRon": 178,
+          "source": "eMAG, Bosch drain pumps 00145777 and compatible",
+          "url": "https://www.emag.ro/search/pompa%20evacuare%20masina%20spalat%20bosch",
+          "checkedOn": "2026-11-22"
+        },
+        "repairTotalRon": {
+          "minRon": 300,
+          "maxRon": 450,
+          "source": "brig.ro 2026 guide, washing machine pump replacement with part",
+          "url": "https://brig.ro/cat-costa/reparatii-electrocasnice",
+          "checkedOn": "2026-11-22"
+        },
+        "newApplianceRon": {
+          "minRon": 1999,
+          "maxRon": 2099,
+          "source": "eMAG, Bosch WAN2826SBY and Seria 4 WAN2406NBY, 8 kg",
+          "url": "https://www.emag.ro/search/masina%20de%20spalat%20rufe%20bosch%208%20kg%20seria%204",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-washer-bearings",
+      "language": "EN",
+      "description": "The washing machine drum makes a loud grinding roar during the spin, and the drum wobbles when I move it by hand.",
+      "prices": {
+        "partRon": {
+          "minRon": 269,
+          "maxRon": 269,
+          "source": "eMAG, Bosch bearing repair kit 6204 + 6305",
+          "url": "https://www.emag.ro/kit-reparatie-rulmenti-masina-de-spalat-rufe-bosch-6204-6305-28x62x10-12-6204-6305-28x62x10-12/pd/DVVD9ZMBM/",
+          "checkedOn": "2026-11-22"
+        },
+        "repairTotalRon": {
+          "minRon": 350,
+          "maxRon": 500,
+          "source": "brig.ro 2026 guide, bearings replacement with part",
+          "url": "https://brig.ro/reparatii-electrocasnice/dieci",
+          "checkedOn": "2026-11-22"
+        },
+        "newApplianceRon": {
+          "minRon": 1999,
+          "maxRon": 2099,
+          "source": "eMAG, Bosch WAN2826SBY and Seria 4 WAN2406NBY, 8 kg",
+          "url": "https://www.emag.ro/search/masina%20de%20spalat%20rufe%20bosch%208%20kg%20seria%204",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-washer-heater",
+      "language": "RO",
+      "description": "Mașina de spălat spală dar apa rămâne rece la orice program, rufele nu se mai încălzesc.",
+      "prices": {
+        "repairTotalRon": {
+          "minRon": 250,
+          "maxRon": 400,
+          "source": "brig.ro 2026 guide, heating element replacement with part",
+          "url": "https://brig.ro/cat-costa/reparatii-electrocasnice",
+          "checkedOn": "2026-11-22"
+        },
+        "newApplianceRon": {
+          "minRon": 1999,
+          "maxRon": 2099,
+          "source": "eMAG, Bosch WAN2826SBY and Seria 4 WAN2406NBY, 8 kg",
+          "url": "https://www.emag.ro/search/masina%20de%20spalat%20rufe%20bosch%208%20kg%20seria%204",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-fridge-door-seal",
+      "language": "EN",
+      "description": "The fridge door seal is torn along one side and the door no longer closes tightly.",
+      "prices": {
+        "partRon": {
+          "minRon": 212,
+          "maxRon": 273,
+          "source": "eMAG, Arctic fridge door seals",
+          "url": "https://www.emag.ro/search/garnitura%20usa%20frigider%20arctic",
+          "checkedOn": "2026-11-22"
+        },
+        "newApplianceRon": {
+          "minRon": 1100,
+          "maxRon": 1799,
+          "source": "eMAG, Arctic combi fridges 291 to 362 l",
+          "url": "https://www.emag.ro/search/combina%20frigorifica%20arctic",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-fridge-gas",
+      "language": "RO",
+      "description": "Frigiderul nu mai răcește deloc, compresorul pornește dar înăuntru e cald. Lumina merge.",
+      "prices": {
+        "repairTotalRon": {
+          "minRon": 250,
+          "maxRon": 600,
+          "source": "brig.ro 2026 guide, fridge refrigerant refill 250 to 380, compressor replacement 400 to 600",
+          "url": "https://brig.ro/cat-costa/reparatii-electrocasnice",
+          "checkedOn": "2026-11-22"
+        },
+        "newApplianceRon": {
+          "minRon": 1100,
+          "maxRon": 1799,
+          "source": "eMAG, Arctic combi fridges 291 to 362 l",
+          "url": "https://www.emag.ro/search/combina%20frigorifica%20arctic",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-dishwasher-drain-pump",
+      "language": "EN",
+      "description": "The dishwasher does not drain. Water stays at the bottom after the program and it hums at the end, the filter is clean.",
+      "prices": {
+        "partRon": {
+          "minRon": 127,
+          "maxRon": 250,
+          "source": "eMAG, Beko dishwasher drain pump 1748200100",
+          "url": "https://www.emag.ro/search/pompa%20evacuare%20masina%20spalat%20vase%20beko",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-dishwasher-inlet-valve",
+      "language": "RO",
+      "description": "Mașina de spălat vase nu ia apă deloc, robinetul este deschis și furtunul nu e îndoit.",
+      "prices": {
+        "partRon": {
+          "minRon": 340,
+          "maxRon": 402,
+          "source": "eMAG, Beko dishwasher inlet valves",
+          "url": "https://www.emag.ro/search/electrovalva%20masina%20spalat%20vase%20beko",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-oven-fan-element",
+      "language": "EN",
+      "description": "The oven only heats on the top and bottom programs. On the fan program the fan turns but it stays cold.",
+      "prices": {
+        "partRon": {
+          "minRon": 73,
+          "maxRon": 138,
+          "source": "eMAG, Gorenje circular oven elements",
+          "url": "https://www.emag.ro/search/rezistenta%20cuptor%20gorenje",
+          "checkedOn": "2026-11-22"
+        },
+        "repairTotalRon": {
+          "minRon": 250,
+          "maxRon": 400,
+          "source": "brig.ro 2026 guide, heating element replacement with part",
+          "url": "https://brig.ro/cat-costa/reparatii-electrocasnice",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-microwave-magnetron",
+      "language": "RO",
+      "description": "Cuptorul cu microunde se învârte și are lumină, dar nu încălzește deloc, și a făcut un pocnet.",
+      "prices": {
+        "partRon": {
+          "minRon": 201,
+          "maxRon": 241,
+          "source": "eMAG, microwave magnetrons 850 to 900 W",
+          "url": "https://www.emag.ro/search/magnetron%20cuptor%20microunde",
+          "checkedOn": "2026-11-22"
+        },
+        "newApplianceRon": {
+          "minRon": 1058,
+          "maxRon": 1438,
+          "source": "eMAG, Whirlpool 25 l microwaves MWP254SB and MWF 421 SL",
+          "url": "https://www.emag.ro/search/cuptor%20cu%20microunde%20whirlpool%2025%20l",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-hob-thermocouple",
+      "language": "EN",
+      "description": "One gas burner on the hob lights, but goes out as soon as I let go of the knob. The other burners work.",
+      "prices": {
+        "partRon": {
+          "minRon": 44,
+          "maxRon": 88,
+          "source": "eMAG, Gorenje hob thermocouples",
+          "url": "https://www.emag.ro/search/termocuplu%20aragaz%20plita%20gorenje",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-ac-refrigerant",
+      "language": "RO",
+      "description": "Aerul condiționat pornește dar răcește foarte slab, iar la unitatea exterioară se formează gheață pe țeava subțire.",
+      "prices": {
+        "labourRon": {
+          "minRon": 250,
+          "maxRon": 400,
+          "source": "brig.ro 2026 guide, refrigerant refill with check",
+          "url": "https://brig.ro/cat-costa/aer-conditionat",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-ac-cleaning",
+      "language": "EN",
+      "description": "The air conditioner smells musty when it starts and the air flow is weaker than before. It cools fine otherwise.",
+      "prices": {
+        "labourRon": {
+          "minRon": 280,
+          "maxRon": 450,
+          "source": "brig.ro 2026 guide, full service and hygienic cleaning",
+          "url": "https://brig.ro/cat-costa/aer-conditionat",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-ac-replace",
+      "language": "EN",
+      "description": "The air conditioner's outdoor unit is completely dead after a storm and the indoor unit shows an error. The installer said the outdoor board and compressor are burnt.",
+      "prices": {
+        "newApplianceRon": {
+          "minRon": 6450,
+          "maxRon": 6800,
+          "source": "eMAG, Daikin Perfera FTXM25A 9000 BTU at 6,050, plus brig.ro 2026 installation 400 to 750",
+          "url": "https://www.emag.ro/search/aer%20conditionat%20daikin%20perfera%209000%20btu",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-water-heater-element",
+      "language": "RO",
+      "description": "Boilerul electric nu mai încălzește apa. Becul de pe el se aprinde, dar apa rămâne rece și siguranța nu sare.",
+      "prices": {
+        "partRon": {
+          "minRon": 75,
+          "maxRon": 243,
+          "source": "eMAG, Ariston and compatible water heater elements",
+          "url": "https://www.emag.ro/search/rezistenta%20boiler%20ariston%20pro1",
+          "checkedOn": "2026-11-22"
+        },
+        "newApplianceRon": {
+          "minRon": 849,
+          "maxRon": 849,
+          "source": "eMAG, Ariston Lydos Eco 80 l",
+          "url": "https://www.emag.ro/boiler-electric-ariston-1800-w-80l-tehnologie-waterplus-display-digital-eco-evo-t-max-titanshield-rezervor-emailat-cu-titan-alb-lydos-eco-80/pd/DB4J8SBBM/",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-water-heater-leaking-tank",
+      "language": "EN",
+      "description": "The water heater is leaking from the bottom of the tank itself, not from the pipes, and there is rust around the leak.",
+      "prices": {
+        "newApplianceRon": {
+          "minRon": 849,
+          "maxRon": 849,
+          "source": "eMAG, Ariston Lydos Eco 80 l",
+          "url": "https://www.emag.ro/boiler-electric-ariston-1800-w-80l-tehnologie-waterplus-display-digital-eco-evo-t-max-titanshield-rezervor-emailat-cu-titan-alb-lydos-eco-80/pd/DB4J8SBBM/",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-toilet-fill-valve",
+      "language": "RO",
+      "description": "Rezervorul de la WC se umple continuu și apa curge în vas fără oprire după tragere.",
+      "prices": {
+        "partRon": {
+          "minRon": 42,
+          "maxRon": 98,
+          "source": "Hornbach, toilet cistern mechanisms",
+          "url": "https://www.hornbach.ro/p/mecanism-wc-actionare-prin-apasare-cu-robinet-flotor-3-8-alimentare-laterala-buton-cromat/6787927/",
+          "checkedOn": "2026-11-22"
+        },
+        "labourRon": {
+          "minRon": 50,
+          "maxRon": 100,
+          "source": "brig.ro 2026 guide, toilet mechanism replacement (labour)",
+          "url": "https://brig.ro/cat-costa/instalator-wc",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-tap-repair",
+      "language": "EN",
+      "description": "The kitchen mixer tap drips constantly even when fully closed and the handle feels loose.",
+      "prices": {
+        "labourRon": {
+          "minRon": 100,
+          "maxRon": 250,
+          "source": "brig.ro 2026 guide, leak or tap repair (labour)",
+          "url": "https://brig.ro/cat-costa/instalator",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    },
+    {
+      "id": "price-tv-cracked",
+      "language": "EN",
+      "description": "The TV fell off the stand and the screen is cracked, half the picture is black lines.",
+      "prices": {
+        "newApplianceRon": {
+          "minRon": 1400,
+          "maxRon": 1500,
+          "source": "eMAG, Samsung 43 inch 4K TVs 43U8072H and 43M70H",
+          "url": "https://www.emag.ro/search/televizor%20samsung%2043%20crystal%20uhd",
+          "checkedOn": "2026-11-22"
+        }
+      }
+    }
+  ]
+}

@@ -15,6 +15,18 @@ class IssueRepository {
     return db.issue.findUnique({ where: { id } });
   }
 
+  findDetailsById(id: string, db: Prisma.TransactionClient = prisma) {
+    return db.issue.findUnique({
+      where: { id },
+      include: {
+        unit: true,
+        appliance: true,
+        photos: { orderBy: { createdAt: "asc" } },
+        followUps: { orderBy: { createdAt: "asc" } },
+      },
+    });
+  }
+
   countByUnitIdSince(
     unitId: string,
     since: Date,
@@ -30,6 +42,17 @@ class IssueRepository {
   listOpenByUnitId(unitId: string, db: Prisma.TransactionClient = prisma) {
     return db.issue.findMany({
       where: { unitId, status: { not: "RESOLVED" } },
+      orderBy: { createdAt: "desc" },
+    });
+  }
+
+  listOpenByOrganizationId(
+    organizationId: string,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.issue.findMany({
+      where: { unit: { organizationId }, status: { not: "RESOLVED" } },
+      include: { unit: { select: { name: true } } },
       orderBy: { createdAt: "desc" },
     });
   }

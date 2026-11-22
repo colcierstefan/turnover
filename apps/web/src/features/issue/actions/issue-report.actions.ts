@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { after } from "next/server";
 
 import {
   answerIssueFollowUpsInputSchema,
@@ -31,7 +32,9 @@ export async function submitIssueReport(
   if (!parsed.success) return { error: "FAILED" };
 
   try {
-    return { step: await issueService.submitReport(parsed.data) };
+    return {
+      step: diagnoseWhenFinished(await issueService.submitReport(parsed.data)),
+    };
   } catch (error) {
     if (error instanceof TooManyRequestsError) {
       return { error: "TOO_MANY_REPORTS" };
@@ -45,11 +48,19 @@ export async function answerIssueFollowUps(
 ): Promise<IssueReportActionResult> {
   const parsed = answerIssueFollowUpsInputSchema.safeParse(input);
   if (!parsed.success) return { error: "FAILED" };
-  return { step: await issueService.answerFollowUps(parsed.data) };
+  return {
+    step: diagnoseWhenFinished(await issueService.answerFollowUps(parsed.data)),
+  };
 }
 
 export async function markIssueFixed(input: unknown) {
   await issueService.markFixedByReporter(reportedIssueInputSchema.parse(input));
+}
+
+export async function markIssueStillBroken(input: unknown) {
+  const parsed = reportedIssueInputSchema.parse(input);
+  await issueService.confirmStillBrokenByReporter(parsed);
+  after(() => issueService.diagnoseReportedIssue(parsed.issueId));
 }
 
 export async function chooseReporterLanguage(input: unknown) {
@@ -61,3 +72,10 @@ export async function chooseReporterLanguage(input: unknown) {
     httpOnly: true,
   });
 }
+
+const diagnoseWhenFinished = (step: IssueReportStep) => {
+  if (step.step === "SENT" || step.step === "EMERGENCY") {
+    after(() => issueService.diagnoseReportedIssue(step.issueId));
+  }
+  return step;
+};

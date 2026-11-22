@@ -13,7 +13,8 @@
     "evals:label-extraction": "tsx --env-file=../../.env --conditions=react-server src/appliance/evals/label-extraction.eval.ts",
     "evals:invoice-extraction": "tsx --env-file=../../.env --conditions=react-server src/appliance/evals/invoice-extraction.eval.ts",
     "evals:report-triage": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/report-triage.eval.ts",
-    "evals:self-help-tips": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/self-help-tips.eval.ts"
+    "evals:self-help-tips": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/self-help-tips.eval.ts",
+    "evals:issue-diagnosis": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/issue-diagnosis.eval.ts"
   },
   "dependencies": {
     "@ai-sdk/google-vertex": "5.0.144",

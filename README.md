@@ -1,6 +1,6 @@
 # Turnover
 
-Mobile-first web app for short-term rental hosts and property managers in Romania. It keeps every appliance per unit, takes issue reports from guests and cleaners, diagnoses them with AI, looks up prices, and drafts a Romanian message to the manager's handyman that opens in WhatsApp.
+Mobile-first web app for short-term rental hosts and property managers in Romania. It keeps every appliance per unit, takes issue reports from guests and cleaners, diagnoses them with AI, estimates repair and replacement costs, and drafts a Romanian message to the manager's handyman that opens in WhatsApp.
 
 ## Tech Stack
 
