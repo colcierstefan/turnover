@@ -7,17 +7,13 @@ import Card from "@/components/card";
 import { getSignedInMembership } from "@/features/organization/server/organization-membership.server";
 import UnitCreateForm from "@/features/unit/components/unit/unit-create-form";
 import UnitList from "@/features/unit/components/unit/unit-list";
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
 export default function UnitsPage() {
   return (
-    <>
-      <AppHeader />
-      <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-6 p-6">
-        <Suspense fallback={<p>Loading…</p>}>
-          <Units />
-        </Suspense>
-      </main>
-    </>
+    <Suspense fallback={<p className="p-6">…</p>}>
+      <Units />
+    </Suspense>
   );
 }
 
@@ -27,11 +23,16 @@ async function Units() {
 
   return (
     <>
-      <h1 className="text-2xl font-semibold">{membership.organization.name}</h1>
-      <UnitList units={units} />
-      <Card title="Add a unit">
-        <UnitCreateForm />
-      </Card>
+      <AppHeader language={user.language} />
+      <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-6 p-6">
+        <h1 className="text-2xl font-semibold">
+          {membership.organization.name}
+        </h1>
+        <UnitList units={units} language={user.language} />
+        <Card title={MANAGER_TEXT[user.language].units.addUnitTitle}>
+          <UnitCreateForm language={user.language} />
+        </Card>
+      </main>
     </>
   );
 }

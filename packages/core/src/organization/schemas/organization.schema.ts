@@ -3,10 +3,10 @@ import { z } from "zod";
 const contactPhoneSchema = z
   .string()
   .trim()
-  .regex(/^\+?[0-9 ]{6,20}$/, "Enter a phone number, e.g. +40 712 345 678");
+  .regex(/^\+?[0-9 ]{6,20}$/);
 
 export const createOrganizationInputSchema = z.object({
-  name: z.string().trim().min(1, "Enter a name").max(100),
+  name: z.string().trim().min(1).max(100),
   contactPhone: contactPhoneSchema,
 });
 export type CreateOrganizationInput = z.infer<
@@ -21,7 +21,7 @@ export type UpdateContactPhoneInput = z.infer<
 >;
 
 export const inviteManagerInputSchema = z.object({
-  email: z.string().trim().toLowerCase().pipe(z.email("Enter a valid email")),
+  email: z.string().trim().toLowerCase().pipe(z.email()),
 });
 export type InviteManagerInput = z.infer<typeof inviteManagerInputSchema>;
 

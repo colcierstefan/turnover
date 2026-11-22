@@ -3,9 +3,11 @@
 import { useActionState, useState } from "react";
 
 import { MAX_UPLOAD_BYTES } from "@turnover/core/appliance/constants/appliance.constants";
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
 
 import Button from "@/components/button";
 import { uploadDocument } from "@/features/appliance/actions/document.actions";
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
 export default function DocumentUploadForm({
   unitId,
@@ -13,12 +15,14 @@ export default function DocumentUploadForm({
   accept,
   submitLabel,
   pendingLabel,
+  language,
 }: Readonly<{
   unitId: string;
   kind: "LABEL_PHOTO" | "INVOICE";
   accept: string;
   submitLabel: string;
   pendingLabel: string;
+  language: UserLanguage;
 }>) {
   const [error, formAction, isPending] = useActionState(uploadDocument, null);
   const [sizeError, setSizeError] = useState<string | null>(null);
@@ -37,7 +41,7 @@ export default function DocumentUploadForm({
           const file = event.target.files?.[0];
           setSizeError(
             file && file.size > MAX_UPLOAD_BYTES
-              ? "The file is over 10 MB"
+              ? MANAGER_TEXT[language].newAppliance.fileTooLarge
               : null,
           );
         }}

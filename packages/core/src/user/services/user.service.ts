@@ -2,6 +2,7 @@ import "server-only";
 
 import auth0 from "@turnover/core/lib/auth0";
 import { ForbiddenError, ValidationError } from "@turnover/core/lib/errors";
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
 import userRepository from "@turnover/core/user/repositories/user.repository";
 
 class UserService {
@@ -24,6 +25,10 @@ class UserService {
     const user = await this.getCurrentUser();
     if (!user) throw new ForbiddenError("Not signed in");
     return user;
+  }
+
+  updateLanguage(userId: string, language: UserLanguage) {
+    return userRepository.update(userId, { language });
   }
 }
 

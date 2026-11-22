@@ -1,13 +1,14 @@
 import Link from "next/link";
 
-import {
-  APPLIANCE_CATEGORY_LABELS,
-  type ApplianceCategory,
-} from "@turnover/core/appliance/constants/appliance.constants";
+import type { ApplianceCategory } from "@turnover/core/appliance/constants/appliance.constants";
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
+
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
 export default function ApplianceList({
   unitId,
   appliances,
+  language,
 }: Readonly<{
   unitId: string;
   appliances: ReadonlyArray<{
@@ -16,9 +17,12 @@ export default function ApplianceList({
     brand: string | null;
     model: string | null;
   }>;
+  language: UserLanguage;
 }>) {
+  const text = MANAGER_TEXT[language].appliance;
+
   if (appliances.length === 0) {
-    return <p className="text-sm opacity-70">No appliances yet.</p>;
+    return <p className="text-sm opacity-70">{text.empty}</p>;
   }
 
   return (
@@ -30,11 +34,11 @@ export default function ApplianceList({
             className="flex flex-col py-3"
           >
             <span className="font-medium">
-              {APPLIANCE_CATEGORY_LABELS[appliance.category]}
+              {text.categories[appliance.category]}
             </span>
             <span className="text-sm opacity-70">
               {[appliance.brand, appliance.model].filter(Boolean).join(" ") ||
-                "No brand or model"}
+                text.noBrandOrModel}
             </span>
           </Link>
         </li>

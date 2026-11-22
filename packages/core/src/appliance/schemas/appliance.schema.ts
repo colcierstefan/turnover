@@ -11,31 +11,23 @@ const optionalTextSchema = (maxLength: number) =>
     .transform((value) => value || null);
 
 const optionalDateSchema = z
-  .union([z.literal(""), z.iso.date("Enter a valid date")])
+  .union([z.literal(""), z.iso.date()])
   .transform((value) => value || null);
 
 export const applianceFieldsSchema = z.object({
-  category: z.enum(ApplianceCategory, "Choose a category"),
+  category: z.enum(ApplianceCategory),
   brand: optionalTextSchema(100),
   model: optionalTextSchema(100),
   serialNumber: optionalTextSchema(100),
   manufactureDate: z
-    .union([
-      z.literal(""),
-      z
-        .string()
-        .trim()
-        .regex(PARTIAL_ISO_DATE_PATTERN, "Use YYYY, YYYY-MM or YYYY-MM-DD"),
-    ])
+    .union([z.literal(""), z.string().trim().regex(PARTIAL_ISO_DATE_PATTERN)])
     .transform((value) => value || null),
   purchaseDate: optionalDateSchema,
   purchasePriceRon: z
     .string()
     .trim()
     .transform((value) => (value === "" ? null : Number(value)))
-    .pipe(
-      z.number("Enter a valid price").nonnegative().max(1_000_000).nullable(),
-    ),
+    .pipe(z.number().nonnegative().max(1_000_000).nullable()),
   warrantyUntil: optionalDateSchema,
   notes: optionalTextSchema(1000),
 });

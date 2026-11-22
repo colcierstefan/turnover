@@ -142,7 +142,7 @@ describe("OrganizationService", () => {
       );
     });
 
-    it("throws a ValidationError when the user already belongs to an organization", async () => {
+    it("throws a ValidationError with reason ALREADY_IN_ORGANIZATION when the user already belongs to an organization", async () => {
       vi.mocked(membershipRepository.findByUserId).mockResolvedValue(
         buildMembership("user-1", "MANAGER"),
       );
@@ -152,7 +152,10 @@ describe("OrganizationService", () => {
           name: "Second",
           contactPhone: "+40 712 345 678",
         }),
-      ).rejects.toThrow(ValidationError);
+      ).rejects.toMatchObject({
+        name: "ValidationError",
+        reason: "ALREADY_IN_ORGANIZATION",
+      });
       expect(organizationRepository.create).not.toHaveBeenCalled();
     });
   });
@@ -247,7 +250,7 @@ describe("OrganizationService", () => {
       expect(invitationRepository.create).not.toHaveBeenCalled();
     });
 
-    it("throws a ValidationError when the email is already in the team", async () => {
+    it("throws a ValidationError with reason ALREADY_IN_TEAM when the email is already in the team", async () => {
       vi.mocked(membershipRepository.findByUserId).mockResolvedValue(
         buildMembership("owner-1", "OWNER"),
       );
@@ -259,7 +262,10 @@ describe("OrganizationService", () => {
         organizationService.inviteManager("owner-1", {
           email: "manager@example.com",
         }),
-      ).rejects.toThrow(ValidationError);
+      ).rejects.toMatchObject({
+        name: "ValidationError",
+        reason: "ALREADY_IN_TEAM",
+      });
       expect(invitationRepository.create).not.toHaveBeenCalled();
     });
   });
@@ -363,37 +369,46 @@ describe("OrganizationService", () => {
       );
     });
 
-    it("throws a NotFoundError for an unknown token", async () => {
+    it("throws a NotFoundError with reason INVITATION_NOT_FOUND for an unknown token", async () => {
       vi.mocked(invitationRepository.findByToken).mockResolvedValue(null);
 
       await expect(
         organizationService.acceptInvitation(invitedUser, { token: "missing" }),
-      ).rejects.toThrow(NotFoundError);
+      ).rejects.toMatchObject({
+        name: "NotFoundError",
+        reason: "INVITATION_NOT_FOUND",
+      });
     });
 
-    it("throws a ValidationError when the invitation was already accepted", async () => {
+    it("throws a ValidationError with reason INVITATION_USED when the invitation was already accepted", async () => {
       vi.mocked(invitationRepository.findByToken).mockResolvedValue(
         buildInvitation({ acceptedAt: new Date() }),
       );
 
       await expect(
         organizationService.acceptInvitation(invitedUser, { token: "token-1" }),
-      ).rejects.toThrow(ValidationError);
+      ).rejects.toMatchObject({
+        name: "ValidationError",
+        reason: "INVITATION_USED",
+      });
       expect(membershipRepository.create).not.toHaveBeenCalled();
     });
 
-    it("throws a ValidationError when the invitation has expired", async () => {
+    it("throws a ValidationError with reason INVITATION_EXPIRED when the invitation has expired", async () => {
       vi.mocked(invitationRepository.findByToken).mockResolvedValue(
         buildInvitation({ expiresAt: new Date(Date.now() - 1000) }),
       );
 
       await expect(
         organizationService.acceptInvitation(invitedUser, { token: "token-1" }),
-      ).rejects.toThrow(ValidationError);
+      ).rejects.toMatchObject({
+        name: "ValidationError",
+        reason: "INVITATION_EXPIRED",
+      });
       expect(membershipRepository.create).not.toHaveBeenCalled();
     });
 
-    it("throws a ForbiddenError when the user's email is not verified", async () => {
+    it("throws a ForbiddenError with reason EMAIL_NOT_VERIFIED when the user's email is not verified", async () => {
       vi.mocked(invitationRepository.findByToken).mockResolvedValue(
         buildInvitation(),
       );
@@ -403,11 +418,14 @@ describe("OrganizationService", () => {
           { ...invitedUser, isEmailVerified: false },
           { token: "token-1" },
         ),
-      ).rejects.toThrow(ForbiddenError);
+      ).rejects.toMatchObject({
+        name: "ForbiddenError",
+        reason: "EMAIL_NOT_VERIFIED",
+      });
       expect(membershipRepository.create).not.toHaveBeenCalled();
     });
 
-    it("throws a ForbiddenError when the signed-in email differs from the invited one", async () => {
+    it("throws a ForbiddenError with reason INVITATION_EMAIL_MISMATCH when the signed-in email differs from the invited one", async () => {
       vi.mocked(invitationRepository.findByToken).mockResolvedValue(
         buildInvitation(),
       );
@@ -417,7 +435,10 @@ describe("OrganizationService", () => {
           { ...invitedUser, email: "someone@example.com" },
           { token: "token-1" },
         ),
-      ).rejects.toThrow(ForbiddenError);
+      ).rejects.toMatchObject({
+        name: "ForbiddenError",
+        reason: "INVITATION_EMAIL_MISMATCH",
+      });
       expect(membershipRepository.create).not.toHaveBeenCalled();
     });
 
@@ -435,7 +456,7 @@ describe("OrganizationService", () => {
       expect(membershipRepository.create).toHaveBeenCalled();
     });
 
-    it("throws a ValidationError when the user already belongs to an organization", async () => {
+    it("throws a ValidationError with reason ALREADY_IN_ORGANIZATION when the user already belongs to an organization", async () => {
       vi.mocked(invitationRepository.findByToken).mockResolvedValue(
         buildInvitation(),
       );
@@ -445,7 +466,10 @@ describe("OrganizationService", () => {
 
       await expect(
         organizationService.acceptInvitation(invitedUser, { token: "token-1" }),
-      ).rejects.toThrow(ValidationError);
+      ).rejects.toMatchObject({
+        name: "ValidationError",
+        reason: "ALREADY_IN_ORGANIZATION",
+      });
       expect(membershipRepository.create).not.toHaveBeenCalled();
     });
   });
