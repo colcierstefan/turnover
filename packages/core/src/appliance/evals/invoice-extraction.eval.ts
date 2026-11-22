@@ -1,19 +1,19 @@
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node";
 
-import { loadInvoiceEvalCases } from "@turnover/core/appliance/invoice-extractor/evals/invoice-extractor-agent.dataset";
-import { scoreInvoiceExtraction } from "@turnover/core/appliance/invoice-extractor/evals/invoice-extractor-agent.evaluators";
-import { extractInvoice } from "@turnover/core/appliance/invoice-extractor/invoice-extractor.agent";
+import { loadInvoiceEvalCases } from "@turnover/core/appliance/evals/invoice-extraction.dataset";
+import { scoreInvoiceExtraction } from "@turnover/core/appliance/evals/invoice-extraction.evaluators";
+import invoiceExtractionService from "@turnover/core/appliance/services/invoice-extraction.service";
 import { langfuseSpanProcessor } from "@turnover/core/lib/langfuse";
 import logger from "@turnover/core/lib/logger";
 import {
-  fetchGenerationUsage,
+  fetchModelCallUsage,
   parseEvalArgs,
   selectEvalCases,
   summarizeFieldScores,
   uploadEvalFile,
 } from "@turnover/core/utils/eval.utils";
 
-const AGENT_NAME = "invoice-extractor";
+const CALL_NAME = "invoice-extraction";
 const CONTENT_TYPE = "application/pdf";
 
 new NodeTracerProvider({ spanProcessors: [langfuseSpanProcessor] }).register();
@@ -28,18 +28,20 @@ const scores = [];
 try {
   for (const evalCase of cases) {
     const fileUri = await uploadEvalFile(
-      AGENT_NAME,
+      CALL_NAME,
       `${evalCase.id}.pdf`,
       evalCase.localPath,
       CONTENT_TYPE,
     );
-    const actual = await extractInvoice({
-      fileUri,
-      contentType: CONTENT_TYPE,
-    }).catch((error: unknown) => {
-      logger.error({ id: evalCase.id, err: error }, "extraction failed");
-      return { shopName: null, purchaseDate: null, items: [] };
-    });
+    const actual = await invoiceExtractionService
+      .extract({
+        fileUri,
+        contentType: CONTENT_TYPE,
+      })
+      .catch((error: unknown) => {
+        logger.error({ id: evalCase.id, err: error }, "extraction failed");
+        return { shopName: null, purchaseDate: null, items: [] };
+      });
     const score = scoreInvoiceExtraction(evalCase.expected, actual);
     scores.push(score.invoice, ...score.items);
     const misses = [
@@ -71,6 +73,6 @@ logger.info(
   "per-field accuracy",
 );
 logger.info(
-  await fetchGenerationUsage(AGENT_NAME, startedAt, cases.length),
+  await fetchModelCallUsage(CALL_NAME, startedAt, cases.length),
   "usage from Langfuse",
 );

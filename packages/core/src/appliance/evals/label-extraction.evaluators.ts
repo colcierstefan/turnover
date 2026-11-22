@@ -1,10 +1,10 @@
-import type { LabelExpected } from "@turnover/core/appliance/label-extractor/evals/label-extractor-agent.dataset";
-import type { LabelExtractorOutput } from "@turnover/core/appliance/label-extractor/schemas/label-extractor.schema";
+import type { LabelExpected } from "@turnover/core/appliance/evals/label-extraction.dataset";
+import type { LabelExtractionOutput } from "@turnover/core/appliance/schemas/label-extraction.schema";
 import { isSameText, matchesExpected } from "@turnover/core/utils/eval.utils";
 
 export const scoreLabelExtraction = (
   expected: LabelExpected,
-  actual: LabelExtractorOutput,
+  actual: LabelExtractionOutput,
 ) => ({
   category: matchesExpected(
     expected.category,

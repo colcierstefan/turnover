@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { ApplianceCategory } from "@turnover/db/enums";
 
-const EVALS_DIR = "src/appliance/invoice-extractor/evals";
+const EVALS_DIR = "src/appliance/evals";
 
 const expectedTextSchema = z.union([
   z.string(),
@@ -34,10 +34,20 @@ const fixturesSchema = z.object({
 
 export const loadInvoiceEvalCases = async () => {
   const fixtures = fixturesSchema.parse(
-    JSON.parse(await readFile(path.join(EVALS_DIR, "fixtures.json"), "utf8")),
+    JSON.parse(
+      await readFile(
+        path.join(EVALS_DIR, "invoice-extraction.fixtures.json"),
+        "utf8",
+      ),
+    ),
   );
   return fixtures.invoices.map((invoice) => ({
     ...invoice,
-    localPath: path.join(EVALS_DIR, "fixtures", `${invoice.id}.pdf`),
+    localPath: path.join(
+      EVALS_DIR,
+      "fixtures",
+      "invoice-extraction",
+      `${invoice.id}.pdf`,
+    ),
   }));
 };

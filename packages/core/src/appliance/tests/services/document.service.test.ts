@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { extractInvoice } from "@turnover/core/appliance/invoice-extractor/invoice-extractor.agent";
-import { extractLabel } from "@turnover/core/appliance/label-extractor/label-extractor.agent";
 import applianceDocumentRepository from "@turnover/core/appliance/repositories/appliance-document.repository";
 import applianceRepository from "@turnover/core/appliance/repositories/appliance.repository";
 import documentRepository from "@turnover/core/appliance/repositories/document.repository";
 import documentService from "@turnover/core/appliance/services/document.service";
+import invoiceExtractionService from "@turnover/core/appliance/services/invoice-extraction.service";
+import labelExtractionService from "@turnover/core/appliance/services/label-extraction.service";
 import { ForbiddenError, ValidationError } from "@turnover/core/lib/errors";
 import { bucket } from "@turnover/core/lib/storage";
 import unitService from "@turnover/core/unit/services/unit.service";
@@ -21,18 +21,12 @@ vi.mock("@turnover/core/lib/logger", () => ({ default: { error: vi.fn() } }));
 vi.mock("@turnover/core/lib/storage", () => ({
   bucket: { name: "test-bucket", file: vi.fn() },
 }));
-vi.mock(
-  "@turnover/core/appliance/label-extractor/label-extractor.agent",
-  () => ({
-    extractLabel: vi.fn(),
-  }),
-);
-vi.mock(
-  "@turnover/core/appliance/invoice-extractor/invoice-extractor.agent",
-  () => ({
-    extractInvoice: vi.fn(),
-  }),
-);
+vi.mock("@turnover/core/appliance/services/label-extraction.service", () => ({
+  default: { extract: vi.fn() },
+}));
+vi.mock("@turnover/core/appliance/services/invoice-extraction.service", () => ({
+  default: { extract: vi.fn() },
+}));
 vi.mock("@turnover/core/unit/services/unit.service", () => ({
   default: { getUnit: vi.fn() },
 }));
@@ -108,7 +102,7 @@ describe("DocumentService", () => {
       });
 
     it("stores the file under the unit, saves the document and keeps the extracted fields", async () => {
-      vi.mocked(extractLabel).mockResolvedValue(labelOutput);
+      vi.mocked(labelExtractionService.extract).mockResolvedValue(labelOutput);
 
       const id = await upload();
 
@@ -122,18 +116,20 @@ describe("DocumentService", () => {
         storagePath,
         contentType: "image/jpeg",
       });
-      expect(extractLabel).toHaveBeenCalledWith({
+      expect(labelExtractionService.extract).toHaveBeenCalledWith({
         fileUri: `gs://test-bucket/${storagePath}`,
         contentType: "image/jpeg",
       });
-      expect(extractInvoice).not.toHaveBeenCalled();
+      expect(invoiceExtractionService.extract).not.toHaveBeenCalled();
       expect(documentRepository.update).toHaveBeenCalledWith(id, {
         extractedData: labelOutput,
       });
     });
 
     it("keeps the document without extracted fields when extraction fails", async () => {
-      vi.mocked(extractLabel).mockRejectedValue(new Error("schema mismatch"));
+      vi.mocked(labelExtractionService.extract).mockRejectedValue(
+        new Error("schema mismatch"),
+      );
 
       await upload();
 

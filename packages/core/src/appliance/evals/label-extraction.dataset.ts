@@ -8,9 +8,13 @@ export type LabelEvalCase = z.infer<typeof webCaseSchema> & {
   localPath: string;
 };
 
-const EVALS_DIR = "src/appliance/label-extractor/evals";
-export const WEB_IMAGES_DIR = path.join(EVALS_DIR, "images");
-const RENDERED_DIR = path.join(EVALS_DIR, "fixtures", "rendered");
+const EVALS_DIR = "src/appliance/evals";
+export const WEB_IMAGES_DIR = path.join(
+  EVALS_DIR,
+  "images",
+  "label-extraction",
+);
+const RENDERED_DIR = path.join(EVALS_DIR, "fixtures", "label-extraction");
 
 const expectedTextSchema = z.union([
   z.string(),
@@ -46,7 +50,12 @@ const fixturesSchema = z.object({
 
 export const loadLabelEvalCases = async (): Promise<LabelEvalCase[]> => {
   const fixtures = fixturesSchema.parse(
-    JSON.parse(await readFile(path.join(EVALS_DIR, "fixtures.json"), "utf8")),
+    JSON.parse(
+      await readFile(
+        path.join(EVALS_DIR, "label-extraction.fixtures.json"),
+        "utf8",
+      ),
+    ),
   );
   return [
     ...fixtures.web.map((evalCase) => ({

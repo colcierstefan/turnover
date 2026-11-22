@@ -20,12 +20,14 @@ const LANGFUSE_POLL_INTERVAL_MS = 3000;
 const observationsResponseSchema = z.object({
   data: z.array(
     z.object({
+      traceId: z.string(),
       inputUsage: z.number(),
       outputUsage: z.number(),
       totalCost: z.number().nullable(),
     }),
   ),
 });
+type Observation = z.infer<typeof observationsResponseSchema>["data"][number];
 
 export const parseEvalArgs = (argv: ReadonlyArray<string>) => {
   const limitIndex = argv.indexOf("--limit");
@@ -47,12 +49,12 @@ export const selectEvalCases = <EvalCase extends { id: string }>(
 };
 
 export const uploadEvalFile = async (
-  agentName: string,
+  callName: string,
   fileName: string,
   localPath: string,
   contentType: string,
 ) => {
-  const file = bucket.file(`evals/${agentName}/${fileName}`);
+  const file = bucket.file(`evals/${callName}/${fileName}`);
   const [exists] = await file.exists();
   if (!exists) await file.save(await readFile(localPath), { contentType });
   return `gs://${bucket.name}/${file.name}`;
@@ -90,39 +92,57 @@ export const summarizeFieldScores = (
   return summary;
 };
 
-export const fetchGenerationUsage = async (
-  generationName: string,
+export const fetchModelCallUsage = async (
+  callName: string,
   fromStartTime: Date,
   expectedCount: number,
 ) => {
+  let generations: Observation[] = [];
+  for (let attempt = 0; attempt < LANGFUSE_POLL_ATTEMPTS; attempt++) {
+    const callTraceIds = new Set(
+      (
+        await fetchObservations({
+          type: "AGENT",
+          name: `invoke_agent ${callName}`,
+          fromStartTime,
+        })
+      ).map((observation) => observation.traceId),
+    );
+    generations = (
+      await fetchObservations({ type: "GENERATION", fromStartTime })
+    ).filter((observation) => callTraceIds.has(observation.traceId));
+    if (generations.length >= expectedCount) break;
+    await sleep(LANGFUSE_POLL_INTERVAL_MS);
+  }
+
+  return {
+    calls: generations.length,
+    inputTokens: sum(generations.map((observation) => observation.inputUsage)),
+    outputTokens: sum(
+      generations.map((observation) => observation.outputUsage),
+    ),
+    totalCostUsd: sum(
+      generations.map((observation) => observation.totalCost ?? 0),
+    ),
+  };
+};
+
+const fetchObservations = async ({
+  type,
+  name,
+  fromStartTime,
+}: Readonly<{ type: string; name?: string; fromStartTime: Date }>) => {
   const url = new URL("/api/public/v2/observations", env.langfuse.baseUrl);
   url.search = new URLSearchParams({
-    type: "GENERATION",
-    name: generationName,
+    type,
+    ...(name ? { name } : {}),
     fromStartTime: fromStartTime.toISOString(),
     fields: "core,usage",
     limit: "100",
   }).toString();
   const authorization = `Basic ${Buffer.from(`${env.langfuse.publicKey}:${env.langfuse.secretKey}`).toString("base64")}`;
-
-  let observations: z.infer<typeof observationsResponseSchema>["data"] = [];
-  for (let attempt = 0; attempt < LANGFUSE_POLL_ATTEMPTS; attempt++) {
-    const response = await fetch(url, { headers: { authorization } });
-    observations = observationsResponseSchema.parse(await response.json()).data;
-    if (observations.length >= expectedCount) break;
-    await sleep(LANGFUSE_POLL_INTERVAL_MS);
-  }
-
-  return {
-    calls: observations.length,
-    inputTokens: sum(observations.map((observation) => observation.inputUsage)),
-    outputTokens: sum(
-      observations.map((observation) => observation.outputUsage),
-    ),
-    totalCostUsd: sum(
-      observations.map((observation) => observation.totalCost ?? 0),
-    ),
-  };
+  const response = await fetch(url, { headers: { authorization } });
+  return observationsResponseSchema.parse(await response.json()).data;
 };
 
 const normalizeText = (value: string) =>

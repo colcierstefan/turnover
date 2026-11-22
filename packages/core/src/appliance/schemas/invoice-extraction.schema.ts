@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { ApplianceCategory } from "@turnover/db/enums";
 
-export const invoiceExtractorInputSchema = z.object({
+export const invoiceExtractionInputSchema = z.object({
   fileUri: z.string().startsWith("gs://"),
   contentType: z.enum([
     "image/jpeg",
@@ -13,9 +13,11 @@ export const invoiceExtractorInputSchema = z.object({
     "application/pdf",
   ]),
 });
-export type InvoiceExtractorInput = z.infer<typeof invoiceExtractorInputSchema>;
+export type InvoiceExtractionInput = z.infer<
+  typeof invoiceExtractionInputSchema
+>;
 
-export const invoiceExtractorOutputSchema = z.object({
+export const invoiceExtractionOutputSchema = z.object({
   shopName: z
     .string()
     .nullable()
@@ -52,6 +54,6 @@ export const invoiceExtractorOutputSchema = z.object({
     )
     .describe("One entry per appliance line."),
 });
-export type InvoiceExtractorOutput = z.infer<
-  typeof invoiceExtractorOutputSchema
+export type InvoiceExtractionOutput = z.infer<
+  typeof invoiceExtractionOutputSchema
 >;

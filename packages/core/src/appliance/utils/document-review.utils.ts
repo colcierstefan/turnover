@@ -1,6 +1,6 @@
-import { invoiceExtractorOutputSchema } from "@turnover/core/appliance/invoice-extractor/schemas/invoice-extractor.schema";
-import { labelExtractorOutputSchema } from "@turnover/core/appliance/label-extractor/schemas/label-extractor.schema";
 import type { ApplianceFields } from "@turnover/core/appliance/schemas/appliance.schema";
+import { invoiceExtractionOutputSchema } from "@turnover/core/appliance/schemas/invoice-extraction.schema";
+import { labelExtractionOutputSchema } from "@turnover/core/appliance/schemas/label-extraction.schema";
 import { toIsoDate } from "@turnover/core/utils/date.utils";
 import type { DocumentKind } from "@turnover/db/enums";
 
@@ -65,7 +65,7 @@ const buildLabelReview = (document: Readonly<{ extractedData: unknown }>) => {
   const extracted =
     document.extractedData === null
       ? null
-      : labelExtractorOutputSchema.parse(document.extractedData);
+      : labelExtractionOutputSchema.parse(document.extractedData);
 
   const row: DocumentReviewRowDraft = {
     description: null,
@@ -92,7 +92,7 @@ const buildInvoiceReview = (document: Readonly<{ extractedData: unknown }>) => {
   const extracted =
     document.extractedData === null
       ? null
-      : invoiceExtractorOutputSchema.parse(document.extractedData);
+      : invoiceExtractionOutputSchema.parse(document.extractedData);
   const purchaseDate = extracted?.purchaseDate ?? null;
 
   const rows = (extracted?.items ?? []).map((item): DocumentReviewRowDraft => ({
