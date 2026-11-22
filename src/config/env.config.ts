@@ -18,6 +18,7 @@ const envSchema = z.object({
   GOOGLE_CLOUD_PROJECT: z.string().min(1),
   GOOGLE_CLOUD_LOCATION: z.string().min(1),
   GEMINI_MODEL_ID: z.string().min(1),
+  GOOGLE_CLOUD_STORAGE_BUCKET: z.string().min(1),
 
   LANGFUSE_PUBLIC_KEY: z.string().min(1),
   LANGFUSE_SECRET_KEY: z.string().min(1),
@@ -44,6 +45,9 @@ const env = {
     project: variables.GOOGLE_CLOUD_PROJECT,
     location: variables.GOOGLE_CLOUD_LOCATION,
     modelId: variables.GEMINI_MODEL_ID,
+  },
+  storage: {
+    bucket: variables.GOOGLE_CLOUD_STORAGE_BUCKET,
   },
   langfuse: {
     publicKey: variables.LANGFUSE_PUBLIC_KEY,

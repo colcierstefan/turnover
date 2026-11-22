@@ -4,7 +4,9 @@ import organizationService from "@/features/organization/services/organization.s
 import unitRepository from "@/features/unit/repositories/unit.repository";
 import unitService from "@/features/unit/services/unit.service";
 import { ForbiddenError, NotFoundError } from "@/lib/errors";
+import { bucket } from "@/lib/storage";
 
+vi.mock("@/lib/storage", () => ({ bucket: { deleteFiles: vi.fn() } }));
 vi.mock("@/features/organization/services/organization.service", () => ({
   default: { requireMembership: vi.fn() },
 }));
@@ -155,7 +157,7 @@ describe("UnitService", () => {
   });
 
   describe("deleteUnit", () => {
-    it("deletes a unit of the user's organization", async () => {
+    it("deletes a unit of the user's organization and its stored files", async () => {
       vi.mocked(unitRepository.findById).mockResolvedValue(unit);
       vi.mocked(organizationService.requireMembership).mockResolvedValue(
         membership,
@@ -164,6 +166,9 @@ describe("UnitService", () => {
       await unitService.deleteUnit("user-1", "unit-1");
 
       expect(unitRepository.delete).toHaveBeenCalledWith("unit-1");
+      expect(bucket.deleteFiles).toHaveBeenCalledWith({
+        prefix: "units/unit-1/",
+      });
     });
 
     it("throws a ForbiddenError for a unit of another organization", async () => {
@@ -173,6 +178,7 @@ describe("UnitService", () => {
         ForbiddenError,
       );
       expect(unitRepository.delete).not.toHaveBeenCalled();
+      expect(bucket.deleteFiles).not.toHaveBeenCalled();
     });
   });
 

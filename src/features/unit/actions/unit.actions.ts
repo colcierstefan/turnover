@@ -36,15 +36,15 @@ export async function updateUnit(
   return null;
 }
 
-export async function deleteUnit(formData: FormData) {
-  const { unitId } = unitIdInputSchema.parse(Object.fromEntries(formData));
+export async function deleteUnit(input: unknown) {
+  const { unitId } = unitIdInputSchema.parse(input);
   const user = await userService.requireCurrentUser();
   await unitService.deleteUnit(user.id, unitId);
   redirect("/units");
 }
 
-export async function regenerateReportToken(formData: FormData) {
-  const { unitId } = unitIdInputSchema.parse(Object.fromEntries(formData));
+export async function regenerateReportToken(input: unknown) {
+  const { unitId } = unitIdInputSchema.parse(input);
   const user = await userService.requireCurrentUser();
   await unitService.regenerateReportToken(user.id, unitId);
   refresh();

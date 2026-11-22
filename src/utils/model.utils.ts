@@ -42,7 +42,10 @@ export async function generateStructured<Schema extends z.ZodType>({
         output: data,
         usageDetails: {
           input: response.usageMetadata?.promptTokenCount ?? 0,
-          output: response.usageMetadata?.candidatesTokenCount ?? 0,
+          // Gemini bills thinking tokens as output.
+          output:
+            (response.usageMetadata?.candidatesTokenCount ?? 0) +
+            (response.usageMetadata?.thoughtsTokenCount ?? 0),
           total: response.usageMetadata?.totalTokenCount ?? 0,
         },
       });

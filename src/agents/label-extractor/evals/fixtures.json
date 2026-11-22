@@ -1,0 +1,473 @@
+{
+  "web": [
+    {
+      "id": "web-bosch-cropped-sticker",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2021/04/наклейка-возле-люка-и-на-дверце-1-пункт-нач.jpg",
+      "pageUrl": "https://guide.washerhouse.com/uznat-model-sm/",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": null,
+        "model": "WFLI2440EU/18",
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-lg-wd10170nd-no-serial",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2016/12/информация-о-модели-стиральной-машины-LG-на-корпусе.jpg",
+      "pageUrl": "https://guide.washerhouse.com/markirovka-stiralnyh-mashin-lg/",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "LG",
+        "model": "WD-10170ND",
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-lg-wd10400ndk",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2022/10/Где-посмотреть-модель-стиральной-машины-LG.png",
+      "pageUrl": "https://guide.washerhouse.com/uznat-model-sm-lg/",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "LG",
+        "model": "WD-10400NDK",
+        "serialNumber": "705KWAT02216",
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-siemens-ws10g140oe",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2020/09/Маркировка-стиральных-машин-Siemens.jpg",
+      "pageUrl": "https://guide.washerhouse.com/rasshifrovka-markirovki-sm-siemens/",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "Siemens",
+        "model": ["WS10G140OE/01", "WS10G1400E/01"],
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-haier-hw60-b1086",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2024/01/шильдик-стиральной-машины-Haier.jpg",
+      "pageUrl": "https://guide.washerhouse.com/markirovka-sm-haier/",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "Haier",
+        "model": "HW60-B1086",
+        "serialNumber": ["CE0JY1E0000CRC4K0033", "CEOJY1E0000CRC4K0033"],
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-indesit-iwsb5085-angled",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2021/04/Как-определить-модель-стиральной-машины.jpg",
+      "pageUrl": "https://guide.washerhouse.com/uznat-model-sm/",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "Indesit",
+        "model": ["IWSB 5085 (CIS)", "IWSB 5085"],
+        "serialNumber": "608204793",
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-lg-wm12225fd",
+      "imageUrl": "https://www.whitegoodshelp.co.uk/wordpress/wp-content/uploads/2013/10/fawmsn.jpg",
+      "pageUrl": "https://www.whitegoodshelp.co.uk/?p=15351",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "LG",
+        "model": "WM-12225FD",
+        "serialNumber": "504KWEL01852",
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-haier-hw70-1201s",
+      "imageUrl": "https://image.haier.com/ae/service-support/self-service/W020190703631170805035.jpg",
+      "pageUrl": "https://haier.com/ae/service-support/self-service/20150215_83283.shtml",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "Haier",
+        "model": "HW70-1201S-U",
+        "serialNumber": "231000244",
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-bosch-was28775-fd-only",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2021/03/где-искать-FD-номер-2-пункт.jpg",
+      "pageUrl": "https://guide.washerhouse.com/uznat-god-vypuska-sm-bosch/",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "Bosch",
+        "model": "WAS28775/23",
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-lg-m10b8nd1-dated",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2021/03/дата-может-быть-на-шильдике-1-пункт.jpg",
+      "pageUrl": "https://guide.washerhouse.com/uznat-god-vypuska-sm/",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "LG",
+        "model": "M10B8ND1",
+        "serialNumber": "309RWWK2C049",
+        "manufactureDate": "2013-09"
+      }
+    },
+    {
+      "id": "web-samsung-wf-e509nzw-dated",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2018/10/Шильда-стиральной-машины-Самсунг.jpg",
+      "pageUrl": "https://guide.washerhouse.com/uznat-god-vypuska-samsung/",
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "Samsung",
+        "model": ["WF-E509NZW", "WF-E509NZW/YLP"],
+        "serialNumber": "Y44P5ADB200164P",
+        "manufactureDate": "2011-02"
+      }
+    },
+    {
+      "id": "web-siemens-wdi1640-annotated",
+      "imageUrl": "https://guide.washerhouse.com/wp-content/uploads/2020/09/изучите-шильдик-машинки-Сименс-3-пункт.jpg",
+      "pageUrl": "https://guide.washerhouse.com/strana-proizvoditel-sm-siemens/",
+      "expected": {
+        "category": ["WASHER_DRYER", "WASHING_MACHINE"],
+        "brand": "Siemens",
+        "model": "WDI1640/03",
+        "serialNumber": "995020333794001827",
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-carrier-ac-data-tag",
+      "imageUrl": "https://inspectapedia.com/aircond/Carrier-AC-Data-Tag-Residential-127-DJFc.jpg",
+      "pageUrl": "https://inspectapedia.com/aircond/aircond06.htm",
+      "expected": {
+        "category": "AIR_CONDITIONER",
+        "brand": null,
+        "model": "38CKB048300",
+        "serialNumber": "1597E20412",
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-singer-ac-damaged",
+      "imageUrl": "https://inspectapedia.com/aircond/ACDataTagResidential126DJFs.jpg",
+      "pageUrl": "https://inspectapedia.com/aircond/aircond06.htm",
+      "expected": {
+        "category": "AIR_CONDITIONER",
+        "brand": "Singer",
+        "model": null,
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-lennox-xc14",
+      "imageUrl": "https://inspectapedia.com/aircond/Lennox-Data-Tag-Ost-Minneap_0034_DJFcs.jpg",
+      "pageUrl": "https://inspectapedia.com/aircond/aircond06.htm",
+      "expected": {
+        "category": "AIR_CONDITIONER",
+        "brand": "Lennox",
+        "model": "XC14-030-230-01",
+        "serialNumber": "5807H14681",
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "web-juno-oven-embossed",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Juno_Back-_Bratr%C3%B6hre_Typenschild.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Juno_Back-_Bratr%C3%B6hre_Typenschild.jpg",
+      "expected": {
+        "category": ["OVEN", "OTHER"],
+        "brand": ["Juno", "Burger Eisenwerke"],
+        "model": "5403",
+        "serialNumber": "6047",
+        "manufactureDate": null
+      }
+    }
+  ],
+  "rendered": [
+    {
+      "id": "rendered-bosch-fridge",
+      "layout": "bsh",
+      "lines": {
+        "brand": "BOSCH",
+        "productType": "Kühl-Gefrierkombination / Fridge-freezer",
+        "enr": "KGN39VLEB/02",
+        "fd": "FD 9905  000123",
+        "type": "KGN39"
+      },
+      "effects": {},
+      "expected": {
+        "category": "FRIDGE",
+        "brand": "Bosch",
+        "model": "KGN39VLEB/02",
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "rendered-samsung-fridge-rotated",
+      "layout": "samsung",
+      "lines": {
+        "brand": "SAMSUNG",
+        "productType": "REFRIGERATOR",
+        "model": "RB34T672ESA/EF",
+        "serial": "0BG54BEN800123X",
+        "date": "2021.03"
+      },
+      "effects": {
+        "rotateDegrees": 12
+      },
+      "expected": {
+        "category": "FRIDGE",
+        "brand": "Samsung",
+        "model": "RB34T672ESA/EF",
+        "serialNumber": "0BG54BEN800123X",
+        "manufactureDate": "2021-03"
+      }
+    },
+    {
+      "id": "rendered-lg-dishwasher-blurred",
+      "layout": "lg",
+      "lines": {
+        "brand": "LG",
+        "productType": "DISHWASHER",
+        "model": "DF243FWS",
+        "serial": "107KWFV0A123",
+        "date": "09/2021"
+      },
+      "effects": {
+        "blurSigma": 1.6
+      },
+      "expected": {
+        "category": "DISHWASHER",
+        "brand": "LG",
+        "model": "DF243FWS",
+        "serialNumber": "107KWFV0A123",
+        "manufactureDate": "2021-09"
+      }
+    },
+    {
+      "id": "rendered-whirlpool-microwave",
+      "layout": "generic",
+      "lines": {
+        "brand": "Whirlpool",
+        "productType": "MICROWAVE OVEN",
+        "model": "MWP 253 SB",
+        "serial": "SN 9105ABC0001",
+        "extra": "12NC 859991547780"
+      },
+      "effects": {},
+      "expected": {
+        "category": "MICROWAVE",
+        "brand": "Whirlpool",
+        "model": "MWP 253 SB",
+        "serialNumber": "9105ABC0001",
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "rendered-beko-dryer-full-date",
+      "layout": "generic",
+      "lines": {
+        "brand": "BEKO",
+        "productType": "TUMBLE DRYER",
+        "model": "DS8433RX",
+        "serial": "S/N 7188283700-20-11",
+        "date": "Production date: 2020-11-04"
+      },
+      "effects": {},
+      "expected": {
+        "category": "DRYER",
+        "brand": "Beko",
+        "model": "DS8433RX",
+        "serialNumber": "7188283700-20-11",
+        "manufactureDate": "2020-11-04"
+      }
+    },
+    {
+      "id": "rendered-arctic-washer-cropped-serial",
+      "layout": "generic",
+      "lines": {
+        "brand": "ARCTIC",
+        "productType": "MAȘINĂ DE SPĂLAT RUFE",
+        "model": "APL81223XLW3",
+        "serial": "S/N 18-100123-10",
+        "extra": "7001540032"
+      },
+      "effects": {
+        "cropRightFraction": 0.45
+      },
+      "expected": {
+        "category": "WASHING_MACHINE",
+        "brand": "Arctic",
+        "model": "APL81223XLW3",
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "rendered-ariston-water-heater-romanian",
+      "layout": "generic",
+      "lines": {
+        "brand": "ARISTON",
+        "productType": "BOILER ELECTRIC / WATER HEATER",
+        "model": "VELIS EVO 80 EU",
+        "serial": "Nr. serie 21160123456789",
+        "date": "Data fabricației: 04/2021"
+      },
+      "effects": {},
+      "expected": {
+        "category": "WATER_HEATER",
+        "brand": "Ariston",
+        "model": "VELIS EVO 80 EU",
+        "serialNumber": "21160123456789",
+        "manufactureDate": "2021-04"
+      }
+    },
+    {
+      "id": "rendered-daikin-ac-glare",
+      "layout": "generic",
+      "lines": {
+        "brand": "DAIKIN",
+        "productType": "ROOM AIR CONDITIONER - INDOOR UNIT",
+        "model": "FTXF35D5V1B",
+        "serial": "SERIAL No. E006321",
+        "date": "MFG. 2022.06"
+      },
+      "effects": {
+        "glare": true
+      },
+      "expected": {
+        "category": "AIR_CONDITIONER",
+        "brand": "Daikin",
+        "model": "FTXF35D5V1B",
+        "serialNumber": "E006321",
+        "manufactureDate": "2022-06"
+      }
+    },
+    {
+      "id": "rendered-electrolux-dishwasher-pnc",
+      "layout": "generic",
+      "lines": {
+        "brand": "Electrolux",
+        "productType": "DISHWASHER",
+        "model": "ESF5545LOW",
+        "serial": "S.N. 01234567",
+        "extra": "PNC 911 516 236 00"
+      },
+      "effects": {
+        "rotateDegrees": -8
+      },
+      "expected": {
+        "category": "DISHWASHER",
+        "brand": "Electrolux",
+        "model": "ESF5545LOW",
+        "serialNumber": "01234567",
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "rendered-teka-hood-no-serial",
+      "layout": "generic",
+      "lines": {
+        "brand": "TEKA",
+        "productType": "EXTRACTOR HOOD",
+        "model": "DBB 60",
+        "extra": "220-240V~ 50Hz  110W"
+      },
+      "effects": {},
+      "expected": {
+        "category": "EXTRACTOR_HOOD",
+        "brand": "Teka",
+        "model": "DBB 60",
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "rendered-delonghi-coffee-blurred-rotated",
+      "layout": "generic",
+      "lines": {
+        "brand": "De'Longhi",
+        "productType": "COFFEE MAKER",
+        "model": "ECAM22.110.B",
+        "serial": "SN 3519203411",
+        "date": "Prod. 2023/02"
+      },
+      "effects": {
+        "rotateDegrees": 6,
+        "blurSigma": 1.2
+      },
+      "expected": {
+        "category": "COFFEE_MACHINE",
+        "brand": ["De'Longhi", "DeLonghi"],
+        "model": "ECAM22.110.B",
+        "serialNumber": "3519203411",
+        "manufactureDate": "2023-02"
+      }
+    },
+    {
+      "id": "rendered-gorenje-freezer-cropped-brand",
+      "layout": "generic",
+      "lines": {
+        "brand": "gorenje",
+        "productType": "FREEZER",
+        "model": "FN6192PX",
+        "serial": "S/N 12345678",
+        "date": "Production: 2018/07"
+      },
+      "effects": {
+        "cropTopFraction": 0.2
+      },
+      "expected": {
+        "category": "FREEZER",
+        "brand": null,
+        "model": "FN6192PX",
+        "serialNumber": "12345678",
+        "manufactureDate": "2018-07"
+      }
+    },
+    {
+      "id": "rendered-blank-grey",
+      "layout": "blank",
+      "lines": {},
+      "effects": {},
+      "expected": {
+        "category": "OTHER",
+        "brand": null,
+        "model": null,
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    },
+    {
+      "id": "rendered-blank-heavy-blur",
+      "layout": "generic",
+      "lines": {
+        "brand": "SIEMENS",
+        "productType": "DISHWASHER",
+        "model": "SN236I00ME",
+        "serial": "FD 9906 000456"
+      },
+      "effects": {
+        "blurSigma": 14
+      },
+      "expected": {
+        "category": "OTHER",
+        "brand": null,
+        "model": null,
+        "serialNumber": null,
+        "manufactureDate": null
+      }
+    }
+  ]
+}
