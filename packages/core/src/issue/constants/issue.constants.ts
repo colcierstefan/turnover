@@ -1,10 +1,18 @@
 import type {
   EmergencyType,
+  IssueCategory,
+  IssueStatus,
   ReporterLanguage,
   ReporterRole,
 } from "@turnover/db/enums";
 
-export type { EmergencyType, ReporterLanguage, ReporterRole };
+export type {
+  EmergencyType,
+  IssueCategory,
+  IssueStatus,
+  ReporterLanguage,
+  ReporterRole,
+};
 
 export const MAX_REPORT_PHOTOS = 3;
 export const MAX_REPORT_PHOTO_BYTES = 10 * 1024 * 1024;
@@ -19,3 +27,18 @@ export const REPORT_PHOTO_CONTENT_TYPES = [
   "image/heif",
 ] as const;
 export const EMERGENCY_PHONE_NUMBER = "112";
+export const HANDYMAN_TRADES = [
+  "PLUMBER",
+  "ELECTRICIAN",
+  "APPLIANCE_TECHNICIAN",
+  "AC_TECHNICIAN",
+  "LOCKSMITH",
+  "GENERAL_HANDYMAN",
+] as const;
+export type HandymanTrade = (typeof HANDYMAN_TRADES)[number];
+export const WARRANTY_STATUSES = [
+  "UNDER_WARRANTY",
+  "EXPIRED",
+  "UNKNOWN",
+] as const;
+export type WarrantyStatus = (typeof WARRANTY_STATUSES)[number];

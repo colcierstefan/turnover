@@ -6,7 +6,10 @@ import { ISSUE_REPORT_TEXT } from "@turnover/core/issue/constants/issue-report-t
 import type { ReporterLanguage } from "@turnover/core/issue/constants/issue.constants";
 
 import Button from "@/components/button";
-import { markIssueFixed } from "@/features/issue/actions/issue-report.actions";
+import {
+  markIssueFixed,
+  markIssueStillBroken,
+} from "@/features/issue/actions/issue-report.actions";
 
 export default function IssueReportTips({
   reportToken,
@@ -57,7 +60,16 @@ export default function IssueReportTips({
         type="button"
         variant="secondary"
         disabled={isPending}
-        onClick={onStillBroken}
+        onClick={() =>
+          startTransition(async () => {
+            try {
+              await markIssueStillBroken({ reportToken, issueId });
+              onStillBroken();
+            } catch {
+              setError(text.stepFailed);
+            }
+          })
+        }
       >
         {text.stillBroken}
       </Button>

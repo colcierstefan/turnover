@@ -4,7 +4,11 @@ import type {
 } from "@turnover/core/appliance/constants/appliance.constants";
 import type {
   EmergencyType,
+  HandymanTrade,
+  IssueCategory,
+  IssueStatus,
   ReporterRole,
+  WarrantyStatus,
 } from "@turnover/core/issue/constants/issue.constants";
 import type { UserErrorReason } from "@turnover/core/lib/errors";
 import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
@@ -25,6 +29,8 @@ type FormErrorField =
   | "address"
   | "contactPhone"
   | "email"
+  | "description"
+  | "photos"
   | "category"
   | "file"
   | "count"
@@ -41,7 +47,13 @@ type ManagerText = {
   formErrors: Record<FormErrorField, string>;
   formInvalid: string;
   userErrors: Record<UserErrorReason, string>;
-  header: { units: string; team: string; settings: string; logOut: string };
+  header: {
+    units: string;
+    issues: string;
+    team: string;
+    settings: string;
+    logOut: string;
+  };
   copyLink: string;
   copied: string;
   save: string;
@@ -80,6 +92,7 @@ type ManagerText = {
   unit: {
     allUnits: string;
     openIssuesTitle: string;
+    reportIssue: string;
     appliancesTitle: string;
     addAppliance: string;
     waitingForReviewTitle: string;
@@ -97,10 +110,52 @@ type ManagerText = {
     newLinkConfirm: string;
   };
   issues: {
+    title: string;
     empty: string;
     emergency: (type: string) => string;
     reporterRoles: Record<ReporterRole, string>;
     emergencyTypes: Record<EmergencyType, string>;
+    statuses: Record<IssueStatus, string>;
+  };
+  issue: {
+    title: string;
+    photosTitle: string;
+    photoAlt: (index: number) => string;
+    followUpsTitle: string;
+    noAnswer: string;
+    tipsTitle: string;
+    fixedByReporter: string;
+    diagnosisTitle: string;
+    notDiagnosed: string;
+    diagnose: string;
+    diagnoseAgain: string;
+    diagnosing: string;
+    diagnoseFailed: string;
+    applianceLabel: string;
+    noAppliance: string;
+    warranty: Record<WarrantyStatus, (date: string) => string>;
+    categories: Record<IssueCategory, string>;
+    likelyCauseTitle: string;
+    nextStepsTitle: string;
+    tradeLabel: string;
+    trades: Record<HandymanTrade, string>;
+    estimateTitle: string;
+    estimateIntro: string;
+    partCost: string;
+    labourCost: string;
+    newApplianceCost: string;
+    costRange: (minRon: string, maxRon: string) => string;
+  };
+  newIssue: {
+    title: string;
+    intro: string;
+    descriptionLabel: string;
+    descriptionPlaceholder: string;
+    photosLabel: string;
+    applianceLabel: string;
+    noAppliance: string;
+    submit: string;
+    submitting: string;
   };
   appliance: {
     categories: Record<ApplianceCategory, string>;
@@ -180,6 +235,8 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       address: "Enter an address of up to 300 characters.",
       contactPhone: "Enter a phone number, e.g. +40 712 345 678.",
       email: "Enter a valid email.",
+      description: "Describe the problem in up to 2000 characters.",
+      photos: "Add up to 3 photos, each under 10 MB.",
       category: "Choose a category.",
       brand: "Keep the brand under 100 characters.",
       model: "Keep the model under 100 characters.",
@@ -207,6 +264,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
     },
     header: {
       units: "Units",
+      issues: "Issues",
       team: "Team",
       settings: "Settings",
       logOut: "Log out",
@@ -251,6 +309,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
     unit: {
       allUnits: "← All units",
       openIssuesTitle: "Open issues",
+      reportIssue: "Report an issue",
       appliancesTitle: "Appliances",
       addAppliance: "Add appliance",
       waitingForReviewTitle: "Waiting for review",
@@ -277,6 +336,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
         "The current link and QR code will stop working at once. Continue?",
     },
     issues: {
+      title: "Open issues",
       empty: "No open issues.",
       emergency: (type) => `Emergency: ${type}`,
       reporterRoles: { GUEST: "Guest", CLEANER: "Cleaner", MANAGER: "Manager" },
@@ -285,6 +345,70 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
         WATER_LEAK: "Water leak",
         ELECTRICAL_BURNING: "Electrical burning",
       },
+      statuses: {
+        NEW: "New",
+        DIAGNOSED: "Diagnosed",
+        CONTACTED: "Handyman contacted",
+        SCHEDULED: "Scheduled",
+        RESOLVED: "Resolved",
+      },
+    },
+    issue: {
+      title: "Issue",
+      photosTitle: "Photos",
+      photoAlt: (index) => `Photo ${index}`,
+      followUpsTitle: "Follow-up questions",
+      noAnswer: "No answer",
+      tipsTitle: "Tips shown to the reporter",
+      fixedByReporter: "The reporter said the tips fixed it.",
+      diagnosisTitle: "Diagnosis",
+      notDiagnosed: "Not diagnosed yet.",
+      diagnose: "Diagnose",
+      diagnoseAgain: "Diagnose again",
+      diagnosing: "Diagnosing…",
+      diagnoseFailed: "The diagnosis failed. Try again.",
+      applianceLabel: "Appliance",
+      noAppliance: "None of the appliances",
+      warranty: {
+        UNDER_WARRANTY: (date) => `Under warranty until ${date}`,
+        EXPIRED: (date) => `Warranty ended ${date}`,
+        UNKNOWN: () => "Warranty unknown",
+      },
+      categories: {
+        SELF_FIX: "Fix without a handyman",
+        PART: "Replace a part",
+        REPAIR: "Repair",
+        REPLACE: "Replace the appliance",
+      },
+      likelyCauseTitle: "Likely cause",
+      nextStepsTitle: "Next steps",
+      tradeLabel: "Who to call",
+      trades: {
+        PLUMBER: "Plumber",
+        ELECTRICIAN: "Electrician",
+        APPLIANCE_TECHNICIAN: "Appliance technician",
+        AC_TECHNICIAN: "AC technician",
+        LOCKSMITH: "Locksmith",
+        GENERAL_HANDYMAN: "General handyman",
+      },
+      estimateTitle: "Estimate, not a quote",
+      estimateIntro:
+        "Typical Romanian prices estimated by AI. Ask your handyman for a quote.",
+      partCost: "Part",
+      labourCost: "Labour",
+      newApplianceCost: "Comparable new appliance",
+      costRange: (minRon, maxRon) => `${minRon} to ${maxRon} RON`,
+    },
+    newIssue: {
+      title: "Report an issue",
+      intro: "The issue is diagnosed as soon as you send it.",
+      descriptionLabel: "What is wrong?",
+      descriptionPlaceholder: "e.g. The washing machine does not drain",
+      photosLabel: "Photos (up to 3)",
+      applianceLabel: "Appliance (optional)",
+      noAppliance: "Not sure, or none of these",
+      submit: "Report and diagnose",
+      submitting: "Diagnosing…",
     },
     appliance: {
       categories: {
@@ -399,6 +523,8 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       address: "Introdu o adresă de cel mult 300 de caractere.",
       contactPhone: "Introdu un număr de telefon, de ex. +40 712 345 678.",
       email: "Introdu o adresă de email validă.",
+      description: "Descrie problema în cel mult 2000 de caractere.",
+      photos: "Adaugă cel mult 3 fotografii, fiecare sub 10 MB.",
       category: "Alege o categorie.",
       brand: "Marca poate avea cel mult 100 de caractere.",
       model: "Modelul poate avea cel mult 100 de caractere.",
@@ -426,6 +552,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
     },
     header: {
       units: "Unități",
+      issues: "Probleme",
       team: "Echipă",
       settings: "Setări",
       logOut: "Deconectare",
@@ -471,6 +598,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
     unit: {
       allUnits: "← Toate unitățile",
       openIssuesTitle: "Probleme deschise",
+      reportIssue: "Raportează o problemă",
       appliancesTitle: "Aparate",
       addAppliance: "Adaugă un aparat",
       waitingForReviewTitle: "De verificat",
@@ -497,6 +625,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
         "Linkul și codul QR actuale nu vor mai funcționa imediat. Continui?",
     },
     issues: {
+      title: "Probleme deschise",
       empty: "Nicio problemă deschisă.",
       emergency: (type) => `Urgență: ${type}`,
       reporterRoles: {
@@ -509,6 +638,71 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
         WATER_LEAK: "Scurgere de apă",
         ELECTRICAL_BURNING: "Miros de ars de la instalația electrică",
       },
+      statuses: {
+        NEW: "Nouă",
+        DIAGNOSED: "Diagnosticată",
+        CONTACTED: "Meșter contactat",
+        SCHEDULED: "Programată",
+        RESOLVED: "Rezolvată",
+      },
+    },
+    issue: {
+      title: "Problemă",
+      photosTitle: "Fotografii",
+      photoAlt: (index) => `Fotografia ${index}`,
+      followUpsTitle: "Întrebări suplimentare",
+      noAnswer: "Fără răspuns",
+      tipsTitle: "Sfaturi afișate celui care a raportat",
+      fixedByReporter:
+        "Cel care a raportat a spus că sfaturile au rezolvat problema.",
+      diagnosisTitle: "Diagnostic",
+      notDiagnosed: "Nu a fost diagnosticată încă.",
+      diagnose: "Diagnostichează",
+      diagnoseAgain: "Diagnostichează din nou",
+      diagnosing: "Se diagnostichează…",
+      diagnoseFailed: "Diagnosticul a eșuat. Încearcă din nou.",
+      applianceLabel: "Aparat",
+      noAppliance: "Niciunul dintre aparate",
+      warranty: {
+        UNDER_WARRANTY: (date) => `În garanție până la ${date}`,
+        EXPIRED: (date) => `Garanția a expirat pe ${date}`,
+        UNKNOWN: () => "Garanție necunoscută",
+      },
+      categories: {
+        SELF_FIX: "Se rezolvă fără meșter",
+        PART: "Înlocuirea unei piese",
+        REPAIR: "Reparație",
+        REPLACE: "Înlocuirea aparatului",
+      },
+      likelyCauseTitle: "Cauza probabilă",
+      nextStepsTitle: "Pașii următori",
+      tradeLabel: "Pe cine chemi",
+      trades: {
+        PLUMBER: "Instalator",
+        ELECTRICIAN: "Electrician",
+        APPLIANCE_TECHNICIAN: "Tehnician electrocasnice",
+        AC_TECHNICIAN: "Tehnician aer condiționat",
+        LOCKSMITH: "Lăcătuș",
+        GENERAL_HANDYMAN: "Meșter general",
+      },
+      estimateTitle: "Estimare, nu ofertă",
+      estimateIntro:
+        "Prețuri obișnuite în România, estimate de AI. Cere o ofertă de la meșterul tău.",
+      partCost: "Piesă",
+      labourCost: "Manoperă",
+      newApplianceCost: "Aparat nou comparabil",
+      costRange: (minRon, maxRon) => `între ${minRon} și ${maxRon} lei`,
+    },
+    newIssue: {
+      title: "Raportează o problemă",
+      intro: "Problema este diagnosticată imediat ce o trimiți.",
+      descriptionLabel: "Ce nu funcționează?",
+      descriptionPlaceholder: "ex. Mașina de spălat nu evacuează apa",
+      photosLabel: "Fotografii (maximum 3)",
+      applianceLabel: "Aparat (opțional)",
+      noAppliance: "Nu știu sau niciunul dintre acestea",
+      submit: "Raportează și diagnostichează",
+      submitting: "Se diagnostichează…",
     },
     appliance: {
       categories: {

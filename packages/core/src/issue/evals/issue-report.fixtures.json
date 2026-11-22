@@ -6,7 +6,14 @@
       "role": "GUEST",
       "description": "There is a strong gas smell in the kitchen near the stove.",
       "followUps": [],
-      "expected": { "emergencyType": "GAS_SMELL", "hasTips": null }
+      "expected": {
+        "emergencyType": "GAS_SMELL",
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": ["HOB", null],
+          "category": ["REPAIR"]
+        }
+      }
     },
     {
       "id": "ro-gas-faint-unsure",
@@ -14,7 +21,14 @@
       "role": "GUEST",
       "description": "Miroase puțin a gaz lângă aragaz, nu sunt sigur.",
       "followUps": [],
-      "expected": { "emergencyType": "GAS_SMELL", "hasTips": null }
+      "expected": {
+        "emergencyType": "GAS_SMELL",
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": ["HOB", null],
+          "category": ["REPAIR"]
+        }
+      }
     },
     {
       "id": "en-gas-detector-beeping",
@@ -22,7 +36,13 @@
       "role": "GUEST",
       "description": "The detector on the kitchen ceiling keeps beeping loudly and there is a weird smell, a bit like rotten eggs.",
       "followUps": [],
-      "expected": { "emergencyType": "GAS_SMELL", "hasTips": null }
+      "expected": {
+        "emergencyType": "GAS_SMELL",
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": ["HOB", null]
+        }
+      }
     },
     {
       "id": "en-water-ceiling-dripping",
@@ -30,7 +50,15 @@
       "role": "CLEANER",
       "description": "Water is dripping from the bathroom ceiling, I think the neighbours upstairs have a leak.",
       "followUps": [],
-      "expected": { "emergencyType": "WATER_LEAK", "hasTips": null }
+      "expected": {
+        "emergencyType": "WATER_LEAK",
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": null,
+          "category": "REPAIR",
+          "trade": "PLUMBER"
+        }
+      }
     },
     {
       "id": "ro-water-washer-hose-burst",
@@ -38,7 +66,15 @@
       "role": "CLEANER",
       "description": "S-a spart furtunul de la mașina de spălat și curge apă pe tot holul.",
       "followUps": [],
-      "expected": { "emergencyType": "WATER_LEAK", "hasTips": null }
+      "expected": {
+        "emergencyType": "WATER_LEAK",
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": "WASHING_MACHINE",
+          "category": ["PART", "REPAIR"],
+          "trade": ["PLUMBER", "APPLIANCE_TECHNICIAN"]
+        }
+      }
     },
     {
       "id": "ro-water-sink-pipe-spraying",
@@ -46,7 +82,15 @@
       "role": "CLEANER",
       "description": "Sub chiuveta din bucătărie e apă pe jos și țeava stropește când deschid robinetul.",
       "followUps": [],
-      "expected": { "emergencyType": "WATER_LEAK", "hasTips": null }
+      "expected": {
+        "emergencyType": "WATER_LEAK",
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": null,
+          "category": ["PART", "REPAIR"],
+          "trade": "PLUMBER"
+        }
+      }
     },
     {
       "id": "en-electrical-socket-hot",
@@ -54,7 +98,15 @@
       "role": "GUEST",
       "description": "The socket behind the TV smells like burning plastic and is hot to touch.",
       "followUps": [],
-      "expected": { "emergencyType": "ELECTRICAL_BURNING", "hasTips": null }
+      "expected": {
+        "emergencyType": "ELECTRICAL_BURNING",
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": null,
+          "category": "REPAIR",
+          "trade": "ELECTRICIAN"
+        }
+      }
     },
     {
       "id": "ro-electrical-ac-smoke",
@@ -62,7 +114,15 @@
       "role": "GUEST",
       "description": "Iese fum din aerul condiționat și se simte miros de ars în dormitor.",
       "followUps": [],
-      "expected": { "emergencyType": "ELECTRICAL_BURNING", "hasTips": null }
+      "expected": {
+        "emergencyType": "ELECTRICAL_BURNING",
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": "AIR_CONDITIONER",
+          "category": ["REPAIR", "REPLACE"],
+          "trade": "AC_TECHNICIAN"
+        }
+      }
     },
     {
       "id": "en-electrical-plug-sparks",
@@ -70,7 +130,15 @@
       "role": "GUEST",
       "description": "Sparks came out of the socket when I plugged in the kettle and now there is a burnt smell.",
       "followUps": [],
-      "expected": { "emergencyType": "ELECTRICAL_BURNING", "hasTips": null }
+      "expected": {
+        "emergencyType": "ELECTRICAL_BURNING",
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": null,
+          "category": "REPAIR",
+          "trade": "ELECTRICIAN"
+        }
+      }
     },
     {
       "id": "en-washer-child-lock",
@@ -78,7 +146,15 @@
       "role": "GUEST",
       "description": "The washing machine will not start. The display shows a small key symbol and the buttons do nothing.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": true }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": true,
+        "diagnosis": {
+          "applianceCategory": "WASHING_MACHINE",
+          "category": "SELF_FIX",
+          "trade": null
+        }
+      }
     },
     {
       "id": "ro-power-out-two-rooms",
@@ -91,7 +167,15 @@
           "answer": "Da, după ce am pornit fierbătorul și mașina de spălat în același timp."
         }
       ],
-      "expected": { "emergencyType": null, "hasTips": true }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": true,
+        "diagnosis": {
+          "applianceCategory": null,
+          "category": ["SELF_FIX", "REPAIR"],
+          "trade": ["ELECTRICIAN", null]
+        }
+      }
     },
     {
       "id": "en-dishwasher-dirty-water-left",
@@ -104,7 +188,15 @@
           "answer": "No, nothing."
         }
       ],
-      "expected": { "emergencyType": null, "hasTips": true }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": true,
+        "diagnosis": {
+          "applianceCategory": "DISHWASHER",
+          "category": ["SELF_FIX", "REPAIR"],
+          "trade": ["APPLIANCE_TECHNICIAN", null]
+        }
+      }
     },
     {
       "id": "en-tv-no-signal",
@@ -112,7 +204,15 @@
       "role": "GUEST",
       "description": "The TV turns on but only shows 'No signal'.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": true }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": true,
+        "diagnosis": {
+          "applianceCategory": "TV",
+          "category": "SELF_FIX",
+          "trade": null
+        }
+      }
     },
     {
       "id": "ro-ac-remote-dead",
@@ -120,7 +220,15 @@
       "role": "GUEST",
       "description": "Telecomanda de la aerul condiționat nu face nimic, ecranul ei e gol.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": true }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": true,
+        "diagnosis": {
+          "applianceCategory": "AIR_CONDITIONER",
+          "category": ["SELF_FIX", "PART"],
+          "trade": null
+        }
+      }
     },
     {
       "id": "en-oven-clock-blinking",
@@ -128,7 +236,15 @@
       "role": "CLEANER",
       "description": "The oven does not heat up at all. The clock on it is blinking 0:00.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": true }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": true,
+        "diagnosis": {
+          "applianceCategory": "OVEN",
+          "category": ["SELF_FIX", "REPAIR"],
+          "trade": [null, "APPLIANCE_TECHNICIAN"]
+        }
+      }
     },
     {
       "id": "en-hood-weak-greasy",
@@ -136,7 +252,15 @@
       "role": "GUEST",
       "description": "The extractor hood is very weak, it barely pulls the steam, and it smells greasy.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": true }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": true,
+        "diagnosis": {
+          "applianceCategory": "EXTRACTOR_HOOD",
+          "category": ["SELF_FIX", "PART"],
+          "trade": null
+        }
+      }
     },
     {
       "id": "ro-ac-blowing-warm",
@@ -149,7 +273,15 @@
           "answer": "Un soare."
         }
       ],
-      "expected": { "emergencyType": null, "hasTips": true }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": true,
+        "diagnosis": {
+          "applianceCategory": "AIR_CONDITIONER",
+          "category": "REPAIR",
+          "trade": "AC_TECHNICIAN"
+        }
+      }
     },
     {
       "id": "ro-no-hot-water",
@@ -162,7 +294,15 @@
           "answer": "Nu, e totul stins."
         }
       ],
-      "expected": { "emergencyType": null, "hasTips": null }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": "WATER_HEATER",
+          "category": ["REPAIR", "SELF_FIX"],
+          "trade": ["PLUMBER", "ELECTRICIAN", "APPLIANCE_TECHNICIAN", null]
+        }
+      }
     },
     {
       "id": "ro-dishwasher-e15",
@@ -170,7 +310,15 @@
       "role": "CLEANER",
       "description": "Mașina de spălat vase nu se umple cu apă și afișează eroarea E15.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": null }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": "DISHWASHER",
+          "category": "REPAIR",
+          "trade": "APPLIANCE_TECHNICIAN"
+        }
+      }
     },
     {
       "id": "en-fridge-handle-broken",
@@ -178,7 +326,15 @@
       "role": "GUEST",
       "description": "The fridge door handle broke off when I opened it.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": false }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": false,
+        "diagnosis": {
+          "applianceCategory": "FRIDGE",
+          "category": "PART",
+          "trade": [null, "GENERAL_HANDYMAN", "APPLIANCE_TECHNICIAN"]
+        }
+      }
     },
     {
       "id": "ro-fridge-seal-torn",
@@ -186,7 +342,15 @@
       "role": "CLEANER",
       "description": "Garnitura de la ușa frigiderului e ruptă și ușa nu se mai închide etanș.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": false }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": false,
+        "diagnosis": {
+          "applianceCategory": "FRIDGE",
+          "category": "PART",
+          "trade": [null, "GENERAL_HANDYMAN", "APPLIANCE_TECHNICIAN"]
+        }
+      }
     },
     {
       "id": "en-washer-banging-spin",
@@ -199,7 +363,15 @@
           "answer": "Just two big towels."
         }
       ],
-      "expected": { "emergencyType": null, "hasTips": null }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": "WASHING_MACHINE",
+          "category": ["REPAIR", "SELF_FIX"],
+          "trade": ["APPLIANCE_TECHNICIAN", null]
+        }
+      }
     },
     {
       "id": "en-fridge-not-cooling",
@@ -212,7 +384,15 @@
           "answer": "No, it is silent."
         }
       ],
-      "expected": { "emergencyType": null, "hasTips": null }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": "FRIDGE",
+          "category": ["REPAIR", "REPLACE"],
+          "trade": "APPLIANCE_TECHNICIAN"
+        }
+      }
     },
     {
       "id": "ro-microwave-not-heating",
@@ -220,7 +400,15 @@
       "role": "GUEST",
       "description": "Cuptorul cu microunde se învârte și are lumină, dar nu încălzește mâncarea.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": null }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": "MICROWAVE",
+          "category": ["REPAIR", "REPLACE"],
+          "trade": ["APPLIANCE_TECHNICIAN", null]
+        }
+      }
     },
     {
       "id": "en-shower-head-broken",
@@ -228,7 +416,15 @@
       "role": "GUEST",
       "description": "The shower head is cracked and sprays water sideways onto the bathroom floor while showering.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": false }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": false,
+        "diagnosis": {
+          "applianceCategory": null,
+          "category": "PART",
+          "trade": [null, "PLUMBER"]
+        }
+      }
     },
     {
       "id": "en-toilet-keeps-running",
@@ -236,7 +432,15 @@
       "role": "GUEST",
       "description": "After flushing, the toilet keeps running water into the bowl and never stops.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": null }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": null,
+          "category": ["PART", "REPAIR"],
+          "trade": "PLUMBER"
+        }
+      }
     },
     {
       "id": "ro-tap-slow-drip",
@@ -244,7 +448,15 @@
       "role": "GUEST",
       "description": "Robinetul de la chiuveta din baie picură încet chiar dacă e închis bine.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": null }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": null,
+          "category": ["PART", "REPAIR"],
+          "trade": "PLUMBER"
+        }
+      }
     },
     {
       "id": "en-tv-screen-cracked",
@@ -252,7 +464,15 @@
       "role": "CLEANER",
       "description": "The TV screen is cracked in the corner, half of the picture is black lines.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": false }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": false,
+        "diagnosis": {
+          "applianceCategory": "TV",
+          "category": "REPLACE",
+          "trade": [null, "APPLIANCE_TECHNICIAN"]
+        }
+      }
     },
     {
       "id": "en-coffee-machine-puddle",
@@ -260,7 +480,15 @@
       "role": "GUEST",
       "description": "The coffee machine leaves a small puddle of water under it every time I make a coffee.",
       "followUps": [],
-      "expected": { "emergencyType": null, "hasTips": null }
+      "expected": {
+        "emergencyType": null,
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": "COFFEE_MACHINE",
+          "category": ["SELF_FIX", "REPAIR"],
+          "trade": [null, "APPLIANCE_TECHNICIAN"]
+        }
+      }
     },
     {
       "id": "en-oven-first-use-smell",
@@ -270,7 +498,12 @@
       "followUps": [],
       "expected": {
         "emergencyType": [null, "ELECTRICAL_BURNING"],
-        "hasTips": null
+        "hasTips": null,
+        "diagnosis": {
+          "applianceCategory": "OVEN",
+          "category": "SELF_FIX",
+          "trade": null
+        }
       }
     }
   ]

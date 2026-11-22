@@ -16,6 +16,7 @@ export default function AppHeader({
       </Link>
       <nav className="flex flex-1 gap-4">
         <Link href="/units">{text.units}</Link>
+        <Link href="/issues">{text.issues}</Link>
         <Link href="/team">{text.team}</Link>
         <Link href="/settings">{text.settings}</Link>
       </nav>

@@ -4,6 +4,7 @@ import applianceService from "@turnover/core/appliance/services/appliance.servic
 import issueFollowUpRepository from "@turnover/core/issue/repositories/issue-follow-up.repository";
 import issuePhotoRepository from "@turnover/core/issue/repositories/issue-photo.repository";
 import issueRepository from "@turnover/core/issue/repositories/issue.repository";
+import issueDiagnosisService from "@turnover/core/issue/services/issue-diagnosis.service";
 import issueService from "@turnover/core/issue/services/issue.service";
 import reportTriageService from "@turnover/core/issue/services/report-triage.service";
 import selfHelpTipsService from "@turnover/core/issue/services/self-help-tips.service";
@@ -12,7 +13,9 @@ import {
   TooManyRequestsError,
   ValidationError,
 } from "@turnover/core/lib/errors";
+import logger from "@turnover/core/lib/logger";
 import { bucket } from "@turnover/core/lib/storage";
+import organizationService from "@turnover/core/organization/services/organization.service";
 import unitService from "@turnover/core/unit/services/unit.service";
 
 vi.mock("@turnover/core/lib/logger", () => ({ default: { error: vi.fn() } }));
@@ -23,7 +26,16 @@ vi.mock("@turnover/core/unit/services/unit.service", () => ({
   default: { getUnit: vi.fn(), getUnitByReportToken: vi.fn() },
 }));
 vi.mock("@turnover/core/appliance/services/appliance.service", () => ({
-  default: { listAppliancesByReportToken: vi.fn() },
+  default: {
+    listAppliancesByReportToken: vi.fn(),
+    listAppliancesByUnitId: vi.fn(),
+  },
+}));
+vi.mock("@turnover/core/organization/services/organization.service", () => ({
+  default: { getOwnerLanguage: vi.fn(), requireMembership: vi.fn() },
+}));
+vi.mock("@turnover/core/issue/services/issue-diagnosis.service", () => ({
+  default: { diagnose: vi.fn() },
 }));
 vi.mock("@turnover/core/issue/services/report-triage.service", () => ({
   default: { triage: vi.fn() },
@@ -35,6 +47,7 @@ vi.mock("@turnover/core/issue/repositories/issue.repository", () => ({
   default: {
     create: vi.fn(),
     findById: vi.fn(),
+    findDetailsById: vi.fn(),
     countByUnitIdSince: vi.fn(),
     countByUnitId: vi.fn(),
     listOpenByUnitId: vi.fn(),
@@ -87,13 +100,14 @@ const appliance = {
 const buildIssue = (
   overrides: Partial<{
     unitId: string;
-    status: "NEW" | "RESOLVED";
+    applianceId: string | null;
+    status: "NEW" | "CONTACTED" | "RESOLVED";
     isEmergency: boolean;
   }> = {},
 ) => ({
   id: issueId,
   unitId,
-  applianceId: null,
+  applianceId: null as string | null,
   reporterRole: "GUEST" as const,
   reporterName: null,
   reporterLanguage: "EN" as const,
@@ -131,6 +145,35 @@ const submitInput = {
 
 const storedFile = { save: vi.fn() };
 
+const buildIssueDetails = (
+  overrides: Parameters<typeof buildIssue>[0] = {},
+) => ({
+  ...buildIssue(overrides),
+  unit,
+  appliance: null,
+  photos: [
+    {
+      id: "photo-1",
+      issueId,
+      storagePath: `units/${unitId}/issues/${issueId}/photo-1`,
+      contentType: "image/jpeg",
+      createdAt: new Date("2026-11-22T10:00:00Z"),
+    },
+  ],
+  followUps: [{ ...followUp, answer: "Nothing" }],
+});
+
+const diagnosis = {
+  likelyCause: "The drain pump is blocked.",
+  nextSteps: ["Call an appliance technician."],
+  trade: "APPLIANCE_TECHNICIAN" as const,
+  partCostRon: { minRon: 150, maxRon: 250 },
+  labourCostRon: { minRon: 200, maxRon: 300 },
+  newApplianceCostRon: { minRon: 1800, maxRon: 2400 },
+};
+
+const manager = { id: "user-1", name: "Ana", language: "RO" as const };
+
 describe("IssueService", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -138,6 +181,18 @@ describe("IssueService", () => {
     vi.mocked(applianceService.listAppliancesByReportToken).mockResolvedValue([
       appliance,
     ]);
+    vi.mocked(applianceService.listAppliancesByUnitId).mockResolvedValue([
+      { ...appliance, warrantyUntil: new Date("2099-01-31") },
+    ]);
+    vi.mocked(issueRepository.findDetailsById).mockResolvedValue(
+      buildIssueDetails(),
+    );
+    vi.mocked(organizationService.getOwnerLanguage).mockResolvedValue("RO");
+    vi.mocked(issueDiagnosisService.diagnose).mockResolvedValue({
+      applianceId: "appliance-1",
+      category: "REPAIR",
+      ...diagnosis,
+    });
     vi.mocked(issueRepository.countByUnitIdSince).mockResolvedValue(0);
     vi.mocked(issueRepository.create).mockResolvedValue(buildIssue());
     vi.mocked(issueRepository.findById).mockResolvedValue(buildIssue());
@@ -354,6 +409,141 @@ describe("IssueService", () => {
       await expect(
         issueService.markFixedByReporter({ reportToken, issueId }),
       ).rejects.toThrow(ValidationError);
+    });
+  });
+
+  describe("diagnoseReportedIssue", () => {
+    it("diagnoses in the owner's language and stores the result", async () => {
+      await issueService.diagnoseReportedIssue(issueId);
+
+      expect(issueDiagnosisService.diagnose).toHaveBeenCalledWith({
+        description: "The washing machine does not start",
+        reporterRole: "GUEST",
+        emergencyType: null,
+        followUps: [
+          { question: "Does the display show anything?", answer: "Nothing" },
+        ],
+        appliances: [
+          {
+            id: "appliance-1",
+            category: "WASHING_MACHINE",
+            brand: "Bosch",
+            model: "WAN28262BY",
+            manufactureDate: null,
+            purchaseDate: null,
+            warrantyUntil: "2099-01-31",
+            warrantyStatus: "UNDER_WARRANTY",
+          },
+        ],
+        confirmedApplianceId: null,
+        language: "RO",
+        today: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+        photos: [
+          {
+            fileUri: `gs://test-bucket/units/${unitId}/issues/${issueId}/photo-1`,
+            contentType: "image/jpeg",
+          },
+        ],
+      });
+      expect(issueRepository.update).toHaveBeenCalledWith(issueId, {
+        applianceId: "appliance-1",
+        category: "REPAIR",
+        diagnosis,
+        status: "DIAGNOSED",
+      });
+    });
+
+    it("uses the reporter's language when the owner has not chosen one", async () => {
+      vi.mocked(organizationService.getOwnerLanguage).mockResolvedValue(null);
+
+      await issueService.diagnoseReportedIssue(issueId);
+
+      expect(issueDiagnosisService.diagnose).toHaveBeenCalledWith(
+        expect.objectContaining({ language: "EN" }),
+      );
+    });
+
+    it("logs a failed diagnosis and leaves the issue unchanged", async () => {
+      vi.mocked(issueDiagnosisService.diagnose).mockRejectedValue(
+        new Error("Vertex unavailable"),
+      );
+
+      await issueService.diagnoseReportedIssue(issueId);
+
+      expect(logger.error).toHaveBeenCalled();
+      expect(issueRepository.update).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("diagnoseIssue", () => {
+    it("keeps the appliance already set and the later status", async () => {
+      vi.mocked(issueRepository.findDetailsById).mockResolvedValue(
+        buildIssueDetails({ applianceId: "appliance-1", status: "CONTACTED" }),
+      );
+      vi.mocked(issueDiagnosisService.diagnose).mockResolvedValue({
+        applianceId: null,
+        category: "REPLACE",
+        ...diagnosis,
+      });
+
+      await issueService.diagnoseIssue(manager, issueId);
+
+      expect(issueDiagnosisService.diagnose).toHaveBeenCalledWith(
+        expect.objectContaining({
+          confirmedApplianceId: "appliance-1",
+          language: "RO",
+        }),
+      );
+      expect(issueRepository.update).toHaveBeenCalledWith(issueId, {
+        applianceId: "appliance-1",
+        category: "REPLACE",
+        diagnosis,
+        status: "CONTACTED",
+      });
+    });
+
+    it("throws a NotFoundError for an unknown issue", async () => {
+      vi.mocked(issueRepository.findDetailsById).mockResolvedValue(null);
+
+      await expect(
+        issueService.diagnoseIssue(manager, issueId),
+      ).rejects.toThrow(NotFoundError);
+      expect(issueDiagnosisService.diagnose).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("reportIssueAsManager", () => {
+    const reportInput = {
+      unitId,
+      description: "The dishwasher does not drain",
+      applianceId: "appliance-1",
+      photos: [],
+    };
+
+    it("creates a manager issue in the manager's language and diagnoses it", async () => {
+      await issueService.reportIssueAsManager(manager, reportInput);
+
+      expect(issueRepository.create).toHaveBeenCalledWith({
+        unitId,
+        applianceId: "appliance-1",
+        reporterRole: "MANAGER",
+        reporterName: "Ana",
+        reporterLanguage: "RO",
+        description: "The dishwasher does not drain",
+      });
+      expect(issueDiagnosisService.diagnose).toHaveBeenCalledWith(
+        expect.objectContaining({ language: "RO" }),
+      );
+    });
+
+    it("throws a NotFoundError for an appliance of another unit", async () => {
+      await expect(
+        issueService.reportIssueAsManager(manager, {
+          ...reportInput,
+          applianceId: "appliance-elsewhere",
+        }),
+      ).rejects.toThrow(NotFoundError);
+      expect(issueRepository.create).not.toHaveBeenCalled();
     });
   });
 });

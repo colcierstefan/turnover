@@ -57,3 +57,25 @@ export const reportedIssueInputSchema = z.object({
   issueId: z.uuid(),
 });
 export type ReportedIssueInput = z.infer<typeof reportedIssueInputSchema>;
+
+export const reportIssueAsManagerInputSchema = z.object({
+  unitId: z.uuid(),
+  description: z.string().trim().min(1).max(2000),
+  applianceId: z
+    .union([z.uuid(), z.literal("")])
+    .transform((applianceId) => applianceId || null),
+  photos: z.array(reportPhotoSchema).max(MAX_REPORT_PHOTOS),
+});
+export type ReportIssueAsManagerInput = z.infer<
+  typeof reportIssueAsManagerInputSchema
+>;
+
+export const issueIdInputSchema = z.object({ issueId: z.uuid() });
+
+export const changeIssueApplianceInputSchema = z.object({
+  issueId: z.uuid(),
+  applianceId: z.uuid().nullable(),
+});
+export type ChangeIssueApplianceInput = z.infer<
+  typeof changeIssueApplianceInputSchema
+>;

@@ -39,6 +39,12 @@ class OrganizationService {
     return membership;
   }
 
+  async getOwnerLanguage(organizationId: string) {
+    const owner =
+      await membershipRepository.findOwnerByOrganizationId(organizationId);
+    return owner.user.language;
+  }
+
   async createOrganization(userId: string, input: CreateOrganizationInput) {
     if (await membershipRepository.findByUserId(userId)) {
       throw new ValidationError(

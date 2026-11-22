@@ -63,6 +63,12 @@ async function Unit({
         <h1 className="text-2xl font-semibold">{unit.name}</h1>
         <Card title={text.openIssuesTitle}>
           <IssueOpenList issues={openIssues} language={user.language} />
+          <Link
+            href={`/units/${unit.id}/issues/new`}
+            className="rounded border border-foreground/20 px-4 py-2 text-center font-medium"
+          >
+            {text.reportIssue}
+          </Link>
         </Card>
         <Card title={text.appliancesTitle}>
           <ApplianceList

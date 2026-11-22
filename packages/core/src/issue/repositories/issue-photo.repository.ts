@@ -10,6 +10,17 @@ class IssuePhotoRepository {
   ) {
     return db.issuePhoto.create({ data });
   }
+
+  findById(id: string, db: Prisma.TransactionClient = prisma) {
+    return db.issuePhoto.findUnique({ where: { id } });
+  }
+
+  listByIssueId(issueId: string, db: Prisma.TransactionClient = prisma) {
+    return db.issuePhoto.findMany({
+      where: { issueId },
+      orderBy: { createdAt: "asc" },
+    });
+  }
 }
 
 const issuePhotoRepository = new IssuePhotoRepository();
