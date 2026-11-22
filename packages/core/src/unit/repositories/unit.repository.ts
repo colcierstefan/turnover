@@ -19,7 +19,10 @@ class UnitRepository {
     reportToken: string,
     db: Prisma.TransactionClient = prisma,
   ) {
-    return db.unit.findUnique({ where: { reportToken } });
+    return db.unit.findUnique({
+      where: { reportToken },
+      include: { organization: true },
+    });
   }
 
   listByOrganizationId(

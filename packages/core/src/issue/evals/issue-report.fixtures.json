@@ -1,0 +1,277 @@
+{
+  "cases": [
+    {
+      "id": "en-gas-strong-kitchen",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "There is a strong gas smell in the kitchen near the stove.",
+      "followUps": [],
+      "expected": { "emergencyType": "GAS_SMELL", "hasTips": null }
+    },
+    {
+      "id": "ro-gas-faint-unsure",
+      "language": "RO",
+      "role": "GUEST",
+      "description": "Miroase puțin a gaz lângă aragaz, nu sunt sigur.",
+      "followUps": [],
+      "expected": { "emergencyType": "GAS_SMELL", "hasTips": null }
+    },
+    {
+      "id": "en-gas-detector-beeping",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The detector on the kitchen ceiling keeps beeping loudly and there is a weird smell, a bit like rotten eggs.",
+      "followUps": [],
+      "expected": { "emergencyType": "GAS_SMELL", "hasTips": null }
+    },
+    {
+      "id": "en-water-ceiling-dripping",
+      "language": "EN",
+      "role": "CLEANER",
+      "description": "Water is dripping from the bathroom ceiling, I think the neighbours upstairs have a leak.",
+      "followUps": [],
+      "expected": { "emergencyType": "WATER_LEAK", "hasTips": null }
+    },
+    {
+      "id": "ro-water-washer-hose-burst",
+      "language": "RO",
+      "role": "CLEANER",
+      "description": "S-a spart furtunul de la mașina de spălat și curge apă pe tot holul.",
+      "followUps": [],
+      "expected": { "emergencyType": "WATER_LEAK", "hasTips": null }
+    },
+    {
+      "id": "ro-water-sink-pipe-spraying",
+      "language": "RO",
+      "role": "CLEANER",
+      "description": "Sub chiuveta din bucătărie e apă pe jos și țeava stropește când deschid robinetul.",
+      "followUps": [],
+      "expected": { "emergencyType": "WATER_LEAK", "hasTips": null }
+    },
+    {
+      "id": "en-electrical-socket-hot",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The socket behind the TV smells like burning plastic and is hot to touch.",
+      "followUps": [],
+      "expected": { "emergencyType": "ELECTRICAL_BURNING", "hasTips": null }
+    },
+    {
+      "id": "ro-electrical-ac-smoke",
+      "language": "RO",
+      "role": "GUEST",
+      "description": "Iese fum din aerul condiționat și se simte miros de ars în dormitor.",
+      "followUps": [],
+      "expected": { "emergencyType": "ELECTRICAL_BURNING", "hasTips": null }
+    },
+    {
+      "id": "en-electrical-plug-sparks",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "Sparks came out of the socket when I plugged in the kettle and now there is a burnt smell.",
+      "followUps": [],
+      "expected": { "emergencyType": "ELECTRICAL_BURNING", "hasTips": null }
+    },
+    {
+      "id": "en-washer-child-lock",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The washing machine will not start. The display shows a small key symbol and the buttons do nothing.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": true }
+    },
+    {
+      "id": "ro-power-out-two-rooms",
+      "language": "RO",
+      "role": "GUEST",
+      "description": "Nu merge curentul în baie și în bucătărie. În sufragerie și dormitor e lumină.",
+      "followUps": [
+        {
+          "question": "S-a întâmplat după ce ați pornit un aparat anume?",
+          "answer": "Da, după ce am pornit fierbătorul și mașina de spălat în același timp."
+        }
+      ],
+      "expected": { "emergencyType": null, "hasTips": true }
+    },
+    {
+      "id": "en-dishwasher-dirty-water-left",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The dishwasher finishes its program but the dishes are still dirty and there is dirty water left at the bottom.",
+      "followUps": [
+        {
+          "question": "Does the display show an error code?",
+          "answer": "No, nothing."
+        }
+      ],
+      "expected": { "emergencyType": null, "hasTips": true }
+    },
+    {
+      "id": "en-tv-no-signal",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The TV turns on but only shows 'No signal'.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": true }
+    },
+    {
+      "id": "ro-ac-remote-dead",
+      "language": "RO",
+      "role": "GUEST",
+      "description": "Telecomanda de la aerul condiționat nu face nimic, ecranul ei e gol.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": true }
+    },
+    {
+      "id": "en-oven-clock-blinking",
+      "language": "EN",
+      "role": "CLEANER",
+      "description": "The oven does not heat up at all. The clock on it is blinking 0:00.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": true }
+    },
+    {
+      "id": "en-hood-weak-greasy",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The extractor hood is very weak, it barely pulls the steam, and it smells greasy.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": true }
+    },
+    {
+      "id": "ro-ac-blowing-warm",
+      "language": "RO",
+      "role": "GUEST",
+      "description": "Aerul condiționat pornește dar nu răcește deloc, iese aer cald.",
+      "followUps": [
+        {
+          "question": "Ce simbol de mod apare pe telecomandă?",
+          "answer": "Un soare."
+        }
+      ],
+      "expected": { "emergencyType": null, "hasTips": true }
+    },
+    {
+      "id": "ro-no-hot-water",
+      "language": "RO",
+      "role": "GUEST",
+      "description": "Nu avem apă caldă la duș. Apa rece curge normal.",
+      "followUps": [
+        {
+          "question": "Boilerul are vreun beculeț aprins?",
+          "answer": "Nu, e totul stins."
+        }
+      ],
+      "expected": { "emergencyType": null, "hasTips": null }
+    },
+    {
+      "id": "ro-dishwasher-e15",
+      "language": "RO",
+      "role": "CLEANER",
+      "description": "Mașina de spălat vase nu se umple cu apă și afișează eroarea E15.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": null }
+    },
+    {
+      "id": "en-fridge-handle-broken",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The fridge door handle broke off when I opened it.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": false }
+    },
+    {
+      "id": "ro-fridge-seal-torn",
+      "language": "RO",
+      "role": "CLEANER",
+      "description": "Garnitura de la ușa frigiderului e ruptă și ușa nu se mai închide etanș.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": false }
+    },
+    {
+      "id": "en-washer-banging-spin",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The washing machine makes a very loud banging noise during the spin and moves across the floor.",
+      "followUps": [
+        {
+          "question": "Was the drum very full or was it a single heavy item?",
+          "answer": "Just two big towels."
+        }
+      ],
+      "expected": { "emergencyType": null, "hasTips": null }
+    },
+    {
+      "id": "en-fridge-not-cooling",
+      "language": "EN",
+      "role": "CLEANER",
+      "description": "The fridge is not cooling, everything inside is warm, but the inside light works.",
+      "followUps": [
+        {
+          "question": "Can you hear the fridge humming at all?",
+          "answer": "No, it is silent."
+        }
+      ],
+      "expected": { "emergencyType": null, "hasTips": null }
+    },
+    {
+      "id": "ro-microwave-not-heating",
+      "language": "RO",
+      "role": "GUEST",
+      "description": "Cuptorul cu microunde se învârte și are lumină, dar nu încălzește mâncarea.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": null }
+    },
+    {
+      "id": "en-shower-head-broken",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The shower head is cracked and sprays water sideways onto the bathroom floor while showering.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": false }
+    },
+    {
+      "id": "en-toilet-keeps-running",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "After flushing, the toilet keeps running water into the bowl and never stops.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": null }
+    },
+    {
+      "id": "ro-tap-slow-drip",
+      "language": "RO",
+      "role": "GUEST",
+      "description": "Robinetul de la chiuveta din baie picură încet chiar dacă e închis bine.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": null }
+    },
+    {
+      "id": "en-tv-screen-cracked",
+      "language": "EN",
+      "role": "CLEANER",
+      "description": "The TV screen is cracked in the corner, half of the picture is black lines.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": false }
+    },
+    {
+      "id": "en-coffee-machine-puddle",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "The coffee machine leaves a small puddle of water under it every time I make a coffee.",
+      "followUps": [],
+      "expected": { "emergencyType": null, "hasTips": null }
+    },
+    {
+      "id": "en-oven-first-use-smell",
+      "language": "EN",
+      "role": "GUEST",
+      "description": "There is a light burnt food smell when the oven heats up, probably old grease inside.",
+      "followUps": [],
+      "expected": {
+        "emergencyType": [null, "ELECTRICAL_BURNING"],
+        "hasTips": null
+      }
+    }
+  ]
+}

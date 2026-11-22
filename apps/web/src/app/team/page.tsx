@@ -4,6 +4,7 @@ import organizationService from "@turnover/core/organization/services/organizati
 
 import AppHeader from "@/components/app-header";
 import Card from "@/components/card";
+import OrganizationContactPhoneForm from "@/features/organization/components/team/organization-contact-phone-form";
 import OrganizationInviteForm from "@/features/organization/components/team/organization-invite-form";
 import OrganizationMemberList from "@/features/organization/components/team/organization-member-list";
 import OrganizationPendingInvitationList from "@/features/organization/components/team/organization-pending-invitation-list";
@@ -38,6 +39,11 @@ async function Team() {
       </Card>
       {isOwner && (
         <>
+          <Card title="Emergency contact">
+            <OrganizationContactPhoneForm
+              contactPhone={membership.organization.contactPhone}
+            />
+          </Card>
           <Card title="Invite a manager">
             <OrganizationInviteForm
               organizationName={membership.organization.name}

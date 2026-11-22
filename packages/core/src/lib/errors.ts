@@ -9,3 +9,7 @@ export class ForbiddenError extends Error {
 export class ValidationError extends Error {
   name = "ValidationError";
 }
+
+export class TooManyRequestsError extends Error {
+  name = "TooManyRequestsError";
+}

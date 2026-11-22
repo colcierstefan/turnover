@@ -15,6 +15,7 @@ import type {
   CreateOrganizationInput,
   InviteManagerInput,
   RemoveManagerInput,
+  UpdateContactPhoneInput,
 } from "@turnover/core/organization/schemas/organization.schema";
 import { generateToken } from "@turnover/core/utils/token.utils";
 
@@ -45,7 +46,7 @@ class OrganizationService {
 
     return prisma.$transaction(async (transaction) => {
       const organization = await organizationRepository.create(
-        { name: input.name },
+        { name: input.name, contactPhone: input.contactPhone },
         transaction,
       );
       await membershipRepository.create(
@@ -66,6 +67,13 @@ class OrganizationService {
       ),
     ]);
     return { members, pendingInvitations };
+  }
+
+  async updateContactPhone(userId: string, input: UpdateContactPhoneInput) {
+    const membership = await this.requireOwner(userId);
+    return organizationRepository.update(membership.organizationId, {
+      contactPhone: input.contactPhone,
+    });
   }
 
   async inviteManager(userId: string, input: InviteManagerInput) {

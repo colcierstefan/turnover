@@ -13,6 +13,7 @@ import {
   createOrganizationInputSchema,
   inviteManagerInputSchema,
   removeManagerInputSchema,
+  updateContactPhoneInputSchema,
 } from "@turnover/core/organization/schemas/organization.schema";
 import organizationService from "@turnover/core/organization/services/organization.service";
 import userService from "@turnover/core/user/services/user.service";
@@ -39,6 +40,21 @@ export async function createOrganization(
     throw error;
   }
   redirect("/units");
+}
+
+export async function updateContactPhone(
+  _previousState: { error: string } | { isSaved: true } | null,
+  formData: FormData,
+) {
+  const parsed = updateContactPhoneInputSchema.safeParse(
+    Object.fromEntries(formData),
+  );
+  if (!parsed.success) return { error: parsed.error.issues[0].message };
+
+  const user = await userService.requireCurrentUser();
+  await organizationService.updateContactPhone(user.id, parsed.data);
+  refresh();
+  return { isSaved: true as const };
 }
 
 export async function inviteManager(
