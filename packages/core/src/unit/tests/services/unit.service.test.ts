@@ -31,6 +31,7 @@ const membership = {
   organization: {
     id: "org-1",
     name: "Cluj Stays",
+    contactPhone: null,
     createdAt: new Date("2026-11-01T00:00:00Z"),
   },
 };

@@ -10,6 +10,14 @@ class OrganizationRepository {
   ) {
     return db.organization.create({ data });
   }
+
+  update(
+    id: string,
+    data: Prisma.OrganizationUpdateInput,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.organization.update({ where: { id }, data });
+  }
 }
 
 const organizationRepository = new OrganizationRepository();

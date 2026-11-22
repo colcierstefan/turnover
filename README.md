@@ -75,3 +75,5 @@ pnpm dev
 | `pnpm check:vertex`             | One plain and one search-grounded Vertex call, traced to Langfuse     |
 | `pnpm evals:label-extraction`   | Label extraction evals against Vertex (`--limit N`, `--only id,id`)   |
 | `pnpm evals:invoice-extraction` | Invoice extraction evals against Vertex (`--limit N`, `--only id,id`) |
+| `pnpm evals:report-triage`      | Report triage evals against Vertex (`--limit N`, `--only id,id`)      |
+| `pnpm evals:self-help-tips`     | Self-help tips evals against Vertex (`--limit N`, `--only id,id`)     |

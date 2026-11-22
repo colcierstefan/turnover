@@ -3,12 +3,14 @@ import Link from "next/link";
 
 import applianceService from "@turnover/core/appliance/services/appliance.service";
 import documentService from "@turnover/core/appliance/services/document.service";
+import issueService from "@turnover/core/issue/services/issue.service";
 import unitService from "@turnover/core/unit/services/unit.service";
 
 import AppHeader from "@/components/app-header";
 import Card from "@/components/card";
 import ApplianceList from "@/features/appliance/components/appliance/appliance-list";
 import DocumentUnreviewedList from "@/features/appliance/components/document/document-unreviewed-list";
+import IssueOpenList from "@/features/issue/components/issue/issue-open-list";
 import { getSignedInMembership } from "@/features/organization/server/organization-membership.server";
 import UnitDeleteButton from "@/features/unit/components/unit/unit-delete-button";
 import UnitEditForm from "@/features/unit/components/unit/unit-edit-form";
@@ -41,16 +43,28 @@ async function Unit({
   const { user } = await getSignedInMembership(`/units/${unitId}`);
   const unit = await unitService.getUnit(user.id, unitId);
   const reportUrl = getReportUrl(unit.reportToken);
-  const [qrSvg, appliances, unreviewedDocuments, contents] = await Promise.all([
+  const [
+    qrSvg,
+    appliances,
+    unreviewedDocuments,
+    contents,
+    openIssues,
+    issueCount,
+  ] = await Promise.all([
     createReportQrSvg(reportUrl),
     applianceService.listAppliances(user.id, unitId),
     documentService.listUnreviewedDocuments(user.id, unitId),
     applianceService.countUnitContents(user.id, unitId),
+    issueService.listOpenIssues(user.id, unitId),
+    issueService.countIssues(user.id, unitId),
   ]);
 
   return (
     <>
       <h1 className="text-2xl font-semibold">{unit.name}</h1>
+      <Card title="Open issues">
+        <IssueOpenList issues={openIssues} />
+      </Card>
       <Card title="Appliances">
         <ApplianceList unitId={unit.id} appliances={appliances} />
         <Link
@@ -76,6 +90,7 @@ async function Unit({
         unit={unit}
         applianceCount={contents.applianceCount}
         documentCount={contents.documentCount}
+        issueCount={issueCount}
       />
     </>
   );

@@ -20,6 +20,13 @@ export default function OrganizationCreateForm() {
         placeholder="e.g. Cluj Stays"
         required
       />
+      <Input
+        label="Contact phone (shown to guests in an emergency)"
+        name="contactPhone"
+        type="tel"
+        placeholder="+40 712 345 678"
+        required
+      />
       {error && <p className="text-sm text-red-600">{error}</p>}
       <Button type="submit" disabled={isPending}>
         Create organization

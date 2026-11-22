@@ -7,14 +7,16 @@ export default function UnitDeleteButton({
   unit,
   applianceCount,
   documentCount,
+  issueCount,
 }: Readonly<{
   unit: { id: string; name: string };
   applianceCount: number;
   documentCount: number;
+  issueCount: number;
 }>) {
   const contents =
-    applianceCount + documentCount > 0
-      ? ` This also deletes ${pluralize(applianceCount, "appliance")} and ${pluralize(documentCount, "document")}.`
+    applianceCount + documentCount + issueCount > 0
+      ? ` This also deletes ${pluralize(applianceCount, "appliance")}, ${pluralize(documentCount, "document")} and ${pluralize(issueCount, "issue")}.`
       : "";
 
   return (

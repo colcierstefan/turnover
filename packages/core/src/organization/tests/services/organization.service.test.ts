@@ -22,7 +22,7 @@ vi.mock("@turnover/core/lib/db", () => ({
 vi.mock(
   "@turnover/core/organization/repositories/organization.repository",
   () => ({
-    default: { create: vi.fn() },
+    default: { create: vi.fn(), update: vi.fn() },
   }),
 );
 vi.mock(
@@ -52,6 +52,7 @@ vi.mock(
 const organization = {
   id: "org-1",
   name: "Cluj Stays",
+  contactPhone: null,
   createdAt: new Date("2026-11-01T00:00:00Z"),
 };
 
@@ -132,6 +133,7 @@ describe("OrganizationService", () => {
       expect(
         await organizationService.createOrganization("user-1", {
           name: "Cluj Stays",
+          contactPhone: "+40 712 345 678",
         }),
       ).toEqual(organization);
       expect(membershipRepository.create).toHaveBeenCalledWith(
@@ -146,7 +148,10 @@ describe("OrganizationService", () => {
       );
 
       await expect(
-        organizationService.createOrganization("user-1", { name: "Second" }),
+        organizationService.createOrganization("user-1", {
+          name: "Second",
+          contactPhone: "+40 712 345 678",
+        }),
       ).rejects.toThrow(ValidationError);
       expect(organizationRepository.create).not.toHaveBeenCalled();
     });
@@ -160,6 +165,36 @@ describe("OrganizationService", () => {
         ForbiddenError,
       );
       expect(membershipRepository.listByOrganizationId).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("updateContactPhone", () => {
+    it("updates the phone of the owner's organization", async () => {
+      vi.mocked(membershipRepository.findByUserId).mockResolvedValue(
+        buildMembership("owner-1", "OWNER"),
+      );
+
+      await organizationService.updateContactPhone("owner-1", {
+        contactPhone: "+40 712 345 678",
+      });
+
+      expect(organizationRepository.update).toHaveBeenCalledWith(
+        organization.id,
+        { contactPhone: "+40 712 345 678" },
+      );
+    });
+
+    it("throws a ForbiddenError for a manager", async () => {
+      vi.mocked(membershipRepository.findByUserId).mockResolvedValue(
+        buildMembership("manager-1", "MANAGER"),
+      );
+
+      await expect(
+        organizationService.updateContactPhone("manager-1", {
+          contactPhone: "+40 712 345 678",
+        }),
+      ).rejects.toThrow(ForbiddenError);
+      expect(organizationRepository.update).not.toHaveBeenCalled();
     });
   });
 

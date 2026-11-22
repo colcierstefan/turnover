@@ -23,6 +23,12 @@ class ApplianceService {
     return appliances.map(toApplianceView);
   }
 
+  async listAppliancesByReportToken(reportToken: string) {
+    const unit = await unitService.getUnitByReportToken(reportToken);
+    if (!unit) throw new NotFoundError("This report link is no longer valid");
+    return applianceRepository.listByUnitId(unit.id);
+  }
+
   async getAppliance(userId: string, applianceId: string) {
     const appliance = await applianceRepository.findById(applianceId);
     if (!appliance)

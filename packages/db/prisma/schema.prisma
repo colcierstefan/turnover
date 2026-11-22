@@ -19,9 +19,10 @@ model User {
 
 model Organization {
   id          String       @id @default(uuid())
-  name        String
-  createdAt   DateTime     @default(now())
-  memberships Membership[]
+  name         String
+  contactPhone String?
+  createdAt    DateTime     @default(now())
+  memberships  Membership[]
   invitations Invitation[]
   units       Unit[]
 }
@@ -66,6 +67,7 @@ model Unit {
   createdAt            DateTime     @default(now())
   appliances           Appliance[]
   documents            Document[]
+  issues               Issue[]
 
   @@index([organizationId])
 }
@@ -104,6 +106,7 @@ model Appliance {
   notes            String?
   createdAt        DateTime            @default(now())
   documents        ApplianceDocument[]
+  issues           Issue[]
 
   @@index([unitId])
 }
@@ -137,4 +140,86 @@ model ApplianceDocument {
 
   @@id([applianceId, documentId])
   @@index([documentId])
+}
+
+enum IssueStatus {
+  NEW
+  DIAGNOSED
+  CONTACTED
+  SCHEDULED
+  RESOLVED
+}
+
+enum IssueCategory {
+  SELF_FIX
+  PART
+  REPAIR
+  REPLACE
+}
+
+enum ReporterRole {
+  GUEST
+  CLEANER
+  MANAGER
+}
+
+enum ReporterLanguage {
+  EN
+  RO
+}
+
+enum EmergencyType {
+  GAS_SMELL
+  WATER_LEAK
+  ELECTRICAL_BURNING
+}
+
+model Issue {
+  id                 String           @id @default(uuid())
+  unitId             String
+  unit               Unit             @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  applianceId        String?
+  appliance          Appliance?       @relation(fields: [applianceId], references: [id], onDelete: SetNull)
+  reporterRole       ReporterRole
+  reporterName       String?
+  reporterLanguage   ReporterLanguage
+  description        String
+  status             IssueStatus      @default(NEW)
+  category           IssueCategory?
+  diagnosis          Json?
+  isEmergency        Boolean          @default(false)
+  emergencyType      EmergencyType?
+  selfHelpTips       Json?
+  resolvedByReporter Boolean          @default(false)
+  costRon            Decimal?         @db.Decimal(10, 2)
+  costNote           String?
+  resolvedAt         DateTime?
+  createdAt          DateTime         @default(now())
+  photos             IssuePhoto[]
+  followUps          IssueFollowUp[]
+
+  @@index([unitId, createdAt])
+  @@index([applianceId])
+}
+
+model IssuePhoto {
+  id          String   @id @default(uuid())
+  issueId     String
+  issue       Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  storagePath String
+  contentType String
+  createdAt   DateTime @default(now())
+
+  @@index([issueId])
+}
+
+model IssueFollowUp {
+  id        String   @id @default(uuid())
+  issueId   String
+  issue     Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  question  String
+  answer    String?
+  createdAt DateTime @default(now())
+
+  @@index([issueId])
 }
