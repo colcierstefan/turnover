@@ -2,30 +2,36 @@
 
 import { useActionState } from "react";
 
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
+
 import Button from "@/components/button";
 import Input from "@/components/input";
 import { createUnit } from "@/features/unit/actions/unit.actions";
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
-export default function UnitCreateForm() {
+export default function UnitCreateForm({
+  language,
+}: Readonly<{ language: UserLanguage }>) {
+  const text = MANAGER_TEXT[language].units;
   const [error, formAction, isPending] = useActionState(createUnit, null);
 
   return (
     <form action={formAction} className="flex flex-col gap-4">
       <Input
-        label="Name"
+        label={text.nameLabel}
         name="name"
-        placeholder="e.g. Old Town studio"
+        placeholder={text.namePlaceholder}
         required
       />
       <Input
-        label="Address"
+        label={text.addressLabel}
         name="address"
-        placeholder="Street, number, apartment, city"
+        placeholder={text.addressPlaceholder}
         required
       />
       {error && <p className="text-sm text-red-600">{error}</p>}
       <Button type="submit" disabled={isPending}>
-        Add unit
+        {text.addUnit}
       </Button>
     </form>
   );

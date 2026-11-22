@@ -2,13 +2,18 @@
 
 import { useActionState } from "react";
 
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
+
 import Button from "@/components/button";
 import Input from "@/components/input";
 import { updateContactPhone } from "@/features/organization/actions/organization.actions";
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
 export default function OrganizationContactPhoneForm({
   contactPhone,
-}: Readonly<{ contactPhone: string | null }>) {
+  language,
+}: Readonly<{ contactPhone: string | null; language: UserLanguage }>) {
+  const text = MANAGER_TEXT[language].team;
   const [state, formAction, isPending] = useActionState(
     updateContactPhone,
     null,
@@ -16,11 +21,9 @@ export default function OrganizationContactPhoneForm({
 
   return (
     <form action={formAction} className="flex flex-col gap-4">
-      <p className="text-sm opacity-70">
-        Guests and cleaners see this number when they report an emergency.
-      </p>
+      <p className="text-sm opacity-70">{text.emergencyContactIntro}</p>
       <Input
-        label="Contact phone"
+        label={text.contactPhoneLabel}
         name="contactPhone"
         type="tel"
         placeholder="+40 712 345 678"
@@ -30,9 +33,9 @@ export default function OrganizationContactPhoneForm({
       {state && "error" in state && (
         <p className="text-sm text-red-600">{state.error}</p>
       )}
-      {state && "isSaved" in state && <p className="text-sm">Saved.</p>}
+      {state && "isSaved" in state && <p className="text-sm">{text.saved}</p>}
       <Button type="submit" disabled={isPending}>
-        Save phone
+        {text.savePhone}
       </Button>
     </form>
   );

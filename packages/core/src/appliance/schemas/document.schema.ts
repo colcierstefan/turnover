@@ -7,13 +7,10 @@ import { labelExtractionInputSchema } from "@turnover/core/appliance/schemas/lab
 
 const uploadFileSchema = (contentTypeSchema: z.ZodType) =>
   z
-    .instanceof(File, { message: "Choose a file" })
-    .refine((file) => file.size > 0, "Choose a file")
-    .refine((file) => file.size <= MAX_UPLOAD_BYTES, "The file is over 10 MB")
-    .refine(
-      (file) => contentTypeSchema.safeParse(file.type).success,
-      "This file type is not supported",
-    );
+    .instanceof(File)
+    .refine((file) => file.size > 0)
+    .refine((file) => file.size <= MAX_UPLOAD_BYTES)
+    .refine((file) => contentTypeSchema.safeParse(file.type).success);
 
 export const uploadDocumentInputSchema = z.discriminatedUnion("kind", [
   z.object({
@@ -30,15 +27,13 @@ export const uploadDocumentInputSchema = z.discriminatedUnion("kind", [
 export type UploadDocumentInput = z.infer<typeof uploadDocumentInputSchema>;
 
 export const documentReviewRowSchema = applianceFieldsSchema.extend({
-  count: z.coerce.number().int().min(1, "Add at least 1").max(20),
+  count: z.coerce.number().int().min(1).max(20),
 });
 export type DocumentReviewRow = z.infer<typeof documentReviewRowSchema>;
 
 export const saveDocumentReviewInputSchema = z.object({
   documentId: z.uuid(),
-  rows: z
-    .array(documentReviewRowSchema)
-    .min(1, "Choose at least one appliance, or discard the upload"),
+  rows: z.array(documentReviewRowSchema).min(1),
 });
 export type SaveDocumentReviewInput = z.infer<
   typeof saveDocumentReviewInputSchema

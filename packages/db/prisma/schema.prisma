@@ -7,11 +7,17 @@ datasource db {
   provider = "postgresql"
 }
 
+enum UserLanguage {
+  EN
+  RO
+}
+
 model User {
   id              String       @id @default(uuid())
   auth0Id         String       @unique
   email           String
   name            String?
+  language        UserLanguage?
   createdAt       DateTime     @default(now())
   membership      Membership?
   sentInvitations Invitation[]

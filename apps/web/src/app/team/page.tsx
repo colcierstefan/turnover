@@ -10,18 +10,13 @@ import OrganizationMemberList from "@/features/organization/components/team/orga
 import OrganizationPendingInvitationList from "@/features/organization/components/team/organization-pending-invitation-list";
 import { getInvitationUrl } from "@/features/organization/server/organization-invitation-link.server";
 import { getSignedInMembership } from "@/features/organization/server/organization-membership.server";
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
 export default function TeamPage() {
   return (
-    <>
-      <AppHeader />
-      <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-6 p-6">
-        <h1 className="text-2xl font-semibold">Team</h1>
-        <Suspense fallback={<p>Loading…</p>}>
-          <Team />
-        </Suspense>
-      </main>
-    </>
+    <Suspense fallback={<p className="p-6">…</p>}>
+      <Team />
+    </Suspense>
   );
 }
 
@@ -31,34 +26,46 @@ async function Team() {
     user.id,
   );
   const isOwner = membership.role === "OWNER";
+  const text = MANAGER_TEXT[user.language].team;
 
   return (
     <>
-      <Card title="Members">
-        <OrganizationMemberList members={members} canRemoveManagers={isOwner} />
-      </Card>
-      {isOwner && (
-        <>
-          <Card title="Emergency contact">
-            <OrganizationContactPhoneForm
-              contactPhone={membership.organization.contactPhone}
-            />
-          </Card>
-          <Card title="Invite a manager">
-            <OrganizationInviteForm
-              organizationName={membership.organization.name}
-            />
-          </Card>
-          <Card title="Pending invites">
-            <OrganizationPendingInvitationList
-              invitations={pendingInvitations.map((invitation) => ({
-                ...invitation,
-                invitationUrl: getInvitationUrl(invitation.token),
-              }))}
-            />
-          </Card>
-        </>
-      )}
+      <AppHeader language={user.language} />
+      <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-6 p-6">
+        <h1 className="text-2xl font-semibold">{text.title}</h1>
+        <Card title={text.membersTitle}>
+          <OrganizationMemberList
+            members={members}
+            canRemoveManagers={isOwner}
+            language={user.language}
+          />
+        </Card>
+        {isOwner && (
+          <>
+            <Card title={text.emergencyContactTitle}>
+              <OrganizationContactPhoneForm
+                contactPhone={membership.organization.contactPhone}
+                language={user.language}
+              />
+            </Card>
+            <Card title={text.inviteTitle}>
+              <OrganizationInviteForm
+                organizationName={membership.organization.name}
+                language={user.language}
+              />
+            </Card>
+            <Card title={text.pendingTitle}>
+              <OrganizationPendingInvitationList
+                invitations={pendingInvitations.map((invitation) => ({
+                  ...invitation,
+                  invitationUrl: getInvitationUrl(invitation.token),
+                }))}
+                language={user.language}
+              />
+            </Card>
+          </>
+        )}
+      </main>
     </>
   );
 }

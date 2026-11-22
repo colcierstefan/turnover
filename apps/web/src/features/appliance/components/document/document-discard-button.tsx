@@ -1,18 +1,24 @@
 "use client";
 
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
+
 import ConfirmButton from "@/components/confirm-button";
 import { discardDocument } from "@/features/appliance/actions/document.actions";
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
 export default function DocumentDiscardButton({
   documentId,
-}: Readonly<{ documentId: string }>) {
+  language,
+}: Readonly<{ documentId: string; language: UserLanguage }>) {
+  const text = MANAGER_TEXT[language].documentReview;
+
   return (
     <ConfirmButton
       variant="danger"
-      confirmMessage="Discard this upload? The file is deleted."
+      confirmMessage={text.discardConfirm}
       onConfirm={() => discardDocument({ documentId })}
     >
-      Discard
+      {text.discard}
     </ConfirmButton>
   );
 }

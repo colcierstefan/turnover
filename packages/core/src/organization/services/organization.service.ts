@@ -41,7 +41,10 @@ class OrganizationService {
 
   async createOrganization(userId: string, input: CreateOrganizationInput) {
     if (await membershipRepository.findByUserId(userId)) {
-      throw new ValidationError("You already belong to an organization");
+      throw new ValidationError(
+        "You already belong to an organization",
+        "ALREADY_IN_ORGANIZATION",
+      );
     }
 
     return prisma.$transaction(async (transaction) => {
@@ -85,7 +88,10 @@ class OrganizationService {
         input.email,
       );
     if (existingMember) {
-      throw new ValidationError(`${input.email} is already in your team`);
+      throw new ValidationError(
+        `${input.email} is already in your team`,
+        "ALREADY_IN_TEAM",
+      );
     }
 
     return invitationRepository.create({
@@ -127,25 +133,43 @@ class OrganizationService {
     input: AcceptInvitationInput,
   ) {
     const invitation = await invitationRepository.findByToken(input.token);
-    if (!invitation) throw new NotFoundError("This invitation does not exist");
+    if (!invitation) {
+      throw new NotFoundError(
+        "This invitation does not exist",
+        "INVITATION_NOT_FOUND",
+      );
+    }
 
     const status = getInvitationStatus(invitation);
     if (status === "ACCEPTED") {
-      throw new ValidationError("This invitation was already used");
+      throw new ValidationError(
+        "This invitation was already used",
+        "INVITATION_USED",
+      );
     }
     if (status === "EXPIRED") {
-      throw new ValidationError("This invitation has expired");
+      throw new ValidationError(
+        "This invitation has expired",
+        "INVITATION_EXPIRED",
+      );
     }
     if (!user.isEmailVerified) {
-      throw new ForbiddenError("Verify your email address first");
+      throw new ForbiddenError(
+        "Verify your email address first",
+        "EMAIL_NOT_VERIFIED",
+      );
     }
     if (user.email.toLowerCase() !== invitation.email) {
       throw new ForbiddenError(
         `This invitation is for ${invitation.email}, but you are signed in as ${user.email}`,
+        "INVITATION_EMAIL_MISMATCH",
       );
     }
     if (await membershipRepository.findByUserId(user.id)) {
-      throw new ValidationError("You already belong to an organization");
+      throw new ValidationError(
+        "You already belong to an organization",
+        "ALREADY_IN_ORGANIZATION",
+      );
     }
 
     await prisma.$transaction(async (transaction) => {

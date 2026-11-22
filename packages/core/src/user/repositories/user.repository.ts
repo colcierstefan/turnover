@@ -14,6 +14,14 @@ class UserRepository {
       update: data,
     });
   }
+
+  update(
+    id: string,
+    data: Prisma.UserUpdateInput,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.user.update({ where: { id }, data });
+  }
 }
 
 const userRepository = new UserRepository();

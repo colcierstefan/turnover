@@ -1,18 +1,14 @@
-import {
-  EMERGENCY_TYPE_LABELS,
-  REPORTER_ROLE_LABELS,
-  type EmergencyType,
-  type ReporterRole,
+import type {
+  EmergencyType,
+  ReporterRole,
 } from "@turnover/core/issue/constants/issue.constants";
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
 
-const CREATED_AT_FORMAT = new Intl.DateTimeFormat("en-GB", {
-  dateStyle: "medium",
-  timeStyle: "short",
-  timeZone: "Europe/Bucharest",
-});
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
 export default function IssueOpenList({
   issues,
+  language,
 }: Readonly<{
   issues: ReadonlyArray<{
     id: string;
@@ -22,9 +18,17 @@ export default function IssueOpenList({
     emergencyType: EmergencyType | null;
     createdAt: Date;
   }>;
+  language: UserLanguage;
 }>) {
+  const { locale, issues: text } = MANAGER_TEXT[language];
+  const createdAtFormat = new Intl.DateTimeFormat(locale, {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Europe/Bucharest",
+  });
+
   if (issues.length === 0) {
-    return <p className="text-sm opacity-70">No open issues.</p>;
+    return <p className="text-sm opacity-70">{text.empty}</p>;
   }
 
   return (
@@ -33,15 +37,15 @@ export default function IssueOpenList({
         <li key={issue.id} className="flex flex-col gap-1 py-3">
           {issue.emergencyType && (
             <span className="self-start rounded bg-red-600 px-2 py-0.5 text-xs font-medium text-white">
-              Emergency: {EMERGENCY_TYPE_LABELS[issue.emergencyType]}
+              {text.emergency(text.emergencyTypes[issue.emergencyType])}
             </span>
           )}
           <span className="line-clamp-3">{issue.description}</span>
           <span className="text-sm opacity-70">
-            {[REPORTER_ROLE_LABELS[issue.reporterRole], issue.reporterName]
+            {[text.reporterRoles[issue.reporterRole], issue.reporterName]
               .filter(Boolean)
               .join(", ")}{" "}
-            · {CREATED_AT_FORMAT.format(issue.createdAt)}
+            · {createdAtFormat.format(issue.createdAt)}
           </span>
         </li>
       ))}

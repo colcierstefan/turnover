@@ -4,7 +4,11 @@ import { useState } from "react";
 
 import Button from "@/components/button";
 
-export default function CopyButton({ text }: Readonly<{ text: string }>) {
+export default function CopyButton({
+  text,
+  copyLabel,
+  copiedLabel,
+}: Readonly<{ text: string; copyLabel: string; copiedLabel: string }>) {
   const [isCopied, setIsCopied] = useState(false);
 
   const copy = async () => {
@@ -14,7 +18,7 @@ export default function CopyButton({ text }: Readonly<{ text: string }>) {
 
   return (
     <Button type="button" variant="secondary" onClick={copy}>
-      {isCopied ? "Copied" : "Copy link"}
+      {isCopied ? copiedLabel : copyLabel}
     </Button>
   );
 }

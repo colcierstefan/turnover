@@ -3,21 +3,26 @@
 import { useActionState, useState } from "react";
 
 import type { DocumentReviewRowDraft } from "@turnover/core/appliance/utils/document-review.utils";
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
 
 import Button from "@/components/button";
 import Input from "@/components/input";
 import { saveDocumentReview } from "@/features/appliance/actions/document.actions";
 import ApplianceFields from "@/features/appliance/components/appliance/appliance-fields";
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
 export default function DocumentReviewForm({
   documentId,
   rows,
   canSkipRows,
+  language,
 }: Readonly<{
   documentId: string;
   rows: ReadonlyArray<DocumentReviewRowDraft>;
   canSkipRows: boolean;
+  language: UserLanguage;
 }>) {
+  const text = MANAGER_TEXT[language];
   const [error, formAction, isPending] = useActionState(
     saveDocumentReview,
     null,
@@ -46,7 +51,7 @@ export default function DocumentReviewForm({
                   )
                 }
               />
-              Add this appliance
+              {text.documentReview.addThisAppliance}
             </label>
           )}
           <fieldset
@@ -55,7 +60,7 @@ export default function DocumentReviewForm({
           >
             {row.quantity > 1 ? (
               <Input
-                label={`${row.quantity} on this invoice. How many to add?`}
+                label={text.documentReview.howManyToAdd(row.quantity)}
                 name={`rows.${index}.count`}
                 type="number"
                 min="1"
@@ -69,13 +74,14 @@ export default function DocumentReviewForm({
               namePrefix={`rows.${index}.`}
               values={row.values}
               highlightedFields={row.extractedFields}
+              language={language}
             />
           </fieldset>
         </section>
       ))}
       {error && <p className="text-sm text-red-600">{error}</p>}
       <Button type="submit" disabled={isPending}>
-        Save
+        {text.save}
       </Button>
     </form>
   );

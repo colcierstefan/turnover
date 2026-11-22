@@ -2,11 +2,17 @@
 
 import { useActionState } from "react";
 
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
+
 import Button from "@/components/button";
 import Input from "@/components/input";
 import { createOrganization } from "@/features/organization/actions/organization.actions";
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
-export default function OrganizationCreateForm() {
+export default function OrganizationCreateForm({
+  language,
+}: Readonly<{ language: UserLanguage }>) {
+  const text = MANAGER_TEXT[language].home;
   const [error, formAction, isPending] = useActionState(
     createOrganization,
     null,
@@ -15,13 +21,13 @@ export default function OrganizationCreateForm() {
   return (
     <form action={formAction} className="flex flex-col gap-4">
       <Input
-        label="Organization name"
+        label={text.organizationNameLabel}
         name="name"
-        placeholder="e.g. Cluj Stays"
+        placeholder={text.organizationNamePlaceholder}
         required
       />
       <Input
-        label="Contact phone (shown to guests in an emergency)"
+        label={text.contactPhoneLabel}
         name="contactPhone"
         type="tel"
         placeholder="+40 712 345 678"
@@ -29,7 +35,7 @@ export default function OrganizationCreateForm() {
       />
       {error && <p className="text-sm text-red-600">{error}</p>}
       <Button type="submit" disabled={isPending}>
-        Create organization
+        {text.createOrganization}
       </Button>
     </form>
   );

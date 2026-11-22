@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const createUnitInputSchema = z.object({
-  name: z.string().trim().min(1, "Enter a name").max(100),
-  address: z.string().trim().min(1, "Enter an address").max(300),
+  name: z.string().trim().min(1).max(100),
+  address: z.string().trim().min(1).max(300),
 });
 export type CreateUnitInput = z.infer<typeof createUnitInputSchema>;
 

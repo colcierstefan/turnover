@@ -1,18 +1,24 @@
 "use client";
 
+import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
+
 import ConfirmButton from "@/components/confirm-button";
 import { regenerateReportToken } from "@/features/unit/actions/unit.actions";
+import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
 export default function UnitRegenerateLinkButton({
   unitId,
-}: Readonly<{ unitId: string }>) {
+  language,
+}: Readonly<{ unitId: string; language: UserLanguage }>) {
+  const text = MANAGER_TEXT[language].reportLink;
+
   return (
     <ConfirmButton
       variant="secondary"
-      confirmMessage="The current link and QR code will stop working at once. Continue?"
+      confirmMessage={text.newLinkConfirm}
       onConfirm={() => regenerateReportToken({ unitId })}
     >
-      New link
+      {text.newLink}
     </ConfirmButton>
   );
 }

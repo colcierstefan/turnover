@@ -9,7 +9,7 @@ vi.mock("@turnover/core/lib/auth0", () => ({
   default: { getSession: vi.fn() },
 }));
 vi.mock("@turnover/core/user/repositories/user.repository", () => ({
-  default: { upsertByAuth0Id: vi.fn() },
+  default: { upsertByAuth0Id: vi.fn(), update: vi.fn() },
 }));
 
 describe("UserService.getCurrentUser", () => {
@@ -30,6 +30,7 @@ describe("UserService.getCurrentUser", () => {
       auth0Id: "auth0|1",
       email: "host@example.com",
       name: "Host",
+      language: null,
       createdAt: new Date("2026-11-21T00:00:00Z"),
     };
     vi.mocked(auth0.getSession).mockResolvedValue({
@@ -77,5 +78,19 @@ describe("UserService.requireCurrentUser", () => {
     await expect(userService.requireCurrentUser()).rejects.toThrow(
       ForbiddenError,
     );
+  });
+});
+
+describe("UserService.updateLanguage", () => {
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+
+  it("stores the chosen language on the user", async () => {
+    await userService.updateLanguage("user-1", "RO");
+
+    expect(userRepository.update).toHaveBeenCalledWith("user-1", {
+      language: "RO",
+    });
   });
 });

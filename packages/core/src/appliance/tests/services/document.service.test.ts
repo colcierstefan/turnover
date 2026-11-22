@@ -181,7 +181,7 @@ describe("DocumentService", () => {
       );
     });
 
-    it("throws a ValidationError when the document was already reviewed", async () => {
+    it("throws a ValidationError with reason DOCUMENT_ALREADY_REVIEWED when the document was already reviewed", async () => {
       vi.mocked(documentRepository.findById).mockResolvedValue(
         buildDocument({ reviewedAt: new Date() }),
       );
@@ -191,7 +191,10 @@ describe("DocumentService", () => {
           documentId,
           rows: [{ ...fields, count: 1 }],
         }),
-      ).rejects.toThrow(ValidationError);
+      ).rejects.toMatchObject({
+        name: "ValidationError",
+        reason: "DOCUMENT_ALREADY_REVIEWED",
+      });
       expect(applianceRepository.create).not.toHaveBeenCalled();
     });
   });

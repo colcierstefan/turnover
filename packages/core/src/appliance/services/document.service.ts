@@ -66,7 +66,10 @@ class DocumentService {
   async saveDocumentReview(userId: string, input: SaveDocumentReviewInput) {
     const document = await this.getDocument(userId, input.documentId);
     if (document.reviewedAt) {
-      throw new ValidationError("This upload was already reviewed");
+      throw new ValidationError(
+        "This upload was already reviewed",
+        "DOCUMENT_ALREADY_REVIEWED",
+      );
     }
 
     await prisma.$transaction(async (transaction) => {

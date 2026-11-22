@@ -11,16 +11,19 @@ import {
 import applianceService from "@turnover/core/appliance/services/appliance.service";
 import userService from "@turnover/core/user/services/user.service";
 
+import { getFormErrorMessage } from "@/features/user/server/user-form-error.server";
+import { requireSignedInUser } from "@/features/user/server/user-session.server";
+
 export async function createAppliance(
   _previousError: string | null,
   formData: FormData,
 ) {
+  const user = await requireSignedInUser();
   const parsed = createApplianceInputSchema.safeParse(
     Object.fromEntries(formData),
   );
-  if (!parsed.success) return parsed.error.issues[0].message;
+  if (!parsed.success) return getFormErrorMessage(user.language, parsed.error);
 
-  const user = await userService.requireCurrentUser();
   await applianceService.createAppliance(user.id, parsed.data);
   redirect(`/units/${parsed.data.unitId}`);
 }
@@ -29,12 +32,12 @@ export async function updateAppliance(
   _previousError: string | null,
   formData: FormData,
 ) {
+  const user = await requireSignedInUser();
   const parsed = updateApplianceInputSchema.safeParse(
     Object.fromEntries(formData),
   );
-  if (!parsed.success) return parsed.error.issues[0].message;
+  if (!parsed.success) return getFormErrorMessage(user.language, parsed.error);
 
-  const user = await userService.requireCurrentUser();
   await applianceService.updateAppliance(user.id, parsed.data);
   refresh();
   return null;
