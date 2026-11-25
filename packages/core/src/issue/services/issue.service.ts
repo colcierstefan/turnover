@@ -5,16 +5,24 @@ import { randomUUID } from "node:crypto";
 import applianceService from "@turnover/core/appliance/services/appliance.service";
 import handymanService from "@turnover/core/handyman/services/handyman.service";
 import {
+  ISSUE_SUMMARY_MIN_OPEN_ISSUES,
+  ISSUE_SUMMARY_REPEAT_WINDOW_DAYS,
   MAX_REPORTS_PER_UNIT_PER_HOUR,
   REPAIR_HISTORY_TIME_ZONE,
 } from "@turnover/core/issue/constants/issue.constants";
 import issueFollowUpRepository from "@turnover/core/issue/repositories/issue-follow-up.repository";
 import issuePhotoRepository from "@turnover/core/issue/repositories/issue-photo.repository";
+import issueSummaryRepository from "@turnover/core/issue/repositories/issue-summary.repository";
 import issueRepository from "@turnover/core/issue/repositories/issue.repository";
 import {
   issueDiagnosisInputSchema,
   storedIssueDiagnosisSchema,
 } from "@turnover/core/issue/schemas/issue-diagnosis.schema";
+import {
+  issueSummaryContentSchema,
+  issueSummaryInputSchema,
+  type IssueSummaryContent,
+} from "@turnover/core/issue/schemas/issue-summary.schema";
 import type {
   AnswerIssueFollowUpsInput,
   ChangeIssueApplianceInput,
@@ -33,10 +41,15 @@ import {
   selfHelpTipsOutputSchema,
 } from "@turnover/core/issue/schemas/self-help-tips.schema";
 import issueDiagnosisService from "@turnover/core/issue/services/issue-diagnosis.service";
+import issueSummaryService from "@turnover/core/issue/services/issue-summary.service";
 import reportTriageService from "@turnover/core/issue/services/report-triage.service";
 import selfHelpTipsService from "@turnover/core/issue/services/self-help-tips.service";
 import type { IssueReportStep } from "@turnover/core/issue/types/issue-report.types";
 import { getWarrantyStatus } from "@turnover/core/issue/utils/appliance-warranty.utils";
+import {
+  buildIssueSummaryFacts,
+  getIssueSummaryFactsFingerprint,
+} from "@turnover/core/issue/utils/issue-summary.utils";
 import {
   NotFoundError,
   TooManyRequestsError,
@@ -64,6 +77,7 @@ type Manager = Readonly<{
 }>;
 
 const HOUR_MS = 60 * 60 * 1000;
+const DAY_MS = 24 * HOUR_MS;
 
 class IssueService {
   async submitReport(input: SubmitIssueReportInput): Promise<IssueReportStep> {
@@ -237,6 +251,45 @@ class IssueService {
     return issueRepository.listOpenByOrganizationId(membership.organizationId);
   }
 
+  async getIssueSummary(manager: Manager) {
+    const { organizationId } = await organizationService.requireMembership(
+      manager.id,
+    );
+    const openIssues =
+      await issueRepository.listOpenForSummaryByOrganizationId(organizationId);
+    if (openIssues.length < ISSUE_SUMMARY_MIN_OPEN_ISSUES) return null;
+
+    const now = new Date();
+    const closedIssues =
+      await issueRepository.listResolvedApplianceIssuesSinceByOrganizationId(
+        organizationId,
+        new Date(now.getTime() - ISSUE_SUMMARY_REPEAT_WINDOW_DAYS * DAY_MS),
+      );
+    const facts = buildIssueSummaryFacts(openIssues, closedIssues, now);
+    const factsFingerprint = getIssueSummaryFactsFingerprint(facts);
+    const content = await getIssueSummaryContent(
+      organizationId,
+      manager.language,
+      facts,
+      factsFingerprint,
+    );
+    if (!content) return null;
+
+    const issuesById = Object.fromEntries(
+      [...openIssues, ...closedIssues].map((issue) => [
+        issue.id,
+        { id: issue.id, unitId: issue.unitId, unitName: issue.unit.name },
+      ]),
+    );
+    return {
+      headline: content.headline,
+      points: content.points.map((point) => ({
+        text: point.text,
+        issues: point.issueIds.map((id) => issuesById[id]),
+      })),
+    };
+  }
+
   async changeIssueAppliance(userId: string, input: ChangeIssueApplianceInput) {
     const issue = await issueRepository.findById(input.issueId);
     if (!issue) throw new NotFoundError(`Issue ${input.issueId} not found`);
@@ -385,6 +438,37 @@ const getOpenManagedIssue = async (userId: string, issueId: string) => {
 const getReopenedStatus = async (issue: Issue) => {
   if (await handymanService.hasMessages(issue.id)) return "CONTACTED";
   return issue.diagnosis ? "DIAGNOSED" : "NEW";
+};
+
+const getIssueSummaryContent = async (
+  organizationId: string,
+  language: UserLanguage,
+  facts: ReturnType<typeof buildIssueSummaryFacts>,
+  factsFingerprint: string,
+): Promise<IssueSummaryContent | null> => {
+  const saved = await issueSummaryRepository.findByOrganizationIdAndLanguage(
+    organizationId,
+    language,
+  );
+  if (saved?.factsFingerprint === factsFingerprint) {
+    return issueSummaryContentSchema.parse(saved.content);
+  }
+  let content;
+  try {
+    content = await issueSummaryService.summarize(
+      issueSummaryInputSchema.parse({ ...facts, language }),
+    );
+  } catch (error) {
+    logger.error({ err: error, organizationId }, "Issue summary failed");
+    return null;
+  }
+  await issueSummaryRepository.upsert({
+    organizationId,
+    language,
+    factsFingerprint,
+    content,
+  });
+  return content;
 };
 
 const toRepair = (issue: ResolvedIssue) => ({

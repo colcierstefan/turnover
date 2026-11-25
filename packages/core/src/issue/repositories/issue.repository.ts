@@ -63,6 +63,67 @@ class IssueRepository {
     });
   }
 
+  listOpenForSummaryByOrganizationId(
+    organizationId: string,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.issue.findMany({
+      where: { unit: { organizationId }, status: { not: "RESOLVED" } },
+      select: {
+        id: true,
+        unitId: true,
+        applianceId: true,
+        description: true,
+        status: true,
+        category: true,
+        diagnosis: true,
+        emergencyType: true,
+        scheduledFor: true,
+        scheduledTime: true,
+        createdAt: true,
+        unit: { select: { name: true } },
+        appliance: { select: { category: true, brand: true, model: true } },
+        handymanMessages: {
+          select: { openedInWhatsAppAt: true },
+          orderBy: { openedInWhatsAppAt: "desc" },
+          take: 1,
+        },
+      },
+      orderBy: [{ createdAt: "desc" }, { id: "asc" }],
+    });
+  }
+
+  listResolvedApplianceIssuesSinceByOrganizationId(
+    organizationId: string,
+    since: Date,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.issue.findMany({
+      where: {
+        unit: { organizationId },
+        status: "RESOLVED",
+        resolvedAt: { gte: since },
+        applianceId: { not: null },
+      },
+      select: {
+        id: true,
+        unitId: true,
+        applianceId: true,
+        costRon: true,
+        unit: { select: { name: true } },
+        appliance: {
+          select: {
+            category: true,
+            brand: true,
+            model: true,
+            purchasePriceRon: true,
+          },
+        },
+      },
+      orderBy: [{ resolvedAt: "desc" }, { id: "asc" }],
+    });
+  }
+
   listResolvedByUnitId(unitId: string, db: Prisma.TransactionClient = prisma) {
     return db.issue.findMany({
       where: { unitId, status: "RESOLVED" },

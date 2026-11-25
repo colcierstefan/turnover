@@ -1,0 +1,2599 @@
+{
+  "cases": [
+    {
+      "id": "cluj-en-12",
+      "language": "EN",
+      "facts": {
+        "openIssues": [
+          {
+            "id": "6d8ffbfd-ad58-45bb-8f15-721e77a64e29",
+            "unitName": "Riverside 2B",
+            "appliance": null,
+            "description": "Water is leaking from under the sink onto the floor.",
+            "status": "DIAGNOSED",
+            "daysOpen": 1,
+            "emergencyType": "WATER_LEAK",
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 270,
+              "maxRon": 490
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "1d495dae-0e19-4adb-8dab-df16cc76ebb4",
+            "unitName": "Central Loft",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "AC blows warm air in cooling mode.",
+            "status": "CONTACTED",
+            "daysOpen": 1,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 320,
+              "maxRon": 520
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 3200,
+              "maxRon": 4200
+            },
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "bfd2d190-132a-49c2-898e-af73c3549ff8",
+            "unitName": "Central Loft",
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "description": "Fridge is warm, the light works but it does not cool.",
+            "status": "CONTACTED",
+            "daysOpen": 4,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 370,
+              "maxRon": 670
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2100,
+              "maxRon": 2900
+            },
+            "handymanMessagedDaysAgo": 4
+          },
+          {
+            "id": "95c2dba3-c73c-40e6-875f-988b17fd91ab",
+            "unitName": "Old Town Studio",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Dishwasher leaves dishes dirty and water stays at the bottom.",
+            "status": "SCHEDULED",
+            "daysOpen": 6,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 1,
+              "time": "17:00"
+            },
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 230,
+              "maxRon": 380
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": 4
+          },
+          {
+            "id": "386ac75c-0471-471e-8df9-b66e38212eaf",
+            "unitName": "Garden Flat",
+            "appliance": "WATER_HEATER Ariston Pro1 Eco 80",
+            "description": "No hot water in the shower since this morning.",
+            "status": "DIAGNOSED",
+            "daysOpen": 7,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 310
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 900,
+              "maxRon": 1500
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "2895c755-4f23-4a96-8b32-8d556b2b862f",
+            "unitName": "Old Town Studio",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Oven does not heat, the fan turns.",
+            "status": "SCHEDULED",
+            "daysOpen": 8,
+            "emergencyType": null,
+            "visit": {
+              "inDays": -1,
+              "time": null
+            },
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 190,
+              "maxRon": 330
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1300,
+              "maxRon": 1800
+            },
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "39a4cf29-d98a-4fe7-8b6f-ec36f2e50db4",
+            "unitName": "Riverside 2B",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Dishwasher leaves dishes dirty and water stays at the bottom.",
+            "status": "CONTACTED",
+            "daysOpen": 11,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 250,
+              "maxRon": 410
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1300,
+              "maxRon": 1800
+            },
+            "handymanMessagedDaysAgo": 2
+          },
+          {
+            "id": "30de5c95-5331-45b5-8c74-0e0d71938c62",
+            "unitName": "Old Town Studio",
+            "appliance": null,
+            "description": "Front door lock is hard to turn, key gets stuck.",
+            "status": "CONTACTED",
+            "daysOpen": 13,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "LOCKSMITH",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 340
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 6
+          },
+          {
+            "id": "dc690a81-cba0-4f7e-822c-7e654e3bd2cb",
+            "unitName": "Riverside 2B",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Coffee machine says descale and stopped making coffee.",
+            "status": "CONTACTED",
+            "daysOpen": 14,
+            "emergencyType": null,
+            "visit": null,
+            "category": "SELF_FIX",
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": {
+              "minRon": 1800,
+              "maxRon": 2400
+            },
+            "handymanMessagedDaysAgo": 6
+          },
+          {
+            "id": "a8831916-5fba-4d21-8380-adc1d65f0c9f",
+            "unitName": "Central Loft",
+            "appliance": null,
+            "description": "Two sockets in the living room do not work.",
+            "status": "SCHEDULED",
+            "daysOpen": 17,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 6,
+              "time": "17:00"
+            },
+            "category": "REPAIR",
+            "trade": "ELECTRICIAN",
+            "repairEstimateRon": {
+              "minRon": 180,
+              "maxRon": 300
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "644fd927-64a0-4932-83e6-02df793bdbf6",
+            "unitName": "Garden Flat",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Dishwasher leaves dishes dirty and water stays at the bottom.",
+            "status": "NEW",
+            "daysOpen": 17,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "d043d747-253f-4e43-8fa5-5242ef19f480",
+            "unitName": "Riverside 2B",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Oven does not heat, the fan turns.",
+            "status": "DIAGNOSED",
+            "daysOpen": 20,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 150,
+              "maxRon": 290
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1500,
+              "maxRon": 2100
+            },
+            "handymanMessagedDaysAgo": null
+          }
+        ],
+        "repeatProblems": []
+      }
+    },
+    {
+      "id": "bucuresti-ro-18",
+      "language": "RO",
+      "facts": {
+        "openIssues": [
+          {
+            "id": "27ad8442-d7b5-44bf-880f-a6b779ad0000",
+            "unitName": "Ap. 12 Floreasca",
+            "appliance": null,
+            "description": "Miros de ars de la tabloul electric, o siguranță e fierbinte.",
+            "status": "CONTACTED",
+            "daysOpen": 0,
+            "emergencyType": "ELECTRICAL_BURNING",
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "ELECTRICIAN",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 370
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "214547b6-db57-4015-88bf-a5165b79e026",
+            "unitName": "Ap. 7 Dorobanți",
+            "appliance": null,
+            "description": "S-a rupt balamaua ușii de la dulap, ușa atârnă.",
+            "status": "DIAGNOSED",
+            "daysOpen": 0,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 100,
+              "maxRon": 200
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "9958e0b6-a85e-49e5-8527-f8558f4037b6",
+            "unitName": "Garsoniera Cotroceni",
+            "appliance": null,
+            "description": "Curge apă de sub chiuvetă pe jos.",
+            "status": "CONTACTED",
+            "daysOpen": 1,
+            "emergencyType": "WATER_LEAK",
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 220,
+              "maxRon": 430
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "18408295-7758-4dc6-86ad-7bfc64384db4",
+            "unitName": "Ap. 3 Victoriei",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "Mașina de spălat se oprește la jumătatea programului și afișează eroarea E18.",
+            "status": "DIAGNOSED",
+            "daysOpen": 1,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 380,
+              "maxRon": 590
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2400
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "44547be6-2080-4a3b-8c83-409852e11a18",
+            "unitName": "Ap. 3 Victoriei",
+            "appliance": null,
+            "description": "Yala de la intrare se rotește greu, cheia se blochează.",
+            "status": "DIAGNOSED",
+            "daysOpen": 1,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "LOCKSMITH",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 340
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "2d83a556-9fce-4477-8b1c-e1e6fcd71c45",
+            "unitName": "Ap. 12 Floreasca",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Mașina de spălat vase lasă vasele murdare și rămâne apă pe fund.",
+            "status": "SCHEDULED",
+            "daysOpen": 1,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 5,
+              "time": "10:30"
+            },
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 250,
+              "maxRon": 410
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "73549d90-b238-44db-85c9-1e006769621c",
+            "unitName": "Ap. 12 Floreasca",
+            "appliance": "WATER_HEATER Ariston Pro1 Eco 80",
+            "description": "Nu este apă caldă la duș de azi dimineață.",
+            "status": "DIAGNOSED",
+            "daysOpen": 4,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 180,
+              "maxRon": 310
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 800,
+              "maxRon": 1200
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "812f3f0d-2f99-478f-8b5a-12de91293610",
+            "unitName": "Garsoniera Cotroceni",
+            "appliance": "WATER_HEATER Ariston Pro1 Eco 80",
+            "description": "Nu este apă caldă la duș de azi dimineață.",
+            "status": "SCHEDULED",
+            "daysOpen": 8,
+            "emergencyType": null,
+            "visit": {
+              "inDays": -4,
+              "time": null
+            },
+            "category": "PART",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 200,
+              "maxRon": 330
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 900,
+              "maxRon": 1300
+            },
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "c280d1d1-d1ce-4db4-8324-1dddf695944f",
+            "unitName": "Ap. 3 Victoriei",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Mașina de spălat vase lasă vasele murdare și rămâne apă pe fund.",
+            "status": "DIAGNOSED",
+            "daysOpen": 10,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 240,
+              "maxRon": 390
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1300,
+              "maxRon": 1900
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "d9b9a0cd-a4b2-4df2-8a2a-bbc61916bc2a",
+            "unitName": "Ap. 12 Floreasca",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Oven does not heat, the fan turns.",
+            "status": "DIAGNOSED",
+            "daysOpen": 12,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 150,
+              "maxRon": 270
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1700,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "b50bf19b-8cf1-4dfc-815e-64b5f906cab7",
+            "unitName": "Ap. 12 Floreasca",
+            "appliance": null,
+            "description": "Front door lock is hard to turn, key gets stuck.",
+            "status": "DIAGNOSED",
+            "daysOpen": 12,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "LOCKSMITH",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 330
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "502d09a0-b74e-4e9a-825a-69f6b57f366e",
+            "unitName": "Ap. 3 Victoriei",
+            "appliance": null,
+            "description": "Două prize din sufragerie nu funcționează.",
+            "status": "CONTACTED",
+            "daysOpen": 13,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "ELECTRICIAN",
+            "repairEstimateRon": {
+              "minRon": 140,
+              "maxRon": 240
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "2d5ab2f7-a42e-4437-88a0-bfbfe6fe1f96",
+            "unitName": "Garsoniera Cotroceni",
+            "appliance": null,
+            "description": "Yala de la intrare se rotește greu, cheia se blochează.",
+            "status": "NEW",
+            "daysOpen": 13,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "7af55c68-9224-4ec3-83c5-d885c3500228",
+            "unitName": "Ap. 3 Victoriei",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Mașina de spălat vase lasă vasele murdare și rămâne apă pe fund.",
+            "status": "DIAGNOSED",
+            "daysOpen": 14,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 260,
+              "maxRon": 410
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1300,
+              "maxRon": 1800
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "12aea5ad-d7b7-4662-85e0-3d6808df08ab",
+            "unitName": "Ap. 3 Victoriei",
+            "appliance": null,
+            "description": "Două prize din sufragerie nu funcționează.",
+            "status": "NEW",
+            "daysOpen": 14,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "3cbf0f42-c7b5-4f0c-80ae-593e9594072d",
+            "unitName": "Ap. 7 Dorobanți",
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "description": "Frigiderul nu răcește, lumina merge dar e cald înăuntru.",
+            "status": "SCHEDULED",
+            "daysOpen": 15,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 5,
+              "time": "14:00"
+            },
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 420,
+              "maxRon": 730
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2100,
+              "maxRon": 2800
+            },
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "650ff99a-0498-4646-80df-80a00aa6b515",
+            "unitName": "Garsoniera Cotroceni",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Coffee machine says descale and stopped making coffee.",
+            "status": "SCHEDULED",
+            "daysOpen": 17,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 3,
+              "time": "09:00"
+            },
+            "category": "SELF_FIX",
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": 4
+          },
+          {
+            "id": "c82c3e37-3101-4e77-8a45-32d342a02d8d",
+            "unitName": "Ap. 7 Dorobanți",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "Aerul condiționat bagă aer cald pe modul de răcire.",
+            "status": "CONTACTED",
+            "daysOpen": 18,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 300,
+              "maxRon": 520
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 3300,
+              "maxRon": 4300
+            },
+            "handymanMessagedDaysAgo": 5
+          }
+        ],
+        "repeatProblems": [
+          {
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "unitName": "Ap. 3 Victoriei",
+            "closedIssueCount": 3,
+            "repairCostRon": 1350,
+            "purchasePriceRon": 1900,
+            "closedIssueIds": [
+              "c490ee4e-b5b3-467c-8310-a825196b82f2",
+              "901a7be4-be59-4928-8df9-0969636dde77",
+              "9be8ed89-d665-4dbc-87e0-0d63cae28fbb"
+            ],
+            "openIssueIds": ["18408295-7758-4dc6-86ad-7bfc64384db4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "brasov-en-10",
+      "language": "EN",
+      "facts": {
+        "openIssues": [
+          {
+            "id": "f768966c-ef43-4b83-8aa7-1d8a08db55ce",
+            "unitName": "Council Square 4",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Cuptorul nu încălzește, ventilatorul merge.",
+            "status": "DIAGNOSED",
+            "daysOpen": 2,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 150,
+              "maxRon": 290
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1700,
+              "maxRon": 2400
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "e4356eeb-fc62-40cd-8b2e-0091284e4d7d",
+            "unitName": "Schei House",
+            "appliance": null,
+            "description": "Bathroom tap drips all the time.",
+            "status": "DIAGNOSED",
+            "daysOpen": 2,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 180,
+              "maxRon": 330
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "dbfadc5e-e064-4876-8ebc-d2fec9ef64c8",
+            "unitName": "Council Square 4",
+            "appliance": null,
+            "description": "Wardrobe door hinge broke, door hangs.",
+            "status": "NEW",
+            "daysOpen": 3,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "d092b847-cfa4-4da4-8297-bb3dd9724cc8",
+            "unitName": "Schei House",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "Mașina de spălat se oprește la jumătatea programului și afișează eroarea E18.",
+            "status": "DIAGNOSED",
+            "daysOpen": 5,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 330,
+              "maxRon": 530
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2200
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "82ff1d58-96e1-4538-89a2-0aa311528112",
+            "unitName": "Schei House",
+            "appliance": null,
+            "description": "Two sockets in the living room do not work.",
+            "status": "DIAGNOSED",
+            "daysOpen": 5,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "ELECTRICIAN",
+            "repairEstimateRon": {
+              "minRon": 140,
+              "maxRon": 260
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "67cb54d7-8c1d-4dc9-8019-681a96f6a610",
+            "unitName": "Schei House",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "The washing machine stops mid-cycle and shows error E18.",
+            "status": "DIAGNOSED",
+            "daysOpen": 11,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 340,
+              "maxRon": 540
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1700,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "6812aca7-6483-428d-80b6-2a0bd87503f5",
+            "unitName": "Council Square 4",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Mașina de spălat vase lasă vasele murdare și rămâne apă pe fund.",
+            "status": "CONTACTED",
+            "daysOpen": 12,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 280,
+              "maxRon": 450
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1200,
+              "maxRon": 1900
+            },
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "86a201c9-a3c7-4e61-8af9-f4a84d367e3f",
+            "unitName": "Council Square 4",
+            "appliance": null,
+            "description": "Wardrobe door hinge broke, door hangs.",
+            "status": "DIAGNOSED",
+            "daysOpen": 13,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 100,
+              "maxRon": 200
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "f9d15189-bc71-42d8-8622-c47ae4b8bf6d",
+            "unitName": "Council Square 4",
+            "appliance": null,
+            "description": "Wardrobe door hinge broke, door hangs.",
+            "status": "NEW",
+            "daysOpen": 17,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "936d146a-cc49-42a2-8c05-0c07c1b7cbfb",
+            "unitName": "Schei House",
+            "appliance": null,
+            "description": "Bathroom tap drips all the time.",
+            "status": "DIAGNOSED",
+            "daysOpen": 19,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 120,
+              "maxRon": 280
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          }
+        ],
+        "repeatProblems": [
+          {
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "unitName": "Tampa View",
+            "closedIssueCount": 2,
+            "repairCostRon": 750,
+            "purchasePriceRon": null,
+            "closedIssueIds": [
+              "e802052e-5fe5-4dc1-8f42-c6313be55a0b",
+              "28bdb96a-9a3f-4e97-8c8d-9765932e5e85"
+            ],
+            "openIssueIds": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "timisoara-ro-25",
+      "language": "RO",
+      "facts": {
+        "openIssues": [
+          {
+            "id": "f6ba9fea-b7d1-4da5-8b2f-6651ad45e664",
+            "unitName": "Ap. 9 Iosefin",
+            "appliance": "HOB Electrolux EKG51111OW",
+            "description": "Strong gas smell in the kitchen near the hob.",
+            "status": "DIAGNOSED",
+            "daysOpen": 0,
+            "emergencyType": "GAS_SMELL",
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 210,
+              "maxRon": 410
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "6ff860e0-be52-4402-863a-8f9d47e4bd68",
+            "unitName": "Ap. 1 Piața Unirii",
+            "appliance": null,
+            "description": "Burning smell from the electrical panel, one breaker is hot.",
+            "status": "CONTACTED",
+            "daysOpen": 1,
+            "emergencyType": "ELECTRICAL_BURNING",
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "ELECTRICIAN",
+            "repairEstimateRon": {
+              "minRon": 180,
+              "maxRon": 400
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "83829631-ef4c-4f1a-838f-ff8068c709e9",
+            "unitName": "Studio Fabric",
+            "appliance": null,
+            "description": "Curge apă de sub chiuvetă pe jos.",
+            "status": "NEW",
+            "daysOpen": 1,
+            "emergencyType": "WATER_LEAK",
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "dbe7e6b4-1fa3-4364-86a4-cf41bbf0ed16",
+            "unitName": "Ap. 5 Elisabetin",
+            "appliance": null,
+            "description": "Wardrobe door hinge broke, door hangs.",
+            "status": "DIAGNOSED",
+            "daysOpen": 1,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 130,
+              "maxRon": 250
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "6b13368a-4165-4b7d-8cd9-d4fdf4707c11",
+            "unitName": "Ap. 2 Piața Unirii",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "AC blows warm air in cooling mode.",
+            "status": "DIAGNOSED",
+            "daysOpen": 2,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 280,
+              "maxRon": 500
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 3100,
+              "maxRon": 4300
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "98c726fb-fb15-49be-8138-4d639b809d92",
+            "unitName": "Ap. 1 Piața Unirii",
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "description": "Frigiderul nu răcește, lumina merge dar e cald înăuntru.",
+            "status": "DIAGNOSED",
+            "daysOpen": 4,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 370,
+              "maxRon": 670
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2100,
+              "maxRon": 2900
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "134d308b-ecb2-4eed-8f23-7571d80c5fda",
+            "unitName": "Ap. 5 Elisabetin",
+            "appliance": null,
+            "description": "Robinetul din baie picură tot timpul.",
+            "status": "NEW",
+            "daysOpen": 4,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "6da714e4-59b9-462e-849f-ae7e352d27f7",
+            "unitName": "Studio Fabric",
+            "appliance": null,
+            "description": "S-a rupt balamaua ușii de la dulap, ușa atârnă.",
+            "status": "CONTACTED",
+            "daysOpen": 4,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 100,
+              "maxRon": 220
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "4394db81-ebd5-4f18-81b0-cea74c313f70",
+            "unitName": "Ap. 2 Piața Unirii",
+            "appliance": null,
+            "description": "Yala de la intrare se rotește greu, cheia se blochează.",
+            "status": "NEW",
+            "daysOpen": 7,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "aa570afd-c462-4b54-83db-bb02d75d0cf6",
+            "unitName": "Ap. 2 Piața Unirii",
+            "appliance": null,
+            "description": "S-a rupt balamaua ușii de la dulap, ușa atârnă.",
+            "status": "CONTACTED",
+            "daysOpen": 7,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 70,
+              "maxRon": 180
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 5
+          },
+          {
+            "id": "a56fd3ca-0221-4acb-84e3-276911991630",
+            "unitName": "Ap. 5 Elisabetin",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Mașina de spălat vase lasă vasele murdare și rămâne apă pe fund.",
+            "status": "CONTACTED",
+            "daysOpen": 7,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 280,
+              "maxRon": 430
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1400,
+              "maxRon": 2100
+            },
+            "handymanMessagedDaysAgo": 2
+          },
+          {
+            "id": "c043a36a-830c-4da0-8fc5-940b6f0fab77",
+            "unitName": "Ap. 5 Elisabetin",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "Mașina de spălat se oprește la jumătatea programului și afișează eroarea E18.",
+            "status": "CONTACTED",
+            "daysOpen": 9,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 380,
+              "maxRon": 580
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1700,
+              "maxRon": 2500
+            },
+            "handymanMessagedDaysAgo": 5
+          },
+          {
+            "id": "67e335ba-9529-4549-8ea7-49af2c392fcd",
+            "unitName": "Studio Fabric",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "Aerul condiționat bagă aer cald pe modul de răcire.",
+            "status": "SCHEDULED",
+            "daysOpen": 9,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 1,
+              "time": null
+            },
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 320,
+              "maxRon": 530
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 3300,
+              "maxRon": 4500
+            },
+            "handymanMessagedDaysAgo": 6
+          },
+          {
+            "id": "87386064-f820-4602-8204-a74398545ffb",
+            "unitName": "Ap. 1 Piața Unirii",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Cuptorul nu încălzește, ventilatorul merge.",
+            "status": "DIAGNOSED",
+            "daysOpen": 9,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 180,
+              "maxRon": 300
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1200,
+              "maxRon": 1800
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "c9052293-1ead-45d7-86e5-8b1e39866223",
+            "unitName": "Ap. 2 Piața Unirii",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Espressorul cere decalcifiere și nu mai face cafea.",
+            "status": "NEW",
+            "daysOpen": 9,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "2f334eee-dba1-4601-8071-ac781462a844",
+            "unitName": "Studio Fabric",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Espressorul cere decalcifiere și nu mai face cafea.",
+            "status": "SCHEDULED",
+            "daysOpen": 10,
+            "emergencyType": null,
+            "visit": {
+              "inDays": -2,
+              "time": null
+            },
+            "category": "SELF_FIX",
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": {
+              "minRon": 1800,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": 4
+          },
+          {
+            "id": "e183cfa5-333b-4189-89e0-c85acaac6260",
+            "unitName": "Ap. 2 Piața Unirii",
+            "appliance": null,
+            "description": "Robinetul din baie picură tot timpul.",
+            "status": "DIAGNOSED",
+            "daysOpen": 10,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 180,
+              "maxRon": 330
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "c8d1c589-5716-4d7e-8e3b-dc644aa6fcd4",
+            "unitName": "Ap. 5 Elisabetin",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Mașina de spălat vase lasă vasele murdare și rămâne apă pe fund.",
+            "status": "DIAGNOSED",
+            "daysOpen": 12,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 220,
+              "maxRon": 390
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1800,
+              "maxRon": 2500
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "a08d4adc-6e5d-4a63-84b1-65c1c07ea94a",
+            "unitName": "Studio Fabric",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "Aerul condiționat bagă aer cald pe modul de răcire.",
+            "status": "SCHEDULED",
+            "daysOpen": 13,
+            "emergencyType": null,
+            "visit": {
+              "inDays": -1,
+              "time": null
+            },
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 330,
+              "maxRon": 540
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 3500,
+              "maxRon": 4700
+            },
+            "handymanMessagedDaysAgo": 3
+          },
+          {
+            "id": "24807886-0468-4691-8d80-df62bae8903f",
+            "unitName": "Loft Cetate",
+            "appliance": null,
+            "description": "Robinetul din baie picură tot timpul.",
+            "status": "CONTACTED",
+            "daysOpen": 13,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 340
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 5
+          },
+          {
+            "id": "1872f662-553d-43d8-89ae-bc8e7d7b094c",
+            "unitName": "Ap. 1 Piața Unirii",
+            "appliance": null,
+            "description": "Două prize din sufragerie nu funcționează.",
+            "status": "CONTACTED",
+            "daysOpen": 14,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "ELECTRICIAN",
+            "repairEstimateRon": {
+              "minRon": 120,
+              "maxRon": 240
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 5
+          },
+          {
+            "id": "912ccad8-c602-4031-8bb0-58642f3eda38",
+            "unitName": "Ap. 2 Piața Unirii",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Espressorul cere decalcifiere și nu mai face cafea.",
+            "status": "CONTACTED",
+            "daysOpen": 15,
+            "emergencyType": null,
+            "visit": null,
+            "category": "SELF_FIX",
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": {
+              "minRon": 1800,
+              "maxRon": 2400
+            },
+            "handymanMessagedDaysAgo": 4
+          },
+          {
+            "id": "928dc1de-555f-4df5-8632-24ce55e3a348",
+            "unitName": "Ap. 5 Elisabetin",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Coffee machine says descale and stopped making coffee.",
+            "status": "SCHEDULED",
+            "daysOpen": 15,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 2,
+              "time": "09:00"
+            },
+            "category": "SELF_FIX",
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": {
+              "minRon": 1900,
+              "maxRon": 2600
+            },
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "4040deff-a888-4359-89b5-deb60c3a0997",
+            "unitName": "Ap. 9 Iosefin",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Cuptorul nu încălzește, ventilatorul merge.",
+            "status": "SCHEDULED",
+            "daysOpen": 18,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 6,
+              "time": "17:00"
+            },
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 200,
+              "maxRon": 340
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2200
+            },
+            "handymanMessagedDaysAgo": 3
+          },
+          {
+            "id": "6d07051a-fa44-4928-85b5-644999aebfd3",
+            "unitName": "Ap. 5 Elisabetin",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Cuptorul nu încălzește, ventilatorul merge.",
+            "status": "DIAGNOSED",
+            "daysOpen": 19,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 190,
+              "maxRon": 320
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1400,
+              "maxRon": 2100
+            },
+            "handymanMessagedDaysAgo": null
+          }
+        ],
+        "repeatProblems": [
+          {
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "unitName": "Ap. 1 Piața Unirii",
+            "closedIssueCount": 2,
+            "repairCostRon": 1350,
+            "purchasePriceRon": 2500,
+            "closedIssueIds": [
+              "3178262c-59e8-4935-815b-9b627438c2e8",
+              "feab82eb-84b4-4119-878b-fcf0828fd0bd"
+            ],
+            "openIssueIds": ["98c726fb-fb15-49be-8138-4d639b809d92"]
+          },
+          {
+            "appliance": "WATER_HEATER Ariston Pro1 Eco 80",
+            "unitName": "Ap. 2 Piața Unirii",
+            "closedIssueCount": 3,
+            "repairCostRon": 830,
+            "purchasePriceRon": 1100,
+            "closedIssueIds": [
+              "83c5dcaf-345e-4a47-8a53-8bb8688179c5",
+              "b8e96f02-8388-4f4e-837d-7c3950eb0889",
+              "31535da4-85df-4217-8698-76bd0f9ba3e4"
+            ],
+            "openIssueIds": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "constanta-en-15",
+      "language": "EN",
+      "facts": {
+        "openIssues": [
+          {
+            "id": "55760d61-3e44-4fc8-89b8-cf781b858e20",
+            "unitName": "Port Studio",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "AC blows warm air in cooling mode.",
+            "status": "CONTACTED",
+            "daysOpen": 0,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 320,
+              "maxRon": 520
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 3400,
+              "maxRon": 4600
+            },
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "0bf6eb4d-eb69-40bb-859e-1e277860f09e",
+            "unitName": "Mamaia Nord 12",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "AC blows warm air in cooling mode.",
+            "status": "DIAGNOSED",
+            "daysOpen": 1,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 280,
+              "maxRon": 500
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 3500,
+              "maxRon": 4600
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "b09972b1-d90b-4a0b-8205-b30e100ba5b0",
+            "unitName": "Sea View 101",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Dishwasher leaves dishes dirty and water stays at the bottom.",
+            "status": "DIAGNOSED",
+            "daysOpen": 3,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 260,
+              "maxRon": 420
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1700,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "3ca57b6c-70aa-4222-818c-9920abd41528",
+            "unitName": "Casino Loft",
+            "appliance": null,
+            "description": "Bathroom tap drips all the time.",
+            "status": "DIAGNOSED",
+            "daysOpen": 4,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 150,
+              "maxRon": 320
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "4b3447c5-f3d9-4009-8af7-948ed7fd2a72",
+            "unitName": "Port Studio",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Oven does not heat, the fan turns.",
+            "status": "CONTACTED",
+            "daysOpen": 6,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 180,
+              "maxRon": 320
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1500,
+              "maxRon": 2200
+            },
+            "handymanMessagedDaysAgo": 3
+          },
+          {
+            "id": "86d95015-0e6a-4ea7-8abc-a1434d025f67",
+            "unitName": "Sea View 101",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "The washing machine stops mid-cycle and shows error E18.",
+            "status": "CONTACTED",
+            "daysOpen": 6,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 380,
+              "maxRon": 600
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1800,
+              "maxRon": 2600
+            },
+            "handymanMessagedDaysAgo": 5
+          },
+          {
+            "id": "0f5d068b-e1e5-474a-8fc4-e0c568d99ef3",
+            "unitName": "Mamaia Nord 12",
+            "appliance": null,
+            "description": "Bathroom tap drips all the time.",
+            "status": "CONTACTED",
+            "daysOpen": 9,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 330
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "da1bfe34-bcbd-45be-8bba-ee2ec16544f4",
+            "unitName": "Sea View 101",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Oven does not heat, the fan turns.",
+            "status": "CONTACTED",
+            "daysOpen": 14,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 150,
+              "maxRon": 280
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1400,
+              "maxRon": 2100
+            },
+            "handymanMessagedDaysAgo": 3
+          },
+          {
+            "id": "7058a37a-f759-4a3e-8fd4-b48543011169",
+            "unitName": "Mamaia Nord 12",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Oven does not heat, the fan turns.",
+            "status": "DIAGNOSED",
+            "daysOpen": 15,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 210,
+              "maxRon": 330
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1100,
+              "maxRon": 1600
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "2d5e1b60-846b-4f34-82c5-3402adf33d51",
+            "unitName": "Port Studio",
+            "appliance": null,
+            "description": "Wardrobe door hinge broke, door hangs.",
+            "status": "NEW",
+            "daysOpen": 16,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "0eef16d9-ed4f-47cb-8116-b6fc42a9b2ca",
+            "unitName": "Mamaia Nord 12",
+            "appliance": null,
+            "description": "Bathroom tap drips all the time.",
+            "status": "DIAGNOSED",
+            "daysOpen": 19,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 130,
+              "maxRon": 300
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "494b2037-4dae-4370-81d6-c7ed11cf30d9",
+            "unitName": "Sea View 101",
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "description": "Fridge is warm, the light works but it does not cool.",
+            "status": "NEW",
+            "daysOpen": 20,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "3beff9d9-cd43-4305-8e5e-b79fd573d3bc",
+            "unitName": "Sea View 101",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "AC blows warm air in cooling mode.",
+            "status": "CONTACTED",
+            "daysOpen": 20,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 310,
+              "maxRon": 510
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2900,
+              "maxRon": 4000
+            },
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "369beaf4-f556-4863-86ad-1e7a3c072c16",
+            "unitName": "Casino Loft",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Oven does not heat, the fan turns.",
+            "status": "CONTACTED",
+            "daysOpen": 21,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 160,
+              "maxRon": 300
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": 16
+          },
+          {
+            "id": "5638c69f-6623-4daf-8896-e9cad129fe8a",
+            "unitName": "Port Studio",
+            "appliance": null,
+            "description": "Two sockets in the living room do not work.",
+            "status": "DIAGNOSED",
+            "daysOpen": 24,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "ELECTRICIAN",
+            "repairEstimateRon": {
+              "minRon": 180,
+              "maxRon": 290
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          }
+        ],
+        "repeatProblems": [
+          {
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "unitName": "Sea View 101",
+            "closedIssueCount": 2,
+            "repairCostRon": 650,
+            "purchasePriceRon": 1700,
+            "closedIssueIds": [
+              "3317dff2-dcb7-464d-8544-a52d65af7fbe",
+              "3813c133-1f8d-415f-8611-fb194dda0e0a"
+            ],
+            "openIssueIds": ["b09972b1-d90b-4a0b-8205-b30e100ba5b0"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "iasi-ro-11",
+      "language": "RO",
+      "facts": {
+        "openIssues": [
+          {
+            "id": "b10784ca-fde2-4335-8c44-fa19b10a24f6",
+            "unitName": "Ap. 4 Copou",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "Mașina de spălat se oprește la jumătatea programului și afișează eroarea E18.",
+            "status": "DIAGNOSED",
+            "daysOpen": 0,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 370,
+              "maxRon": 570
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2100,
+              "maxRon": 2800
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "c5eb6905-2ec0-415d-8ed8-d90dee27a84d",
+            "unitName": "Ap. 4 Copou",
+            "appliance": "HOB Electrolux EKG51111OW",
+            "description": "Strong gas smell in the kitchen near the hob.",
+            "status": "CONTACTED",
+            "daysOpen": 1,
+            "emergencyType": "GAS_SMELL",
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 200,
+              "maxRon": 400
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "92f1dfb5-a9b8-4aaf-8bb9-0a5317473e21",
+            "unitName": "Ap. 4 Copou",
+            "appliance": null,
+            "description": "Două prize din sufragerie nu funcționează.",
+            "status": "NEW",
+            "daysOpen": 1,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "b35dd650-c790-41ed-8021-0be91d558592",
+            "unitName": "Ap. 4 Copou",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "Mașina de spălat se oprește la jumătatea programului și afișează eroarea E18.",
+            "status": "SCHEDULED",
+            "daysOpen": 2,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 1,
+              "time": "17:00"
+            },
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 350,
+              "maxRon": 570
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": 2
+          },
+          {
+            "id": "c231b2e1-7388-4116-8d06-291aa6e08bb6",
+            "unitName": "Ap. 8 Tătărași",
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "description": "Frigiderul nu răcește, lumina merge dar e cald înăuntru.",
+            "status": "DIAGNOSED",
+            "daysOpen": 2,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 410,
+              "maxRon": 730
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1900,
+              "maxRon": 2800
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "89de8531-b672-4d5b-8785-e79d5a18b3d4",
+            "unitName": "Ap. 8 Tătărași",
+            "appliance": null,
+            "description": "Yala de la intrare se rotește greu, cheia se blochează.",
+            "status": "DIAGNOSED",
+            "daysOpen": 2,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "LOCKSMITH",
+            "repairEstimateRon": {
+              "minRon": 190,
+              "maxRon": 350
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "8075e0b1-258a-4dd2-8f6a-0d04467575ab",
+            "unitName": "Studio Palas",
+            "appliance": "WATER_HEATER Ariston Pro1 Eco 80",
+            "description": "Nu este apă caldă la duș de azi dimineață.",
+            "status": "SCHEDULED",
+            "daysOpen": 3,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 0,
+              "time": "14:00"
+            },
+            "category": "PART",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 200,
+              "maxRon": 340
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 900,
+              "maxRon": 1300
+            },
+            "handymanMessagedDaysAgo": 2
+          },
+          {
+            "id": "66b081df-c570-4fe1-8c0b-8856bd7f16c5",
+            "unitName": "Ap. 8 Tătărași",
+            "appliance": null,
+            "description": "Bathroom tap drips all the time.",
+            "status": "CONTACTED",
+            "daysOpen": 3,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 180,
+              "maxRon": 330
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 3
+          },
+          {
+            "id": "aae80667-c8df-44d8-853b-c5c4243f0abb",
+            "unitName": "Ap. 8 Tătărași",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "Mașina de spălat se oprește la jumătatea programului și afișează eroarea E18.",
+            "status": "NEW",
+            "daysOpen": 10,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "5b623a42-3690-4884-8a69-e8dc1fe6d7dc",
+            "unitName": "Ap. 4 Copou",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Oven does not heat, the fan turns.",
+            "status": "CONTACTED",
+            "daysOpen": 16,
+            "emergencyType": null,
+            "visit": null,
+            "category": "PART",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 160,
+              "maxRon": 280
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1400,
+              "maxRon": 2000
+            },
+            "handymanMessagedDaysAgo": 4
+          },
+          {
+            "id": "37f1586b-1b2c-4165-88f2-14cc2f711621",
+            "unitName": "Ap. 8 Tătărași",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "The washing machine stops mid-cycle and shows error E18.",
+            "status": "NEW",
+            "daysOpen": 18,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          }
+        ],
+        "repeatProblems": []
+      }
+    },
+    {
+      "id": "sibiu-en-20",
+      "language": "EN",
+      "facts": {
+        "openIssues": [
+          {
+            "id": "a2d49872-09d8-4be9-8af8-fe60123090d6",
+            "unitName": "Large Square 2",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Coffee machine says descale and stopped making coffee.",
+            "status": "SCHEDULED",
+            "daysOpen": 0,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 1,
+              "time": null
+            },
+            "category": "SELF_FIX",
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": {
+              "minRon": 1400,
+              "maxRon": 2000
+            },
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "1ea63246-9cf8-4262-8159-86801ee62cc8",
+            "unitName": "Small Square Loft",
+            "appliance": null,
+            "description": "Curge apă de sub chiuvetă pe jos.",
+            "status": "CONTACTED",
+            "daysOpen": 1,
+            "emergencyType": "WATER_LEAK",
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 240,
+              "maxRon": 460
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "34896432-0de2-42ca-87f7-7a1328b2b96c",
+            "unitName": "Small Square Loft",
+            "appliance": null,
+            "description": "Două prize din sufragerie nu funcționează.",
+            "status": "CONTACTED",
+            "daysOpen": 2,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "ELECTRICIAN",
+            "repairEstimateRon": {
+              "minRon": 160,
+              "maxRon": 270
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "5aa52e5c-fa15-44fd-8681-77ae8ee18d27",
+            "unitName": "Large Square 2",
+            "appliance": null,
+            "description": "Front door lock is hard to turn, key gets stuck.",
+            "status": "CONTACTED",
+            "daysOpen": 3,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "LOCKSMITH",
+            "repairEstimateRon": {
+              "minRon": 220,
+              "maxRon": 370
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 3
+          },
+          {
+            "id": "bf7d4e23-9fa1-4d31-808a-61801dc56b90",
+            "unitName": "Large Square 2",
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "description": "Fridge is warm, the light works but it does not cool.",
+            "status": "DIAGNOSED",
+            "daysOpen": 4,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 380,
+              "maxRon": 680
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2200,
+              "maxRon": 3100
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "03e6db29-9e5d-47e5-80ee-e7330e79e769",
+            "unitName": "Small Square Loft",
+            "appliance": null,
+            "description": "Bathroom tap drips all the time.",
+            "status": "NEW",
+            "daysOpen": 6,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "d022f306-2577-4d72-865a-408d8c35381f",
+            "unitName": "Small Square Loft",
+            "appliance": null,
+            "description": "Wardrobe door hinge broke, door hangs.",
+            "status": "SCHEDULED",
+            "daysOpen": 7,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 5,
+              "time": null
+            },
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 130,
+              "maxRon": 230
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 2
+          },
+          {
+            "id": "f23f06e5-3327-4d4d-8fa7-2102f74b87a6",
+            "unitName": "Council Tower Flat",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Dishwasher leaves dishes dirty and water stays at the bottom.",
+            "status": "CONTACTED",
+            "daysOpen": 7,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 280,
+              "maxRon": 440
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1800,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": 2
+          },
+          {
+            "id": "e70e3b25-31bf-439f-8d9a-86980101b6fa",
+            "unitName": "Small Square Loft",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "AC blows warm air in cooling mode.",
+            "status": "SCHEDULED",
+            "daysOpen": 10,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 1,
+              "time": "09:00"
+            },
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 270,
+              "maxRon": 480
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 3000,
+              "maxRon": 4200
+            },
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "ed3838d0-a4cb-4fed-8514-3cd95272f107",
+            "unitName": "Council Tower Flat",
+            "appliance": null,
+            "description": "S-a rupt balamaua ușii de la dulap, ușa atârnă.",
+            "status": "CONTACTED",
+            "daysOpen": 11,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 130,
+              "maxRon": 250
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "6d8d8b54-e7e8-4a4a-821d-8d129b36ada6",
+            "unitName": "Large Square 2",
+            "appliance": "WATER_HEATER Ariston Pro1 Eco 80",
+            "description": "No hot water in the shower since this morning.",
+            "status": "SCHEDULED",
+            "daysOpen": 11,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 1,
+              "time": null
+            },
+            "category": "PART",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 310
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1200,
+              "maxRon": 1600
+            },
+            "handymanMessagedDaysAgo": 5
+          },
+          {
+            "id": "a49989f6-20f9-41d8-8aa0-444ead7b49f3",
+            "unitName": "Lower Town 6",
+            "appliance": null,
+            "description": "Bathroom tap drips all the time.",
+            "status": "SCHEDULED",
+            "daysOpen": 12,
+            "emergencyType": null,
+            "visit": {
+              "inDays": -2,
+              "time": null
+            },
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 320
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "5eedc665-45c6-44a2-814a-c838ca86850d",
+            "unitName": "Lower Town 6",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Dishwasher leaves dishes dirty and water stays at the bottom.",
+            "status": "DIAGNOSED",
+            "daysOpen": 13,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 240,
+              "maxRon": 410
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1200,
+              "maxRon": 1900
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "a1eab9a8-8ed5-4222-856a-a6b836c41291",
+            "unitName": "Large Square 2",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "AC blows warm air in cooling mode.",
+            "status": "SCHEDULED",
+            "daysOpen": 13,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 1,
+              "time": "09:00"
+            },
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 280,
+              "maxRon": 490
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2900,
+              "maxRon": 3900
+            },
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "e06e994d-4bb2-4f5f-8abf-fb1e0a9cfbac",
+            "unitName": "Bridge of Lies Studio",
+            "appliance": "WATER_HEATER Ariston Pro1 Eco 80",
+            "description": "No hot water in the shower since this morning.",
+            "status": "NEW",
+            "daysOpen": 13,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "14d1ca42-a70f-4579-836d-28177fd29cab",
+            "unitName": "Council Tower Flat",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Mașina de spălat vase lasă vasele murdare și rămâne apă pe fund.",
+            "status": "DIAGNOSED",
+            "daysOpen": 18,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 250,
+              "maxRon": 410
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1300,
+              "maxRon": 2000
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "26d198a2-e46d-4c32-8a0e-f81aa5c605e9",
+            "unitName": "Large Square 2",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "The washing machine stops mid-cycle and shows error E18.",
+            "status": "CONTACTED",
+            "daysOpen": 18,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 320,
+              "maxRon": 530
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2000,
+              "maxRon": 2600
+            },
+            "handymanMessagedDaysAgo": 0
+          },
+          {
+            "id": "df4d6653-cad9-416d-8195-f60252e3b7d0",
+            "unitName": "Bridge of Lies Studio",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "The washing machine stops mid-cycle and shows error E18.",
+            "status": "DIAGNOSED",
+            "daysOpen": 19,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 380,
+              "maxRon": 590
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1500,
+              "maxRon": 2200
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "742a8beb-61b4-4fd4-839c-1d1150c744dd",
+            "unitName": "Small Square Loft",
+            "appliance": null,
+            "description": "Front door lock is hard to turn, key gets stuck.",
+            "status": "SCHEDULED",
+            "daysOpen": 19,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 2,
+              "time": "09:00"
+            },
+            "category": "REPAIR",
+            "trade": "LOCKSMITH",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 340
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 3
+          },
+          {
+            "id": "e2f8134c-8a66-4a88-88cb-5266515089ec",
+            "unitName": "Bridge of Lies Studio",
+            "appliance": null,
+            "description": "Yala de la intrare se rotește greu, cheia se blochează.",
+            "status": "CONTACTED",
+            "daysOpen": 20,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "LOCKSMITH",
+            "repairEstimateRon": {
+              "minRon": 170,
+              "maxRon": 340
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 2
+          }
+        ],
+        "repeatProblems": [
+          {
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "unitName": "Large Square 2",
+            "closedIssueCount": 4,
+            "repairCostRon": 3070,
+            "purchasePriceRon": 2300,
+            "closedIssueIds": [
+              "b5311bbf-a38c-4556-8e49-89eea1b984aa",
+              "58fd9482-fe2e-4992-8331-c4881b714395",
+              "4e1efb5c-b6d5-42c9-8c7b-ef5561ba24d3",
+              "9389ca01-e462-49d3-8fa2-7f89261b2546"
+            ],
+            "openIssueIds": ["bf7d4e23-9fa1-4d31-808a-61801dc56b90"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "oradea-ro-14",
+      "language": "RO",
+      "facts": {
+        "openIssues": [
+          {
+            "id": "e71db30f-d3ff-4ef8-8f22-7b031c529145",
+            "unitName": "Ap. 6 Republicii",
+            "appliance": "DISHWASHER Beko DFN05310W",
+            "description": "Mașina de spălat vase lasă vasele murdare și rămâne apă pe fund.",
+            "status": "CONTACTED",
+            "daysOpen": 1,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 220,
+              "maxRon": 370
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "878e3e7f-13ff-4b6c-8b5b-f07affac67c6",
+            "unitName": "Ap. 10 Rogerius",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "Mașina de spălat se oprește la jumătatea programului și afișează eroarea E18.",
+            "status": "DIAGNOSED",
+            "daysOpen": 2,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 370,
+              "maxRon": 580
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1900,
+              "maxRon": 2700
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "479444aa-7161-4c8b-8988-116c0425fc46",
+            "unitName": "Ap. 6 Republicii",
+            "appliance": "WASHING_MACHINE Bosch WAN28262BY",
+            "description": "Mașina de spălat se oprește la jumătatea programului și afișează eroarea E18.",
+            "status": "CONTACTED",
+            "daysOpen": 4,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 320,
+              "maxRon": 540
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2300
+            },
+            "handymanMessagedDaysAgo": 4
+          },
+          {
+            "id": "79f20a86-22d3-40ef-8536-d76058428553",
+            "unitName": "Ap. 10 Rogerius",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Espressorul cere decalcifiere și nu mai face cafea.",
+            "status": "DIAGNOSED",
+            "daysOpen": 4,
+            "emergencyType": null,
+            "visit": null,
+            "category": "SELF_FIX",
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": {
+              "minRon": 1700,
+              "maxRon": 2400
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "43bd75cc-1b9f-4049-86f9-0c72a0d0752a",
+            "unitName": "Studio Crișul",
+            "appliance": null,
+            "description": "Robinetul din baie picură tot timpul.",
+            "status": "CONTACTED",
+            "daysOpen": 6,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "PLUMBER",
+            "repairEstimateRon": {
+              "minRon": 150,
+              "maxRon": 300
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 2
+          },
+          {
+            "id": "8e378eb3-4bcf-44b1-8632-8a9011242418",
+            "unitName": "Ap. 10 Rogerius",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Espressorul cere decalcifiere și nu mai face cafea.",
+            "status": "CONTACTED",
+            "daysOpen": 7,
+            "emergencyType": null,
+            "visit": null,
+            "category": "SELF_FIX",
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": {
+              "minRon": 1800,
+              "maxRon": 2400
+            },
+            "handymanMessagedDaysAgo": 1
+          },
+          {
+            "id": "e874e0b2-be87-4f63-82ea-453c37de66c7",
+            "unitName": "Ap. 10 Rogerius",
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "description": "Frigiderul nu răcește, lumina merge dar e cald înăuntru.",
+            "status": "DIAGNOSED",
+            "daysOpen": 10,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 380,
+              "maxRon": 690
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2300,
+              "maxRon": 3000
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "fea78358-2e65-494d-87dd-e961de5eaad2",
+            "unitName": "Ap. 6 Republicii",
+            "appliance": "COFFEE_MACHINE DeLonghi Magnifica S",
+            "description": "Espressorul cere decalcifiere și nu mai face cafea.",
+            "status": "DIAGNOSED",
+            "daysOpen": 12,
+            "emergencyType": null,
+            "visit": null,
+            "category": "SELF_FIX",
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": {
+              "minRon": 1600,
+              "maxRon": 2200
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "aebc2fd0-ca69-4152-83f7-958498a17298",
+            "unitName": "Ap. 6 Republicii",
+            "appliance": "FRIDGE Samsung RB34T602ESA",
+            "description": "Frigiderul nu răcește, lumina merge dar e cald înăuntru.",
+            "status": "DIAGNOSED",
+            "daysOpen": 12,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "APPLIANCE_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 400,
+              "maxRon": 720
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2200,
+              "maxRon": 3000
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "1cd5cb21-98f4-49f1-8c66-e352a2c36671",
+            "unitName": "Ap. 10 Rogerius",
+            "appliance": null,
+            "description": "Yala de la intrare se rotește greu, cheia se blochează.",
+            "status": "SCHEDULED",
+            "daysOpen": 12,
+            "emergencyType": null,
+            "visit": {
+              "inDays": 3,
+              "time": "09:00"
+            },
+            "category": "REPAIR",
+            "trade": "LOCKSMITH",
+            "repairEstimateRon": {
+              "minRon": 220,
+              "maxRon": 370
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 4
+          },
+          {
+            "id": "3ad1eb70-c68b-4300-83b2-a5912e8dc840",
+            "unitName": "Ap. 10 Rogerius",
+            "appliance": null,
+            "description": "S-a rupt balamaua ușii de la dulap, ușa atârnă.",
+            "status": "CONTACTED",
+            "daysOpen": 15,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "GENERAL_HANDYMAN",
+            "repairEstimateRon": {
+              "minRon": 70,
+              "maxRon": 170
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": 4
+          },
+          {
+            "id": "763cb9c2-3f69-49c3-829a-682fb393b25e",
+            "unitName": "Studio Crișul",
+            "appliance": "AIR_CONDITIONER Daikin FTXM35R",
+            "description": "Aerul condiționat bagă aer cald pe modul de răcire.",
+            "status": "DIAGNOSED",
+            "daysOpen": 15,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "AC_TECHNICIAN",
+            "repairEstimateRon": {
+              "minRon": 300,
+              "maxRon": 520
+            },
+            "newApplianceEstimateRon": {
+              "minRon": 2900,
+              "maxRon": 4100
+            },
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "3bb4e160-584a-4aef-8d6e-d119f552b4af",
+            "unitName": "Ap. 10 Rogerius",
+            "appliance": null,
+            "description": "Două prize din sufragerie nu funcționează.",
+            "status": "DIAGNOSED",
+            "daysOpen": 18,
+            "emergencyType": null,
+            "visit": null,
+            "category": "REPAIR",
+            "trade": "ELECTRICIAN",
+            "repairEstimateRon": {
+              "minRon": 140,
+              "maxRon": 260
+            },
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          },
+          {
+            "id": "7c8ce3ee-f4f2-4a7a-89e9-1bef15479d70",
+            "unitName": "Ap. 10 Rogerius",
+            "appliance": "OVEN Whirlpool AKP 745",
+            "description": "Cuptorul nu încălzește, ventilatorul merge.",
+            "status": "NEW",
+            "daysOpen": 20,
+            "emergencyType": null,
+            "visit": null,
+            "category": null,
+            "trade": null,
+            "repairEstimateRon": null,
+            "newApplianceEstimateRon": null,
+            "handymanMessagedDaysAgo": null
+          }
+        ],
+        "repeatProblems": []
+      }
+    }
+  ]
+}

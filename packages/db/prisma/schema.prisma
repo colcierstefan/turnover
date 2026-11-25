@@ -31,7 +31,8 @@ model Organization {
   memberships  Membership[]
   invitations  Invitation[]
   units        Unit[]
-  handymen     Handyman[]
+  handymen       Handyman[]
+  issueSummaries IssueSummary[]
 }
 
 enum MembershipRole {
@@ -288,4 +289,16 @@ model HandymanMessage {
 
   @@index([issueId])
   @@index([handymanId])
+}
+
+model IssueSummary {
+  id               String       @id @default(uuid())
+  organizationId   String
+  organization     Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  language         UserLanguage
+  factsFingerprint String
+  content          Json
+  createdAt        DateTime     @default(now())
+
+  @@unique([organizationId, language])
 }
