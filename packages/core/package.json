@@ -16,7 +16,8 @@
     "evals:self-help-tips": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/self-help-tips.eval.ts",
     "evals:issue-diagnosis": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/issue-diagnosis.eval.ts",
     "evals:handyman-message-draft": "tsx --env-file=../../.env --conditions=react-server src/handyman/evals/handyman-message-draft.eval.ts",
-    "evals:handyman-message-translation": "tsx --env-file=../../.env --conditions=react-server src/handyman/evals/handyman-message-translation.eval.ts"
+    "evals:handyman-message-translation": "tsx --env-file=../../.env --conditions=react-server src/handyman/evals/handyman-message-translation.eval.ts",
+    "evals:issue-summary": "tsx --env-file=../../.env --conditions=react-server src/issue/evals/issue-summary.eval.ts"
   },
   "dependencies": {
     "@ai-sdk/google-vertex": "5.0.144",

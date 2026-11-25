@@ -4,11 +4,17 @@ import applianceService from "@turnover/core/appliance/services/appliance.servic
 import handymanService from "@turnover/core/handyman/services/handyman.service";
 import issueFollowUpRepository from "@turnover/core/issue/repositories/issue-follow-up.repository";
 import issuePhotoRepository from "@turnover/core/issue/repositories/issue-photo.repository";
+import issueSummaryRepository from "@turnover/core/issue/repositories/issue-summary.repository";
 import issueRepository from "@turnover/core/issue/repositories/issue.repository";
 import issueDiagnosisService from "@turnover/core/issue/services/issue-diagnosis.service";
+import issueSummaryService from "@turnover/core/issue/services/issue-summary.service";
 import issueService from "@turnover/core/issue/services/issue.service";
 import reportTriageService from "@turnover/core/issue/services/report-triage.service";
 import selfHelpTipsService from "@turnover/core/issue/services/self-help-tips.service";
+import {
+  buildIssueSummaryFacts,
+  getIssueSummaryFactsFingerprint,
+} from "@turnover/core/issue/utils/issue-summary.utils";
 import {
   ForbiddenError,
   NotFoundError,
@@ -45,6 +51,12 @@ vi.mock("@turnover/core/organization/services/organization.service", () => ({
 vi.mock("@turnover/core/issue/services/issue-diagnosis.service", () => ({
   default: { diagnose: vi.fn() },
 }));
+vi.mock("@turnover/core/issue/services/issue-summary.service", () => ({
+  default: { summarize: vi.fn() },
+}));
+vi.mock("@turnover/core/issue/repositories/issue-summary.repository", () => ({
+  default: { findByOrganizationIdAndLanguage: vi.fn(), upsert: vi.fn() },
+}));
 vi.mock("@turnover/core/issue/services/report-triage.service", () => ({
   default: { triage: vi.fn() },
 }));
@@ -62,6 +74,8 @@ vi.mock("@turnover/core/issue/repositories/issue.repository", () => ({
     listResolvedByUnitId: vi.fn(),
     listResolvedByApplianceId: vi.fn(),
     listResolvedByOrganizationId: vi.fn(),
+    listOpenForSummaryByOrganizationId: vi.fn(),
+    listResolvedApplianceIssuesSinceByOrganizationId: vi.fn(),
     update: vi.fn(),
   },
 }));
@@ -882,6 +896,151 @@ describe("IssueService", () => {
       expect(
         issueRepository.listResolvedByOrganizationId,
       ).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("getIssueSummary", () => {
+    const summaryNow = new Date("2026-11-22T12:00:00Z");
+    const openIssues = Array.from({ length: 10 }, (_, index) => ({
+      id: `open-${index}`,
+      unitId: `unit-${index}`,
+      applianceId: null,
+      description: "The tap drips",
+      status: "NEW" as const,
+      category: null,
+      diagnosis: null,
+      emergencyType: null,
+      scheduledFor: null,
+      scheduledTime: null,
+      createdAt: new Date("2026-11-20T10:00:00Z"),
+      unit: { name: `Unit ${index}` },
+      appliance: null,
+      handymanMessages: [],
+    }));
+    const content = {
+      headline: "Zece probleme sunt deschise.",
+      points: [{ text: "Robinetul curge în Unit 3.", issueIds: ["open-3"] }],
+    };
+    const savedSummary = {
+      id: "summary-1",
+      organizationId: "org-1",
+      language: "RO" as const,
+      factsFingerprint: getIssueSummaryFactsFingerprint(
+        buildIssueSummaryFacts(openIssues, [], summaryNow),
+      ),
+      content,
+      createdAt: summaryNow,
+    };
+
+    beforeEach(() => {
+      vi.useFakeTimers({ now: summaryNow });
+      vi.mocked(organizationService.requireMembership).mockResolvedValue({
+        organizationId: "org-1",
+        userId: manager.id,
+        role: "MANAGER",
+        createdAt: summaryNow,
+        organization: unit.organization,
+      });
+      vi.mocked(
+        issueRepository.listOpenForSummaryByOrganizationId,
+      ).mockResolvedValue(openIssues);
+      vi.mocked(
+        issueRepository.listResolvedApplianceIssuesSinceByOrganizationId,
+      ).mockResolvedValue([]);
+      vi.mocked(
+        issueSummaryRepository.findByOrganizationIdAndLanguage,
+      ).mockResolvedValue(null);
+      vi.mocked(issueSummaryService.summarize).mockResolvedValue(content);
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("throws a ForbiddenError for a user without an organization", async () => {
+      vi.mocked(organizationService.requireMembership).mockRejectedValueOnce(
+        new ForbiddenError("no organization"),
+      );
+
+      await expect(issueService.getIssueSummary(manager)).rejects.toThrow(
+        ForbiddenError,
+      );
+      expect(
+        issueRepository.listOpenForSummaryByOrganizationId,
+      ).not.toHaveBeenCalled();
+      expect(issueSummaryService.summarize).not.toHaveBeenCalled();
+    });
+
+    it("reads only the issues of the manager's own organization", async () => {
+      await issueService.getIssueSummary(manager);
+
+      expect(organizationService.requireMembership).toHaveBeenCalledWith(
+        manager.id,
+      );
+      expect(
+        issueRepository.listOpenForSummaryByOrganizationId,
+      ).toHaveBeenCalledWith("org-1");
+      expect(
+        issueRepository.listResolvedApplianceIssuesSinceByOrganizationId,
+      ).toHaveBeenCalledWith("org-1", new Date("2026-08-24T12:00:00Z"));
+    });
+
+    it("returns nothing and calls no model below 10 open issues", async () => {
+      vi.mocked(
+        issueRepository.listOpenForSummaryByOrganizationId,
+      ).mockResolvedValueOnce(openIssues.slice(1));
+
+      await expect(issueService.getIssueSummary(manager)).resolves.toBeNull();
+      expect(issueSummaryService.summarize).not.toHaveBeenCalled();
+    });
+
+    it("reuses the saved summary when the facts are unchanged", async () => {
+      vi.mocked(
+        issueSummaryRepository.findByOrganizationIdAndLanguage,
+      ).mockResolvedValueOnce(savedSummary);
+
+      await expect(issueService.getIssueSummary(manager)).resolves.toEqual({
+        headline: content.headline,
+        points: [
+          {
+            text: content.points[0].text,
+            issues: [{ id: "open-3", unitId: "unit-3", unitName: "Unit 3" }],
+          },
+        ],
+      });
+      expect(
+        issueSummaryRepository.findByOrganizationIdAndLanguage,
+      ).toHaveBeenCalledWith("org-1", "RO");
+      expect(issueSummaryService.summarize).not.toHaveBeenCalled();
+      expect(issueSummaryRepository.upsert).not.toHaveBeenCalled();
+    });
+
+    it("generates and saves a new summary when the facts changed", async () => {
+      vi.mocked(
+        issueSummaryRepository.findByOrganizationIdAndLanguage,
+      ).mockResolvedValueOnce({ ...savedSummary, factsFingerprint: "old" });
+
+      await issueService.getIssueSummary(manager);
+
+      expect(issueSummaryService.summarize).toHaveBeenCalledWith(
+        expect.objectContaining({ language: "RO", repeatProblems: [] }),
+      );
+      expect(issueSummaryRepository.upsert).toHaveBeenCalledWith({
+        organizationId: "org-1",
+        language: "RO",
+        factsFingerprint: savedSummary.factsFingerprint,
+        content,
+      });
+    });
+
+    it("returns nothing and saves nothing when the summary call fails", async () => {
+      vi.mocked(issueSummaryService.summarize).mockRejectedValueOnce(
+        new Error("Vertex unavailable"),
+      );
+
+      await expect(issueService.getIssueSummary(manager)).resolves.toBeNull();
+      expect(logger.error).toHaveBeenCalled();
+      expect(issueSummaryRepository.upsert).not.toHaveBeenCalled();
     });
   });
 });

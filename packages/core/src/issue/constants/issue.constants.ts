@@ -42,3 +42,8 @@ export const MANAGER_ISSUE_RESOLUTIONS = [
   "NOT_NEEDED",
 ] as const satisfies ReadonlyArray<IssueResolution>;
 export const REPAIR_HISTORY_TIME_ZONE = "Europe/Bucharest";
+export const ISSUE_SUMMARY_MIN_OPEN_ISSUES = 10;
+export const ISSUE_SUMMARY_MAX_POINTS = 5;
+export const ISSUE_SUMMARY_REPEAT_WINDOW_DAYS = 90;
+export const ISSUE_SUMMARY_DESCRIPTION_MAX_LENGTH = 150;
+export const ISSUE_SUMMARY_TIME_ZONE = "Europe/Bucharest";

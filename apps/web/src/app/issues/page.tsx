@@ -1,11 +1,13 @@
 import { Suspense } from "react";
 import Link from "next/link";
 
+import { ISSUE_SUMMARY_MIN_OPEN_ISSUES } from "@turnover/core/issue/constants/issue.constants";
 import issueService from "@turnover/core/issue/services/issue.service";
 
 import AppHeader from "@/components/app-header";
 import IssueOpenList from "@/features/issue/components/issue/issue-open-list";
 import IssueRepairList from "@/features/issue/components/repair/issue-repair-list";
+import IssueSummaryCard from "@/features/issue/components/summary/issue-summary-card";
 import { getSignedInMembership } from "@/features/organization/server/organization-membership.server";
 import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
@@ -49,12 +51,31 @@ async function Issues({
             language={user.language}
           />
         ) : (
-          <IssueOpenList
-            issues={await issueService.listOpenIssuesForUser(user.id)}
-            language={user.language}
-          />
+          <IssueOpenTab user={user} />
         )}
       </main>
+    </>
+  );
+}
+
+async function IssueOpenTab({
+  user,
+}: Readonly<{ user: Parameters<typeof issueService.getIssueSummary>[0] }>) {
+  const issues = await issueService.listOpenIssuesForUser(user.id);
+  const text = MANAGER_TEXT[user.language].issues;
+  return (
+    <>
+      {issues.length >= ISSUE_SUMMARY_MIN_OPEN_ISSUES && (
+        <Suspense
+          fallback={<p className="text-sm opacity-70">{text.summaryLoading}</p>}
+        >
+          <IssueSummaryCard
+            summary={issueService.getIssueSummary(user)}
+            language={user.language}
+          />
+        </Suspense>
+      )}
+      <IssueOpenList issues={issues} language={user.language} />
     </>
   );
 }

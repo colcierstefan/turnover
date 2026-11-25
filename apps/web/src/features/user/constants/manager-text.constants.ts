@@ -130,6 +130,8 @@ type ManagerText = {
     openTab: string;
     closedTab: string;
     visitOn: (date: string, time: string | null) => string;
+    summaryTitle: string;
+    summaryLoading: string;
   };
   issue: {
     title: string;
@@ -464,6 +466,8 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       closedTab: "Closed",
       visitOn: (date, time) =>
         time ? `Visit on ${date} at ${time}` : `Visit on ${date}`,
+      summaryTitle: "Summary",
+      summaryLoading: "Preparing the summary…",
     },
     issue: {
       title: "Issue",
@@ -868,6 +872,8 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       closedTab: "Închise",
       visitOn: (date, time) =>
         time ? `Vizită pe ${date}, la ora ${time}` : `Vizită pe ${date}`,
+      summaryTitle: "Rezumat",
+      summaryLoading: "Se pregătește rezumatul…",
     },
     issue: {
       title: "Problemă",
