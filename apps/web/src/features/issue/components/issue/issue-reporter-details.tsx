@@ -1,5 +1,6 @@
 import type {
   EmergencyType,
+  IssueResolution,
   ReporterRole,
 } from "@turnover/core/issue/constants/issue.constants";
 import type { UserLanguage } from "@turnover/core/user/constants/user.constants";
@@ -18,7 +19,7 @@ export default function IssueReporterDetails({
     reporterRole: ReporterRole;
     reporterName: string | null;
     emergencyType: EmergencyType | null;
-    resolvedByReporter: boolean;
+    resolution: IssueResolution | null;
     createdAt: Date;
     photos: ReadonlyArray<{ id: string }>;
     followUps: ReadonlyArray<{
@@ -93,7 +94,7 @@ export default function IssueReporterDetails({
               <li key={tip}>{tip}</li>
             ))}
           </ol>
-          {issue.resolvedByReporter && (
+          {issue.resolution === "FIXED_BY_REPORTER" && (
             <p className="text-sm">{text.fixedByReporter}</p>
           )}
         </div>

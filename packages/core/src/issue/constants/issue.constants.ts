@@ -1,6 +1,7 @@
 import type {
   EmergencyType,
   IssueCategory,
+  IssueResolution,
   IssueStatus,
   ReporterLanguage,
   ReporterRole,
@@ -9,6 +10,7 @@ import type {
 export type {
   EmergencyType,
   IssueCategory,
+  IssueResolution,
   IssueStatus,
   ReporterLanguage,
   ReporterRole,
@@ -33,3 +35,10 @@ export const WARRANTY_STATUSES = [
   "UNKNOWN",
 ] as const;
 export type WarrantyStatus = (typeof WARRANTY_STATUSES)[number];
+export const MANAGER_ISSUE_RESOLUTIONS = [
+  "REPAIRED",
+  "REPLACED",
+  "FIXED_WITHOUT_HANDYMAN",
+  "NOT_NEEDED",
+] as const satisfies ReadonlyArray<IssueResolution>;
+export const REPAIR_HISTORY_TIME_ZONE = "Europe/Bucharest";

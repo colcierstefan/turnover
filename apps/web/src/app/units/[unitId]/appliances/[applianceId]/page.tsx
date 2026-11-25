@@ -3,11 +3,13 @@ import Link from "next/link";
 
 import applianceService from "@turnover/core/appliance/services/appliance.service";
 import { toApplianceFormValues } from "@turnover/core/appliance/utils/appliance.utils";
+import issueService from "@turnover/core/issue/services/issue.service";
 
 import AppHeader from "@/components/app-header";
 import Card from "@/components/card";
 import ApplianceDeleteButton from "@/features/appliance/components/appliance/appliance-delete-button";
 import ApplianceForm from "@/features/appliance/components/appliance/appliance-form";
+import IssueRepairList from "@/features/issue/components/repair/issue-repair-list";
 import { getSignedInMembership } from "@/features/organization/server/organization-membership.server";
 import { MANAGER_TEXT } from "@/features/user/constants/manager-text.constants";
 
@@ -30,9 +32,16 @@ async function Appliance({
   const { user } = await getSignedInMembership(
     `/units/${unitId}/appliances/${applianceId}`,
   );
-  const appliance = await applianceService.getAppliance(user.id, applianceId);
+  const [appliance, repairHistory] = await Promise.all([
+    applianceService.getAppliance(user.id, applianceId),
+    issueService.getApplianceRepairHistory(user.id, applianceId),
+  ]);
   const text = MANAGER_TEXT[user.language];
   const dateFormat = new Intl.DateTimeFormat(text.locale);
+  const ronFormat = new Intl.NumberFormat(text.locale, {
+    minimumFractionDigits: 2,
+    trailingZeroDisplay: "stripIfInteger",
+  });
 
   return (
     <>
@@ -47,6 +56,38 @@ async function Appliance({
         <h1 className="text-2xl font-semibold">
           {text.appliance.categories[appliance.category]}
         </h1>
+        {appliance.retiredAt && (
+          <p className="text-sm">
+            {text.appliance.retiredOn(dateFormat.format(appliance.retiredAt))}
+          </p>
+        )}
+        <Card title={text.repair.historyTitle}>
+          <dl className="flex flex-col gap-1 text-sm">
+            <div className="flex justify-between gap-4">
+              <dt>{text.appliance.purchasePriceLabel}</dt>
+              <dd className="font-medium">
+                {appliance.purchasePriceRon === null
+                  ? text.appliance.unknownPrice
+                  : text.repair.amountRon(
+                      ronFormat.format(appliance.purchasePriceRon),
+                    )}
+              </dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt>{text.appliance.repairsTotalLabel}</dt>
+              <dd className="font-medium">
+                {text.repair.amountRon(
+                  ronFormat.format(repairHistory.totalCostRonAllTime),
+                )}
+              </dd>
+            </div>
+          </dl>
+          <IssueRepairList
+            repairs={repairHistory.repairs}
+            showUnit={false}
+            language={user.language}
+          />
+        </Card>
         <Card title={text.appliance.detailsTitle}>
           <ApplianceForm
             target={{ applianceId: appliance.id }}

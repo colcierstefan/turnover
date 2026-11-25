@@ -19,18 +19,18 @@ import unitService from "@turnover/core/unit/services/unit.service";
 class ApplianceService {
   async listAppliances(userId: string, unitId: string) {
     await unitService.getUnit(userId, unitId);
-    const appliances = await applianceRepository.listByUnitId(unitId);
+    const appliances = await applianceRepository.listActiveByUnitId(unitId);
     return appliances.map(toApplianceView);
   }
 
   async listAppliancesByReportToken(reportToken: string) {
     const unit = await unitService.getUnitByReportToken(reportToken);
     if (!unit) throw new NotFoundError("This report link is no longer valid");
-    return applianceRepository.listByUnitId(unit.id);
+    return applianceRepository.listActiveByUnitId(unit.id);
   }
 
   listAppliancesByUnitId(unitId: string) {
-    return applianceRepository.listByUnitId(unitId);
+    return applianceRepository.listActiveByUnitId(unitId);
   }
 
   async getAppliance(userId: string, applianceId: string) {
@@ -54,6 +54,11 @@ class ApplianceService {
     const { applianceId, ...fields } = input;
     await this.getAppliance(userId, applianceId);
     await applianceRepository.update(applianceId, toApplianceData(fields));
+  }
+
+  async retireAppliance(userId: string, applianceId: string) {
+    await this.getAppliance(userId, applianceId);
+    await applianceRepository.update(applianceId, { retiredAt: new Date() });
   }
 
   async deleteAppliance(userId: string, applianceId: string) {

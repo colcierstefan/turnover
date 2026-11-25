@@ -5,8 +5,10 @@ import { redirect } from "next/navigation";
 
 import {
   changeIssueApplianceInputSchema,
+  closeIssueInputSchema,
   issueIdInputSchema,
   reportIssueAsManagerInputSchema,
+  scheduleIssueVisitInputSchema,
 } from "@turnover/core/issue/schemas/issue.schema";
 import issueService from "@turnover/core/issue/services/issue.service";
 
@@ -41,5 +43,40 @@ export async function changeIssueAppliance(input: unknown) {
   const parsed = changeIssueApplianceInputSchema.parse(input);
   const user = await requireSignedInUser();
   await issueService.changeIssueAppliance(user.id, parsed);
+  refresh();
+}
+
+export async function scheduleIssueVisit(
+  _previousError: string | null,
+  formData: FormData,
+) {
+  const user = await requireSignedInUser();
+  const parsed = scheduleIssueVisitInputSchema.safeParse(
+    Object.fromEntries(formData),
+  );
+  if (!parsed.success) return getFormErrorMessage(user.language, parsed.error);
+
+  await issueService.scheduleVisit(user.id, parsed.data);
+  refresh();
+  return null;
+}
+
+export async function closeIssue(
+  _previousError: string | null,
+  formData: FormData,
+) {
+  const user = await requireSignedInUser();
+  const parsed = closeIssueInputSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return getFormErrorMessage(user.language, parsed.error);
+
+  await issueService.closeIssue(user.id, parsed.data);
+  refresh();
+  return null;
+}
+
+export async function reopenIssue(input: unknown) {
+  const { issueId } = issueIdInputSchema.parse(input);
+  const user = await requireSignedInUser();
+  await issueService.reopenIssue(user.id, issueId);
   refresh();
 }

@@ -22,6 +22,8 @@ export default function IssueOpenList({
     reporterRole: ReporterRole;
     reporterName: string | null;
     emergencyType: EmergencyType | null;
+    scheduledFor: Date | null;
+    scheduledTime: string | null;
     createdAt: Date;
   }>;
   language: UserLanguage;
@@ -31,6 +33,10 @@ export default function IssueOpenList({
     dateStyle: "medium",
     timeStyle: "short",
     timeZone: "Europe/Bucharest",
+  });
+  const visitDateFormat = new Intl.DateTimeFormat(locale, {
+    dateStyle: "medium",
+    timeZone: "UTC",
   });
 
   if (issues.length === 0) {
@@ -59,6 +65,14 @@ export default function IssueOpenList({
               <span className="text-sm font-medium">{issue.unit.name}</span>
             )}
             <span className="line-clamp-3">{issue.description}</span>
+            {issue.status === "SCHEDULED" && issue.scheduledFor && (
+              <span className="text-sm font-medium">
+                {text.visitOn(
+                  visitDateFormat.format(issue.scheduledFor),
+                  issue.scheduledTime,
+                )}
+              </span>
+            )}
             <span className="text-sm opacity-70">
               {[text.reporterRoles[issue.reporterRole], issue.reporterName]
                 .filter(Boolean)

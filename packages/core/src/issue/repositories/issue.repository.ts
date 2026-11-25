@@ -3,6 +3,12 @@ import "server-only";
 import prisma from "@turnover/core/lib/db";
 import type { Prisma } from "@turnover/db/client";
 
+const RESOLVED_ISSUE_INCLUDE = {
+  unit: { select: { name: true } },
+  appliance: { select: { category: true, brand: true, model: true } },
+  resolvedByHandyman: { select: { name: true } },
+} satisfies Prisma.IssueInclude;
+
 class IssueRepository {
   create(
     data: Prisma.IssueUncheckedCreateInput,
@@ -54,6 +60,36 @@ class IssueRepository {
       where: { unit: { organizationId }, status: { not: "RESOLVED" } },
       include: { unit: { select: { name: true } } },
       orderBy: { createdAt: "desc" },
+    });
+  }
+
+  listResolvedByUnitId(unitId: string, db: Prisma.TransactionClient = prisma) {
+    return db.issue.findMany({
+      where: { unitId, status: "RESOLVED" },
+      include: RESOLVED_ISSUE_INCLUDE,
+      orderBy: { resolvedAt: "desc" },
+    });
+  }
+
+  listResolvedByApplianceId(
+    applianceId: string,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.issue.findMany({
+      where: { applianceId, status: "RESOLVED" },
+      include: RESOLVED_ISSUE_INCLUDE,
+      orderBy: { resolvedAt: "desc" },
+    });
+  }
+
+  listResolvedByOrganizationId(
+    organizationId: string,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.issue.findMany({
+      where: { unit: { organizationId }, status: "RESOLVED" },
+      include: RESOLVED_ISSUE_INCLUDE,
+      orderBy: { resolvedAt: "desc" },
     });
   }
 

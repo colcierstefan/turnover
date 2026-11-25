@@ -6,6 +6,7 @@ import type { HandymanTrade } from "@turnover/core/handyman/constants/handyman.c
 import type {
   EmergencyType,
   IssueCategory,
+  IssueResolution,
   IssueStatus,
   ReporterRole,
   WarrantyStatus,
@@ -36,7 +37,13 @@ type FormErrorField =
   | "category"
   | "file"
   | "count"
-  | "rows";
+  | "rows"
+  | "scheduledFor"
+  | "scheduledTime"
+  | "resolution"
+  | "costRon"
+  | "costNote"
+  | "resolvedByHandymanId";
 
 type UnitContents = {
   applianceCount: number;
@@ -102,6 +109,7 @@ type ManagerText = {
     detailsTitle: string;
     deleteUnit: string;
     deleteConfirm: (unitName: string, contents: UnitContents) => string;
+    repairTotals: (thisYear: string, allTime: string) => string;
   };
   reportLink: {
     title: string;
@@ -119,6 +127,9 @@ type ManagerText = {
     reporterRoles: Record<ReporterRole, string>;
     emergencyTypes: Record<EmergencyType, string>;
     statuses: Record<IssueStatus, string>;
+    openTab: string;
+    closedTab: string;
+    visitOn: (date: string, time: string | null) => string;
   };
   issue: {
     title: string;
@@ -148,6 +159,34 @@ type ManagerText = {
     labourCost: string;
     newApplianceCost: string;
     costRange: (minRon: string, maxRon: string) => string;
+  };
+  repair: {
+    title: string;
+    historyTitle: string;
+    historyEmpty: string;
+    scheduleTitle: string;
+    visitDateLabel: string;
+    visitTimeLabel: string;
+    saveVisit: string;
+    closeTitle: string;
+    resolutionLabel: string;
+    resolutions: Record<IssueResolution, string>;
+    costLabel: string;
+    repairEstimateLabel: string;
+    newApplianceEstimateLabel: string;
+    costNoteLabel: string;
+    handymanLabel: string;
+    noHandyman: string;
+    retireAppliance: (appliance: string) => string;
+    closeIssue: string;
+    closedOn: (date: string) => string;
+    finalCostLabel: string;
+    fixedByLabel: string;
+    noteLabel: string;
+    reopen: string;
+    reopenConfirm: string;
+    addNewAppliance: string;
+    amountRon: (amount: string) => string;
   };
   handymen: {
     title: string;
@@ -224,6 +263,10 @@ type ManagerText = {
     uploaded: (kind: string, date: string) => string;
     deleteAppliance: string;
     deleteConfirm: string;
+    retiredOn: (date: string) => string;
+    purchasePriceLabel: string;
+    repairsTotalLabel: string;
+    unknownPrice: string;
   };
   newAppliance: {
     title: string;
@@ -300,6 +343,12 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       purchasePriceRon: "Enter a valid price.",
       warrantyUntil: "Enter a valid warranty date.",
       notes: "Keep the notes under 1000 characters.",
+      scheduledFor: "Choose the day of the visit.",
+      scheduledTime: "Enter a valid time, e.g. 14:30.",
+      resolution: "Choose how it ended.",
+      costRon: "Enter a valid cost.",
+      costNote: "Keep the note under 1000 characters.",
+      resolvedByHandymanId: "Choose a handyman from the list.",
       file: "Choose a supported file of up to 10 MB.",
       count: "Add between 1 and 20.",
       rows: "Choose at least one appliance, or discard the upload.",
@@ -380,6 +429,8 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
             : "";
         return `Delete ${unitName}?${deletedContents} This cannot be undone.`;
       },
+      repairTotals: (thisYear, allTime) =>
+        `This year: ${thisYear} · All time: ${allTime}`,
     },
     reportLink: {
       title: "Report link",
@@ -393,7 +444,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
         "The current link and QR code will stop working at once. Continue?",
     },
     issues: {
-      title: "Open issues",
+      title: "Issues",
       empty: "No open issues.",
       emergency: (type) => `Emergency: ${type}`,
       reporterRoles: { GUEST: "Guest", CLEANER: "Cleaner", MANAGER: "Manager" },
@@ -409,6 +460,10 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
         SCHEDULED: "Scheduled",
         RESOLVED: "Resolved",
       },
+      openTab: "Open",
+      closedTab: "Closed",
+      visitOn: (date, time) =>
+        time ? `Visit on ${date} at ${time}` : `Visit on ${date}`,
     },
     issue: {
       title: "Issue",
@@ -455,6 +510,42 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       labourCost: "Labour",
       newApplianceCost: "Comparable new appliance",
       costRange: (minRon, maxRon) => `${minRon} to ${maxRon} RON`,
+    },
+    repair: {
+      title: "Visit and closing",
+      historyTitle: "Repair history",
+      historyEmpty: "No closed issues yet.",
+      scheduleTitle: "Visit scheduled",
+      visitDateLabel: "Day of the visit",
+      visitTimeLabel: "Time (optional)",
+      saveVisit: "Save visit",
+      closeTitle: "Close issue",
+      resolutionLabel: "How it ended",
+      resolutions: {
+        REPAIRED: "Repaired",
+        REPLACED: "Replaced",
+        FIXED_WITHOUT_HANDYMAN: "Fixed without a handyman",
+        FIXED_BY_REPORTER: "Fixed by the reporter",
+        NOT_NEEDED: "Not needed",
+      },
+      costLabel: "Final cost (RON)",
+      repairEstimateLabel: "Repair estimate",
+      newApplianceEstimateLabel: "New appliance estimate",
+      costNoteLabel: "Note (optional)",
+      handymanLabel: "Who fixed it (optional)",
+      noHandyman: "None of my handymen",
+      retireAppliance: (appliance) =>
+        `Retire the old ${appliance}. It keeps its repair history.`,
+      closeIssue: "Close issue",
+      closedOn: (date) => `Closed on ${date}`,
+      finalCostLabel: "Final cost",
+      fixedByLabel: "Fixed by",
+      noteLabel: "Note",
+      reopen: "Reopen",
+      reopenConfirm:
+        "Reopen this issue? How it ended, the final cost and the note are cleared.",
+      addNewAppliance: "Add the new appliance",
+      amountRon: (amount) => `${amount} RON`,
     },
     handymen: {
       title: "Handymen",
@@ -569,6 +660,11 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       deleteAppliance: "Delete appliance",
       deleteConfirm:
         "Delete this appliance? Its label photo and invoice are deleted too unless another appliance uses them.",
+      retiredOn: (date) =>
+        `Retired on ${date}. It no longer shows in the unit's appliances.`,
+      purchasePriceLabel: "Purchase price",
+      repairsTotalLabel: "Repairs in total",
+      unknownPrice: "Unknown",
     },
     newAppliance: {
       title: "Add appliance",
@@ -646,6 +742,12 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       purchasePriceRon: "Introdu un preț valid.",
       warrantyUntil: "Introdu o dată validă pentru garanție.",
       notes: "Notițele pot avea cel mult 1000 de caractere.",
+      scheduledFor: "Alege ziua vizitei.",
+      scheduledTime: "Introdu o oră validă, de exemplu 14:30.",
+      resolution: "Alege cum s-a rezolvat.",
+      costRon: "Introdu un cost valid.",
+      costNote: "Nota poate avea cel mult 1000 de caractere.",
+      resolvedByHandymanId: "Alege un meșter din listă.",
       file: "Alege un fișier acceptat, de cel mult 10 MB.",
       count: "Adaugă între 1 și 20.",
       rows: "Alege cel puțin un aparat sau renunță la fișier.",
@@ -727,6 +829,8 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
             : "";
         return `Ștergi ${unitName}?${deletedContents} Acțiunea nu poate fi anulată.`;
       },
+      repairTotals: (thisYear, allTime) =>
+        `Anul acesta: ${thisYear} · În total: ${allTime}`,
     },
     reportLink: {
       title: "Link de raportare",
@@ -740,7 +844,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
         "Linkul și codul QR actuale nu vor mai funcționa imediat. Continui?",
     },
     issues: {
-      title: "Probleme deschise",
+      title: "Probleme",
       empty: "Nicio problemă deschisă.",
       emergency: (type) => `Urgență: ${type}`,
       reporterRoles: {
@@ -760,6 +864,10 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
         SCHEDULED: "Programată",
         RESOLVED: "Rezolvată",
       },
+      openTab: "Deschise",
+      closedTab: "Închise",
+      visitOn: (date, time) =>
+        time ? `Vizită pe ${date}, la ora ${time}` : `Vizită pe ${date}`,
     },
     issue: {
       title: "Problemă",
@@ -807,6 +915,42 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       labourCost: "Manoperă",
       newApplianceCost: "Aparat nou comparabil",
       costRange: (minRon, maxRon) => `între ${minRon} și ${maxRon} lei`,
+    },
+    repair: {
+      title: "Vizită și închidere",
+      historyTitle: "Istoricul reparațiilor",
+      historyEmpty: "Nicio problemă închisă încă.",
+      scheduleTitle: "Vizită programată",
+      visitDateLabel: "Ziua vizitei",
+      visitTimeLabel: "Ora (opțional)",
+      saveVisit: "Salvează vizita",
+      closeTitle: "Închide problema",
+      resolutionLabel: "Cum s-a încheiat",
+      resolutions: {
+        REPAIRED: "Reparat",
+        REPLACED: "Înlocuit",
+        FIXED_WITHOUT_HANDYMAN: "Rezolvat fără meșter",
+        FIXED_BY_REPORTER: "Rezolvat de cel care a raportat",
+        NOT_NEEDED: "Nu a fost nevoie",
+      },
+      costLabel: "Cost final (lei)",
+      repairEstimateLabel: "Reparație estimată",
+      newApplianceEstimateLabel: "Aparat nou estimat",
+      costNoteLabel: "Notă (opțional)",
+      handymanLabel: "Cine a rezolvat (opțional)",
+      noHandyman: "Niciunul dintre meșterii mei",
+      retireAppliance: (appliance) =>
+        `Scoate din uz vechiul aparat (${appliance}). Istoricul reparațiilor rămâne.`,
+      closeIssue: "Închide problema",
+      closedOn: (date) => `Închisă pe ${date}`,
+      finalCostLabel: "Cost final",
+      fixedByLabel: "Rezolvat de",
+      noteLabel: "Notă",
+      reopen: "Redeschide",
+      reopenConfirm:
+        "Redeschizi problema? Se șterg modul în care s-a încheiat, costul final și nota.",
+      addNewAppliance: "Adaugă aparatul nou",
+      amountRon: (amount) => `${amount} lei`,
     },
     handymen: {
       title: "Meșteri",
@@ -921,6 +1065,11 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
       deleteAppliance: "Șterge aparatul",
       deleteConfirm:
         "Ștergi acest aparat? Poza etichetei și factura se șterg și ele, dacă nu le folosește alt aparat.",
+      retiredOn: (date) =>
+        `Scos din uz pe ${date}. Nu mai apare printre aparatele unității.`,
+      purchasePriceLabel: "Preț de cumpărare",
+      repairsTotalLabel: "Reparații în total",
+      unknownPrice: "Necunoscut",
     },
     newAppliance: {
       title: "Adaugă un aparat",

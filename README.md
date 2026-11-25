@@ -62,20 +62,21 @@ pnpm dev
 
 ## Available Scripts
 
-| Script                              | What it does                                                                               |
-| ----------------------------------- | ------------------------------------------------------------------------------------------ |
-| `pnpm dev`                          | Next.js dev server                                                                         |
-| `pnpm build` / `pnpm start`         | Production build and server                                                                |
-| `pnpm lint`                         | ESLint                                                                                     |
-| `pnpm type-check`                   | TypeScript without emitting                                                                |
-| `pnpm format` / `format:fix`        | Prettier check / write                                                                     |
-| `pnpm test`                         | Vitest unit tests (never calls a model)                                                    |
-| `pnpm db:migrate:create --name`     | Create a migration without applying it                                                     |
-| `pnpm db:migrate`                   | Apply migrations                                                                           |
-| `pnpm check:vertex`                 | One plain and one search-grounded Vertex call, traced to Langfuse                          |
-| `pnpm evals:label-extraction`       | Label extraction evals against Vertex (`--limit N`, `--only id,id`)                        |
-| `pnpm evals:invoice-extraction`     | Invoice extraction evals against Vertex (`--limit N`, `--only id,id`)                      |
-| `pnpm evals:report-triage`          | Report triage evals against Vertex (`--limit N`, `--only id,id`)                           |
-| `pnpm evals:self-help-tips`         | Self-help tips evals against Vertex (`--limit N`, `--only id,id`)                          |
-| `pnpm evals:issue-diagnosis`        | Issue diagnosis evals against Vertex, fields and real prices (`--limit N`, `--only id,id`) |
-| `pnpm evals:handyman-message-draft` | Handyman message draft and translation evals against Vertex (`--limit N`, `--only id,id`)  |
+| Script                                    | What it does                                                                               |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `pnpm dev`                                | Next.js dev server                                                                         |
+| `pnpm build` / `pnpm start`               | Production build and server                                                                |
+| `pnpm lint`                               | ESLint                                                                                     |
+| `pnpm type-check`                         | TypeScript without emitting                                                                |
+| `pnpm format` / `format:fix`              | Prettier check / write                                                                     |
+| `pnpm test`                               | Vitest unit tests (never calls a model)                                                    |
+| `pnpm db:migrate:create --name`           | Create a migration without applying it                                                     |
+| `pnpm db:migrate`                         | Apply migrations                                                                           |
+| `pnpm check:vertex`                       | One plain and one search-grounded Vertex call, traced to Langfuse                          |
+| `pnpm evals:label-extraction`             | Label extraction evals against Vertex (`--limit N`, `--only id,id`)                        |
+| `pnpm evals:invoice-extraction`           | Invoice extraction evals against Vertex (`--limit N`, `--only id,id`)                      |
+| `pnpm evals:report-triage`                | Report triage evals against Vertex (`--limit N`, `--only id,id`)                           |
+| `pnpm evals:self-help-tips`               | Self-help tips evals against Vertex (`--limit N`, `--only id,id`)                          |
+| `pnpm evals:issue-diagnosis`              | Issue diagnosis evals against Vertex, fields and real prices (`--limit N`, `--only id,id`) |
+| `pnpm evals:handyman-message-draft`       | Handyman message draft evals against Vertex (`--limit N`, `--only id,id`)                  |
+| `pnpm evals:handyman-message-translation` | Handyman message translation evals against Vertex (`--limit N`, `--only id,id`)            |
