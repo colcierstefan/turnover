@@ -23,6 +23,9 @@ export default function IssueDiagnosisCard({
     diagnosis: StoredIssueDiagnosis | null;
     appliance: Readonly<{
       id: string;
+      category: ApplianceCategory;
+      brand: string | null;
+      model: string | null;
       warrantyUntil: Date | null;
       warrantyStatus: WarrantyStatus;
     }> | null;
@@ -47,7 +50,11 @@ export default function IssueDiagnosisCard({
       <IssueApplianceSelect
         issueId={issue.id}
         applianceId={appliance?.id ?? null}
-        appliances={appliances}
+        appliances={
+          appliance && !appliances.some(({ id }) => id === appliance.id)
+            ? [...appliances, appliance]
+            : appliances
+        }
         language={language}
       />
       {appliance && (

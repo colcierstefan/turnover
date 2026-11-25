@@ -48,6 +48,7 @@ vi.mock(
       create: vi.fn(),
       findById: vi.fn(),
       listByIssueId: vi.fn(),
+      countByIssueId: vi.fn(),
       update: vi.fn(),
     },
   }),
@@ -327,6 +328,26 @@ describe("HandymanService", () => {
         { handymanId },
         "transaction",
       );
+    });
+  });
+
+  describe("requireOrganizationHandyman", () => {
+    it("returns a handyman of the organization", async () => {
+      vi.mocked(handymanRepository.findById).mockResolvedValue(buildHandyman());
+
+      await expect(
+        handymanService.requireOrganizationHandyman(organizationId, handymanId),
+      ).resolves.toMatchObject({ id: handymanId });
+    });
+
+    it("throws a NotFoundError for a handyman of another organization", async () => {
+      vi.mocked(handymanRepository.findById).mockResolvedValue(
+        buildHandyman({ organizationId: "org-2" }),
+      );
+
+      await expect(
+        handymanService.requireOrganizationHandyman(organizationId, handymanId),
+      ).rejects.toThrow(NotFoundError);
     });
   });
 });

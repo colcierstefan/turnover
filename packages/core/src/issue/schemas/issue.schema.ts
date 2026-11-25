@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import {
+  MANAGER_ISSUE_RESOLUTIONS,
   MAX_FOLLOW_UP_QUESTIONS,
   MAX_REPORT_PHOTO_BYTES,
   MAX_REPORT_PHOTOS,
@@ -79,3 +80,34 @@ export const changeIssueApplianceInputSchema = z.object({
 export type ChangeIssueApplianceInput = z.infer<
   typeof changeIssueApplianceInputSchema
 >;
+
+export const scheduleIssueVisitInputSchema = z.object({
+  issueId: z.uuid(),
+  scheduledFor: z.iso.date(),
+  scheduledTime: z
+    .union([z.literal(""), z.iso.time({ precision: -1 })])
+    .transform((time) => time || null),
+});
+export type ScheduleIssueVisitInput = z.infer<
+  typeof scheduleIssueVisitInputSchema
+>;
+
+export const closeIssueInputSchema = z.object({
+  issueId: z.uuid(),
+  resolution: z.enum(MANAGER_ISSUE_RESOLUTIONS),
+  costRon: z
+    .string()
+    .trim()
+    .transform((value) => (value === "" ? null : Number(value)))
+    .pipe(z.number().nonnegative().max(1_000_000).nullable()),
+  costNote: z
+    .string()
+    .trim()
+    .max(1000)
+    .transform((note) => note || null),
+  resolvedByHandymanId: z
+    .union([z.uuid(), z.literal("")])
+    .transform((handymanId) => handymanId || null),
+  retireAppliance: z.stringbool().default(false),
+});
+export type CloseIssueInput = z.infer<typeof closeIssueInputSchema>;

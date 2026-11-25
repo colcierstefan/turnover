@@ -1,0 +1,68 @@
+{
+  "cases": [
+    {
+      "id": "translation-washer-key-box",
+      "textEn": "Good afternoon Ion, the Bosch WAN28262BY washing machine at Str. Memorandumului 1, ap. 4, Cluj-Napoca does not drain the water. Could you come tomorrow after 4 pm? The code for the key box is 4821.",
+      "mustContain": ["Ion", "Bosch", "WAN28262BY", "Memorandumului", "4821"]
+    },
+    {
+      "id": "translation-ac-call-first",
+      "textEn": "Hello, the Daikin FTXM25R air conditioner in the bedroom blows warm air. The address is Bd. Unirii 12, bl. A3, ap. 15, București. Can you come on Thursday morning? Please call me before you come.",
+      "mustContain": ["Daikin", "FTXM25R", "Unirii", "A3"]
+    },
+    {
+      "id": "translation-toilet-not-saturday",
+      "textEn": "Hi Gheorghe, the toilet at Str. Republicii 8, Brașov keeps running after flushing. No rush, any day this week works, just not Saturday.",
+      "mustContain": ["Gheorghe", "Republicii"]
+    },
+    {
+      "id": "translation-microwave-neighbour-key",
+      "textEn": "Hello, the Whirlpool MWP 253 W microwave turns and lights up but does not heat. I will leave the key with the neighbour in apartment 7. When could you come?",
+      "mustContain": ["Whirlpool", "MWP 253 W", "7"]
+    },
+    {
+      "id": "translation-informal-typos",
+      "textEn": "hey mihai, dishwasher (Beko DIN 28420) at Str. Horea 5 ap 2 Cluj wont drain again, same as last month. can u come fri around 10? door code is 1975B",
+      "mustContain": ["Mihai", "Beko", "DIN 28420", "Horea", "1975B", "10"]
+    },
+    {
+      "id": "translation-time-range-gate-code",
+      "textEn": "Good morning, the Ariston Velis Evo 80 water heater at Calea Victoriei 45, ap. 12, București leaks from the bottom. Can you come on Monday between 9 and 11? You can park in the courtyard, the gate opens with code 2580.",
+      "mustContain": [
+        "Ariston",
+        "Velis Evo 80",
+        "Victoriei",
+        "45",
+        "12",
+        "2580"
+      ]
+    },
+    {
+      "id": "translation-cash-on-the-spot",
+      "textEn": "Hi Vasile, the oven (Gorenje BO735E20X) doesn't heat up anymore, only the light works. Address: Str. Avram Iancu 22, Sibiu. I can pay cash on the spot. Does Wednesday afternoon work for you?",
+      "mustContain": [
+        "Vasile",
+        "Gorenje",
+        "BO735E20X",
+        "Avram Iancu",
+        "22",
+        "Sibiu"
+      ]
+    },
+    {
+      "id": "translation-do-not-switch-off",
+      "textEn": "Hello, the Samsung RB34T670ESA fridge at Str. Lungă 3, Brașov is not cooling. Please do not switch off the main breaker, the freezer is full. Can you come today or tomorrow?",
+      "mustContain": ["Samsung", "RB34T670ESA", "Lungă", "3"]
+    },
+    {
+      "id": "translation-short-question",
+      "textEn": "Hi Dan, are you free tomorrow at 8 for the washing machine at Str. Memorandumului 1?",
+      "mustContain": ["Dan", "Memorandumului", "8"]
+    },
+    {
+      "id": "translation-two-problems-one-visit",
+      "textEn": "Hello, two things at Bd. 21 Decembrie 1989 nr. 90, ap. 31, Cluj-Napoca: the bathroom tap drips and the kitchen sink drains slowly. Could you look at both in one visit, maybe Thursday after 5 pm?",
+      "mustContain": ["21 Decembrie 1989", "90", "31", "Cluj-Napoca"]
+    }
+  ]
+}

@@ -22,6 +22,10 @@ class HandymanMessageRepository {
     });
   }
 
+  countByIssueId(issueId: string, db: Prisma.TransactionClient = prisma) {
+    return db.handymanMessage.count({ where: { issueId } });
+  }
+
   update(
     id: string,
     data: Prisma.HandymanMessageUncheckedUpdateInput,

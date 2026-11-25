@@ -3,7 +3,11 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 
 import applianceService from "@turnover/core/appliance/services/appliance.service";
-import { MAX_REPORTS_PER_UNIT_PER_HOUR } from "@turnover/core/issue/constants/issue.constants";
+import handymanService from "@turnover/core/handyman/services/handyman.service";
+import {
+  MAX_REPORTS_PER_UNIT_PER_HOUR,
+  REPAIR_HISTORY_TIME_ZONE,
+} from "@turnover/core/issue/constants/issue.constants";
 import issueFollowUpRepository from "@turnover/core/issue/repositories/issue-follow-up.repository";
 import issuePhotoRepository from "@turnover/core/issue/repositories/issue-photo.repository";
 import issueRepository from "@turnover/core/issue/repositories/issue.repository";
@@ -14,8 +18,10 @@ import {
 import type {
   AnswerIssueFollowUpsInput,
   ChangeIssueApplianceInput,
+  CloseIssueInput,
   ReportedIssueInput,
   ReportIssueAsManagerInput,
+  ScheduleIssueVisitInput,
   SubmitIssueReportInput,
 } from "@turnover/core/issue/schemas/issue.schema";
 import {
@@ -48,6 +54,9 @@ type Issue = NonNullable<Awaited<ReturnType<typeof issueRepository.findById>>>;
 type IssueDetails = NonNullable<
   Awaited<ReturnType<typeof issueRepository.findDetailsById>>
 >;
+type ResolvedIssue = Awaited<
+  ReturnType<typeof issueRepository.listResolvedByUnitId>
+>[number];
 type Manager = Readonly<{
   id: string;
   name: string | null;
@@ -146,7 +155,7 @@ class IssueService {
     const issue = await getOpenReportedIssue(input);
     await issueRepository.update(issue.id, {
       status: "RESOLVED",
-      resolvedByReporter: true,
+      resolution: "FIXED_BY_REPORTER",
       resolvedAt: new Date(),
     });
   }
@@ -214,6 +223,7 @@ class IssueService {
         brand: issue.appliance.brand,
         model: issue.appliance.model,
         warrantyUntil: issue.appliance.warrantyUntil,
+        retiredAt: issue.appliance.retiredAt,
         warrantyStatus: getWarrantyStatus(
           issue.appliance.warrantyUntil,
           new Date(),
@@ -235,6 +245,75 @@ class IssueService {
       await requireUnitAppliance(issue.unitId, input.applianceId);
     }
     await issueRepository.update(issue.id, { applianceId: input.applianceId });
+  }
+
+  async scheduleVisit(userId: string, input: ScheduleIssueVisitInput) {
+    const { issue } = await getOpenManagedIssue(userId, input.issueId);
+    await issueRepository.update(issue.id, {
+      status: "SCHEDULED",
+      scheduledFor: new Date(input.scheduledFor),
+      scheduledTime: input.scheduledTime,
+    });
+  }
+
+  async closeIssue(userId: string, input: CloseIssueInput) {
+    const { issue, unit } = await getOpenManagedIssue(userId, input.issueId);
+    if (input.resolvedByHandymanId) {
+      await handymanService.requireOrganizationHandyman(
+        unit.organizationId,
+        input.resolvedByHandymanId,
+      );
+    }
+    if (
+      input.retireAppliance &&
+      input.resolution === "REPLACED" &&
+      issue.applianceId
+    ) {
+      await applianceService.retireAppliance(userId, issue.applianceId);
+    }
+    await issueRepository.update(issue.id, {
+      status: "RESOLVED",
+      resolution: input.resolution,
+      costRon: input.costRon,
+      costNote: input.costNote,
+      resolvedByHandymanId: input.resolvedByHandymanId,
+      resolvedAt: new Date(),
+    });
+  }
+
+  async reopenIssue(userId: string, issueId: string) {
+    const { issue } = await getManagedIssue(userId, issueId);
+    if (issue.status !== "RESOLVED") {
+      throw new ValidationError(`Issue ${issue.id} is not resolved`);
+    }
+    await issueRepository.update(issue.id, {
+      status: await getReopenedStatus(issue),
+      resolution: null,
+      costRon: null,
+      costNote: null,
+      resolvedByHandymanId: null,
+      resolvedAt: null,
+    });
+  }
+
+  async getUnitRepairHistory(userId: string, unitId: string) {
+    await unitService.getUnit(userId, unitId);
+    return toRepairHistory(await issueRepository.listResolvedByUnitId(unitId));
+  }
+
+  async getApplianceRepairHistory(userId: string, applianceId: string) {
+    await applianceService.getAppliance(userId, applianceId);
+    return toRepairHistory(
+      await issueRepository.listResolvedByApplianceId(applianceId),
+    );
+  }
+
+  async listClosedIssuesForUser(userId: string) {
+    const membership = await organizationService.requireMembership(userId);
+    const issues = await issueRepository.listResolvedByOrganizationId(
+      membership.organizationId,
+    );
+    return issues.map(toRepair);
   }
 
   async markIssueContacted(issueId: string) {
@@ -287,6 +366,54 @@ const getOpenReportedIssue = async (input: ReportedIssueInput) => {
   }
   return issue;
 };
+
+const getManagedIssue = async (userId: string, issueId: string) => {
+  const issue = await issueRepository.findById(issueId);
+  if (!issue) throw new NotFoundError(`Issue ${issueId} not found`);
+  const unit = await unitService.getUnit(userId, issue.unitId);
+  return { issue, unit };
+};
+
+const getOpenManagedIssue = async (userId: string, issueId: string) => {
+  const managed = await getManagedIssue(userId, issueId);
+  if (managed.issue.status === "RESOLVED") {
+    throw new ValidationError(`Issue ${issueId} is already resolved`);
+  }
+  return managed;
+};
+
+const getReopenedStatus = async (issue: Issue) => {
+  if (await handymanService.hasMessages(issue.id)) return "CONTACTED";
+  return issue.diagnosis ? "DIAGNOSED" : "NEW";
+};
+
+const toRepair = (issue: ResolvedIssue) => ({
+  ...issue,
+  costRon: issue.costRon?.toNumber() ?? null,
+});
+
+const toRepairHistory = (issues: ReadonlyArray<ResolvedIssue>) => {
+  const repairs = issues.map(toRepair);
+  const currentYear = getRepairYear(new Date());
+  const sumCostRon = (selected: typeof repairs) =>
+    selected.reduce((total, repair) => total + (repair.costRon ?? 0), 0);
+  return {
+    repairs,
+    totalCostRonThisYear: sumCostRon(
+      repairs.filter(
+        (repair) =>
+          repair.resolvedAt && getRepairYear(repair.resolvedAt) === currentYear,
+      ),
+    ),
+    totalCostRonAllTime: sumCostRon(repairs),
+  };
+};
+
+const getRepairYear = (date: Date) =>
+  new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    timeZone: REPAIR_HISTORY_TIME_ZONE,
+  }).format(date);
 
 const saveIssuePhotos = (
   issue: Readonly<{ id: string; unitId: string }>,

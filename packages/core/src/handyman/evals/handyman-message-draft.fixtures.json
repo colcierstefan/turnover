@@ -130,27 +130,5 @@
       "recipientName": null,
       "managerLanguage": "RO"
     }
-  ],
-  "translationCases": [
-    {
-      "id": "translation-washer-key-box",
-      "textEn": "Good afternoon Ion, the Bosch WAN28262BY washing machine at Str. Memorandumului 1, ap. 4, Cluj-Napoca does not drain the water. Could you come tomorrow after 4 pm? The code for the key box is 4821.",
-      "mustContain": ["Ion", "Bosch", "WAN28262BY", "Memorandumului", "4821"]
-    },
-    {
-      "id": "translation-ac-call-first",
-      "textEn": "Hello, the Daikin FTXM25R air conditioner in the bedroom blows warm air. The address is Bd. Unirii 12, bl. A3, ap. 15, București. Can you come on Thursday morning? Please call me before you come.",
-      "mustContain": ["Daikin", "FTXM25R", "Unirii", "A3"]
-    },
-    {
-      "id": "translation-toilet-not-saturday",
-      "textEn": "Hi Gheorghe, the toilet at Str. Republicii 8, Brașov keeps running after flushing. No rush, any day this week works, just not Saturday.",
-      "mustContain": ["Gheorghe", "Republicii"]
-    },
-    {
-      "id": "translation-microwave-neighbour-key",
-      "textEn": "Hello, the Whirlpool MWP 253 W microwave turns and lights up but does not heat. I will leave the key with the neighbour in apartment 7. When could you come?",
-      "mustContain": ["Whirlpool", "MWP 253 W", "7"]
-    }
   ]
 }

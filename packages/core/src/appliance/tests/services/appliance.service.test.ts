@@ -61,6 +61,7 @@ const appliance = {
   purchasePriceRon: new Prisma.Decimal("1899.99"),
   warrantyUntil: null,
   notes: null,
+  retiredAt: null,
   createdAt: new Date("2026-11-21T00:00:00Z"),
   documents: [
     {
@@ -108,6 +109,27 @@ describe("ApplianceService", () => {
       await expect(
         applianceService.getAppliance("user-1", "appliance-1"),
       ).rejects.toThrow(ForbiddenError);
+    });
+  });
+
+  describe("retireAppliance", () => {
+    it("marks the appliance retired", async () => {
+      await applianceService.retireAppliance("user-1", "appliance-1");
+
+      expect(applianceRepository.update).toHaveBeenCalledWith("appliance-1", {
+        retiredAt: expect.any(Date),
+      });
+    });
+
+    it("throws a ForbiddenError for an appliance in another organization", async () => {
+      vi.mocked(unitService.getUnit).mockRejectedValueOnce(
+        new ForbiddenError("not a member"),
+      );
+
+      await expect(
+        applianceService.retireAppliance("user-1", "appliance-1"),
+      ).rejects.toThrow(ForbiddenError);
+      expect(applianceRepository.update).not.toHaveBeenCalled();
     });
   });
 

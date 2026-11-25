@@ -24,16 +24,8 @@ const draftFixtureSchema = z.object({
   managerLanguage: z.enum(UserLanguage),
 });
 
-const translationEvalCaseSchema = z.object({
-  id: z.string(),
-  textEn: z.string(),
-  mustContain: z.array(z.string()),
-});
-export type TranslationEvalCase = z.infer<typeof translationEvalCaseSchema>;
-
 const fixturesSchema = z.object({
   draftCases: z.array(draftFixtureSchema),
-  translationCases: z.array(translationEvalCaseSchema),
 });
 
 export type DraftEvalCase = Omit<
@@ -41,7 +33,7 @@ export type DraftEvalCase = Omit<
   "description"
 > & { description: string };
 
-export const loadHandymanMessageEvalCases = async () => {
+export const loadHandymanMessageDraftEvalCases = async () => {
   const fixtures = fixturesSchema.parse(
     JSON.parse(await readFile(FIXTURES_PATH, "utf8")),
   );
@@ -52,7 +44,7 @@ export const loadHandymanMessageEvalCases = async () => {
       fixture.description ??
       requireReportDescription(reportCases, fixture.reportCaseId),
   }));
-  return { draftCases, translationCases: fixtures.translationCases };
+  return draftCases;
 };
 
 const requireReportDescription = (

@@ -11,6 +11,7 @@ import Card from "@/components/card";
 import ApplianceList from "@/features/appliance/components/appliance/appliance-list";
 import DocumentUnreviewedList from "@/features/appliance/components/document/document-unreviewed-list";
 import IssueOpenList from "@/features/issue/components/issue/issue-open-list";
+import IssueRepairList from "@/features/issue/components/repair/issue-repair-list";
 import { getSignedInMembership } from "@/features/organization/server/organization-membership.server";
 import UnitDeleteButton from "@/features/unit/components/unit/unit-delete-button";
 import UnitEditForm from "@/features/unit/components/unit/unit-edit-form";
@@ -43,6 +44,7 @@ async function Unit({
     contents,
     openIssues,
     issueCount,
+    repairHistory,
   ] = await Promise.all([
     createReportQrSvg(reportUrl),
     applianceService.listAppliances(user.id, unitId),
@@ -50,8 +52,17 @@ async function Unit({
     applianceService.countUnitContents(user.id, unitId),
     issueService.listOpenIssues(user.id, unitId),
     issueService.countIssues(user.id, unitId),
+    issueService.getUnitRepairHistory(user.id, unitId),
   ]);
-  const text = MANAGER_TEXT[user.language].unit;
+  const {
+    locale,
+    unit: text,
+    repair: repairText,
+  } = MANAGER_TEXT[user.language];
+  const ronFormat = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 2,
+    trailingZeroDisplay: "stripIfInteger",
+  });
 
   return (
     <>
@@ -69,6 +80,23 @@ async function Unit({
           >
             {text.reportIssue}
           </Link>
+        </Card>
+        <Card title={repairText.historyTitle}>
+          <p className="text-sm font-medium">
+            {text.repairTotals(
+              repairText.amountRon(
+                ronFormat.format(repairHistory.totalCostRonThisYear),
+              ),
+              repairText.amountRon(
+                ronFormat.format(repairHistory.totalCostRonAllTime),
+              ),
+            )}
+          </p>
+          <IssueRepairList
+            repairs={repairHistory.repairs}
+            showUnit={false}
+            language={user.language}
+          />
         </Card>
         <Card title={text.appliancesTitle}>
           <ApplianceList

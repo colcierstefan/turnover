@@ -13,25 +13,25 @@ enum UserLanguage {
 }
 
 model User {
-  id              String       @id @default(uuid())
-  auth0Id         String       @unique
+  id              String        @id @default(uuid())
+  auth0Id         String        @unique
   email           String
   name            String?
   language        UserLanguage?
-  createdAt       DateTime     @default(now())
+  createdAt       DateTime      @default(now())
   membership      Membership?
   sentInvitations Invitation[]
 }
 
 model Organization {
-  id          String       @id @default(uuid())
+  id           String       @id @default(uuid())
   name         String
   contactPhone String?
   createdAt    DateTime     @default(now())
   memberships  Membership[]
-  invitations Invitation[]
-  units       Unit[]
-  handymen    Handyman[]
+  invitations  Invitation[]
+  units        Unit[]
+  handymen     Handyman[]
 }
 
 enum MembershipRole {
@@ -111,6 +111,7 @@ model Appliance {
   purchasePriceRon Decimal?            @db.Decimal(10, 2)
   warrantyUntil    DateTime?           @db.Date
   notes            String?
+  retiredAt        DateTime?
   createdAt        DateTime            @default(now())
   documents        ApplianceDocument[]
   issues           Issue[]
@@ -175,6 +176,14 @@ enum ReporterLanguage {
   RO
 }
 
+enum IssueResolution {
+  REPAIRED
+  REPLACED
+  FIXED_WITHOUT_HANDYMAN
+  FIXED_BY_REPORTER
+  NOT_NEEDED
+}
+
 enum EmergencyType {
   GAS_SMELL
   WATER_LEAK
@@ -182,32 +191,38 @@ enum EmergencyType {
 }
 
 model Issue {
-  id                 String           @id @default(uuid())
-  unitId             String
-  unit               Unit             @relation(fields: [unitId], references: [id], onDelete: Cascade)
-  applianceId        String?
-  appliance          Appliance?       @relation(fields: [applianceId], references: [id], onDelete: SetNull)
-  reporterRole       ReporterRole
-  reporterName       String?
-  reporterLanguage   ReporterLanguage
-  description        String
-  status             IssueStatus      @default(NEW)
-  category           IssueCategory?
-  diagnosis          Json?
-  isEmergency        Boolean          @default(false)
-  emergencyType      EmergencyType?
-  selfHelpTips       Json?
-  resolvedByReporter Boolean          @default(false)
-  costRon            Decimal?         @db.Decimal(10, 2)
-  costNote           String?
-  resolvedAt         DateTime?
-  createdAt          DateTime         @default(now())
-  photos             IssuePhoto[]
-  followUps          IssueFollowUp[]
-  handymanMessages   HandymanMessage[]
+  id                   String            @id @default(uuid())
+  unitId               String
+  unit                 Unit              @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  applianceId          String?
+  appliance            Appliance?        @relation(fields: [applianceId], references: [id], onDelete: SetNull)
+  reporterRole         ReporterRole
+  reporterName         String?
+  reporterLanguage     ReporterLanguage
+  description          String
+  status               IssueStatus       @default(NEW)
+  category             IssueCategory?
+  diagnosis            Json?
+  isEmergency          Boolean           @default(false)
+  emergencyType        EmergencyType?
+  selfHelpTips         Json?
+  scheduledFor         DateTime?         @db.Date
+  // Local time in Europe/Bucharest, "HH:mm"; empty when only the day is agreed.
+  scheduledTime        String?
+  resolution           IssueResolution?
+  resolvedByHandymanId String?
+  resolvedByHandyman   Handyman?         @relation(fields: [resolvedByHandymanId], references: [id], onDelete: SetNull)
+  costRon              Decimal?          @db.Decimal(10, 2)
+  costNote             String?
+  resolvedAt           DateTime?
+  createdAt            DateTime          @default(now())
+  photos               IssuePhoto[]
+  followUps            IssueFollowUp[]
+  handymanMessages     HandymanMessage[]
 
   @@index([unitId, createdAt])
   @@index([applianceId])
+  @@index([resolvedByHandymanId])
 }
 
 model IssuePhoto {
@@ -252,6 +267,7 @@ model Handyman {
   notes          String?
   createdAt      DateTime          @default(now())
   messages       HandymanMessage[]
+  resolvedIssues Issue[]
 
   @@unique([organizationId, phone])
 }

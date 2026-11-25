@@ -1,6 +1,7 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import applianceService from "@turnover/core/appliance/services/appliance.service";
+import handymanService from "@turnover/core/handyman/services/handyman.service";
 import issueFollowUpRepository from "@turnover/core/issue/repositories/issue-follow-up.repository";
 import issuePhotoRepository from "@turnover/core/issue/repositories/issue-photo.repository";
 import issueRepository from "@turnover/core/issue/repositories/issue.repository";
@@ -9,6 +10,7 @@ import issueService from "@turnover/core/issue/services/issue.service";
 import reportTriageService from "@turnover/core/issue/services/report-triage.service";
 import selfHelpTipsService from "@turnover/core/issue/services/self-help-tips.service";
 import {
+  ForbiddenError,
   NotFoundError,
   TooManyRequestsError,
   ValidationError,
@@ -17,6 +19,7 @@ import logger from "@turnover/core/lib/logger";
 import { bucket } from "@turnover/core/lib/storage";
 import organizationService from "@turnover/core/organization/services/organization.service";
 import unitService from "@turnover/core/unit/services/unit.service";
+import { Prisma } from "@turnover/db/client";
 
 vi.mock("@turnover/core/lib/logger", () => ({ default: { error: vi.fn() } }));
 vi.mock("@turnover/core/lib/storage", () => ({
@@ -29,7 +32,12 @@ vi.mock("@turnover/core/appliance/services/appliance.service", () => ({
   default: {
     listAppliancesByReportToken: vi.fn(),
     listAppliancesByUnitId: vi.fn(),
+    getAppliance: vi.fn(),
+    retireAppliance: vi.fn(),
   },
+}));
+vi.mock("@turnover/core/handyman/services/handyman.service", () => ({
+  default: { requireOrganizationHandyman: vi.fn(), hasMessages: vi.fn() },
 }));
 vi.mock("@turnover/core/organization/services/organization.service", () => ({
   default: { getOwnerLanguage: vi.fn(), requireMembership: vi.fn() },
@@ -51,6 +59,9 @@ vi.mock("@turnover/core/issue/repositories/issue.repository", () => ({
     countByUnitIdSince: vi.fn(),
     countByUnitId: vi.fn(),
     listOpenByUnitId: vi.fn(),
+    listResolvedByUnitId: vi.fn(),
+    listResolvedByApplianceId: vi.fn(),
+    listResolvedByOrganizationId: vi.fn(),
     update: vi.fn(),
   },
 }));
@@ -94,6 +105,7 @@ const appliance = {
   purchasePriceRon: null,
   warrantyUntil: null,
   notes: null,
+  retiredAt: null,
   createdAt: new Date("2026-11-01T00:00:00Z"),
 };
 
@@ -103,6 +115,7 @@ const buildIssue = (
     applianceId: string | null;
     status: "NEW" | "DIAGNOSED" | "CONTACTED" | "SCHEDULED" | "RESOLVED";
     isEmergency: boolean;
+    diagnosis: typeof diagnosis | null;
   }> = {},
 ) => ({
   id: issueId,
@@ -118,7 +131,10 @@ const buildIssue = (
   isEmergency: false,
   emergencyType: null,
   selfHelpTips: null,
-  resolvedByReporter: false,
+  scheduledFor: null,
+  scheduledTime: null,
+  resolution: null,
+  resolvedByHandymanId: null,
   costRon: null,
   costNote: null,
   resolvedAt: null,
@@ -376,7 +392,7 @@ describe("IssueService", () => {
 
       expect(issueRepository.update).toHaveBeenCalledWith(issueId, {
         status: "RESOLVED",
-        resolvedByReporter: true,
+        resolution: "FIXED_BY_REPORTER",
         resolvedAt: expect.any(Date),
       });
     });
@@ -568,6 +584,304 @@ describe("IssueService", () => {
         }),
       ).rejects.toThrow(NotFoundError);
       expect(issueRepository.create).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("scheduleVisit", () => {
+    beforeEach(() => {
+      vi.mocked(unitService.getUnit).mockResolvedValue(unit);
+    });
+
+    it("stores the visit day and time and marks the issue scheduled", async () => {
+      await issueService.scheduleVisit(manager.id, {
+        issueId,
+        scheduledFor: "2026-11-25",
+        scheduledTime: "14:30",
+      });
+
+      expect(issueRepository.update).toHaveBeenCalledWith(issueId, {
+        status: "SCHEDULED",
+        scheduledFor: new Date("2026-11-25"),
+        scheduledTime: "14:30",
+      });
+    });
+
+    it("throws a ForbiddenError for a manager of another organization", async () => {
+      vi.mocked(unitService.getUnit).mockRejectedValueOnce(
+        new ForbiddenError("not a member"),
+      );
+
+      await expect(
+        issueService.scheduleVisit(manager.id, {
+          issueId,
+          scheduledFor: "2026-11-25",
+          scheduledTime: null,
+        }),
+      ).rejects.toThrow(ForbiddenError);
+      expect(issueRepository.update).not.toHaveBeenCalled();
+    });
+
+    it("throws a ValidationError for a resolved issue", async () => {
+      vi.mocked(issueRepository.findById).mockResolvedValue(
+        buildIssue({ status: "RESOLVED" }),
+      );
+
+      await expect(
+        issueService.scheduleVisit(manager.id, {
+          issueId,
+          scheduledFor: "2026-11-25",
+          scheduledTime: null,
+        }),
+      ).rejects.toThrow(ValidationError);
+      expect(issueRepository.update).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("closeIssue", () => {
+    const handymanId = "5d0f1a2b-3c4d-4e5f-8a9b-0c1d2e3f4a5b";
+    const closeInput = {
+      issueId,
+      resolution: "REPAIRED" as const,
+      costRon: 350,
+      costNote: "New drain pump",
+      resolvedByHandymanId: handymanId,
+      retireAppliance: false,
+    };
+
+    beforeEach(() => {
+      vi.mocked(unitService.getUnit).mockResolvedValue(unit);
+      vi.mocked(issueRepository.findById).mockResolvedValue(
+        buildIssue({ status: "CONTACTED", applianceId: "appliance-1" }),
+      );
+    });
+
+    it("resolves the issue with how it ended, the cost and who fixed it", async () => {
+      await issueService.closeIssue(manager.id, closeInput);
+
+      expect(handymanService.requireOrganizationHandyman).toHaveBeenCalledWith(
+        "org-1",
+        handymanId,
+      );
+      expect(issueRepository.update).toHaveBeenCalledWith(issueId, {
+        status: "RESOLVED",
+        resolution: "REPAIRED",
+        costRon: 350,
+        costNote: "New drain pump",
+        resolvedByHandymanId: handymanId,
+        resolvedAt: expect.any(Date),
+      });
+      expect(applianceService.retireAppliance).not.toHaveBeenCalled();
+    });
+
+    it("retires the issue's appliance when it was replaced", async () => {
+      await issueService.closeIssue(manager.id, {
+        ...closeInput,
+        resolution: "REPLACED",
+        retireAppliance: true,
+      });
+
+      expect(applianceService.retireAppliance).toHaveBeenCalledWith(
+        manager.id,
+        "appliance-1",
+      );
+    });
+
+    it("keeps the appliance when the retire box is ticked for a repair", async () => {
+      await issueService.closeIssue(manager.id, {
+        ...closeInput,
+        retireAppliance: true,
+      });
+
+      expect(applianceService.retireAppliance).not.toHaveBeenCalled();
+    });
+
+    it("throws a ForbiddenError for a manager of another organization", async () => {
+      vi.mocked(unitService.getUnit).mockRejectedValueOnce(
+        new ForbiddenError("not a member"),
+      );
+
+      await expect(
+        issueService.closeIssue(manager.id, closeInput),
+      ).rejects.toThrow(ForbiddenError);
+      expect(issueRepository.update).not.toHaveBeenCalled();
+    });
+
+    it("throws a NotFoundError for a handyman of another organization", async () => {
+      vi.mocked(
+        handymanService.requireOrganizationHandyman,
+      ).mockRejectedValueOnce(new NotFoundError("not found"));
+
+      await expect(
+        issueService.closeIssue(manager.id, {
+          ...closeInput,
+          resolution: "REPLACED",
+          retireAppliance: true,
+        }),
+      ).rejects.toThrow(NotFoundError);
+      expect(applianceService.retireAppliance).not.toHaveBeenCalled();
+      expect(issueRepository.update).not.toHaveBeenCalled();
+    });
+
+    it("throws a ValidationError for an issue that is already resolved", async () => {
+      vi.mocked(issueRepository.findById).mockResolvedValue(
+        buildIssue({ status: "RESOLVED" }),
+      );
+
+      await expect(
+        issueService.closeIssue(manager.id, closeInput),
+      ).rejects.toThrow(ValidationError);
+      expect(issueRepository.update).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("reopenIssue", () => {
+    const clearedResolution = {
+      resolution: null,
+      costRon: null,
+      costNote: null,
+      resolvedByHandymanId: null,
+      resolvedAt: null,
+    };
+
+    beforeEach(() => {
+      vi.mocked(unitService.getUnit).mockResolvedValue(unit);
+      vi.mocked(handymanService.hasMessages).mockResolvedValue(false);
+      vi.mocked(issueRepository.findById).mockResolvedValue(
+        buildIssue({ status: "RESOLVED", diagnosis }),
+      );
+    });
+
+    it("goes back to contacted when a handyman was messaged", async () => {
+      vi.mocked(handymanService.hasMessages).mockResolvedValue(true);
+
+      await issueService.reopenIssue(manager.id, issueId);
+
+      expect(issueRepository.update).toHaveBeenCalledWith(issueId, {
+        status: "CONTACTED",
+        ...clearedResolution,
+      });
+    });
+
+    it("goes back to diagnosed when no handyman was messaged", async () => {
+      await issueService.reopenIssue(manager.id, issueId);
+
+      expect(issueRepository.update).toHaveBeenCalledWith(issueId, {
+        status: "DIAGNOSED",
+        ...clearedResolution,
+      });
+    });
+
+    it("goes back to new when the issue was never diagnosed", async () => {
+      vi.mocked(issueRepository.findById).mockResolvedValue(
+        buildIssue({ status: "RESOLVED" }),
+      );
+
+      await issueService.reopenIssue(manager.id, issueId);
+
+      expect(issueRepository.update).toHaveBeenCalledWith(issueId, {
+        status: "NEW",
+        ...clearedResolution,
+      });
+    });
+
+    it("throws a ForbiddenError for a manager of another organization", async () => {
+      vi.mocked(unitService.getUnit).mockRejectedValueOnce(
+        new ForbiddenError("not a member"),
+      );
+
+      await expect(
+        issueService.reopenIssue(manager.id, issueId),
+      ).rejects.toThrow(ForbiddenError);
+      expect(issueRepository.update).not.toHaveBeenCalled();
+    });
+
+    it("throws a ValidationError for an open issue", async () => {
+      vi.mocked(issueRepository.findById).mockResolvedValue(
+        buildIssue({ status: "SCHEDULED" }),
+      );
+
+      await expect(
+        issueService.reopenIssue(manager.id, issueId),
+      ).rejects.toThrow(ValidationError);
+      expect(issueRepository.update).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("getUnitRepairHistory", () => {
+    const buildRepair = (resolvedAt: string, costRon: number | null) => ({
+      ...buildIssue({ status: "RESOLVED" }),
+      resolution: "REPAIRED" as const,
+      resolvedAt: new Date(resolvedAt),
+      costRon: costRon === null ? null : new Prisma.Decimal(costRon),
+      unit: { name: unit.name },
+      appliance: null,
+      resolvedByHandyman: null,
+    });
+
+    beforeEach(() => {
+      vi.useFakeTimers({ now: new Date("2026-11-22T12:00:00Z") });
+      vi.mocked(unitService.getUnit).mockResolvedValue(unit);
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("sums the costs of this Bucharest year and of all time", async () => {
+      vi.mocked(issueRepository.listResolvedByUnitId).mockResolvedValue([
+        buildRepair("2026-06-10T09:00:00Z", 350.5),
+        buildRepair("2025-12-31T22:30:00Z", 200),
+        buildRepair("2025-12-31T21:30:00Z", 100),
+        buildRepair("2026-02-01T09:00:00Z", null),
+      ]);
+
+      const history = await issueService.getUnitRepairHistory(
+        manager.id,
+        unitId,
+      );
+
+      expect(history.totalCostRonThisYear).toBe(550.5);
+      expect(history.totalCostRonAllTime).toBe(650.5);
+      expect(history.repairs[0].costRon).toBe(350.5);
+    });
+
+    it("throws a ForbiddenError for a manager of another organization", async () => {
+      vi.mocked(unitService.getUnit).mockRejectedValueOnce(
+        new ForbiddenError("not a member"),
+      );
+
+      await expect(
+        issueService.getUnitRepairHistory(manager.id, unitId),
+      ).rejects.toThrow(ForbiddenError);
+      expect(issueRepository.listResolvedByUnitId).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("getApplianceRepairHistory", () => {
+    it("throws a ForbiddenError for a manager of another organization", async () => {
+      vi.mocked(applianceService.getAppliance).mockRejectedValueOnce(
+        new ForbiddenError("not a member"),
+      );
+
+      await expect(
+        issueService.getApplianceRepairHistory(manager.id, "appliance-1"),
+      ).rejects.toThrow(ForbiddenError);
+      expect(issueRepository.listResolvedByApplianceId).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("listClosedIssuesForUser", () => {
+    it("throws a ForbiddenError for a user without an organization", async () => {
+      vi.mocked(organizationService.requireMembership).mockRejectedValueOnce(
+        new ForbiddenError("no organization"),
+      );
+
+      await expect(
+        issueService.listClosedIssuesForUser(manager.id),
+      ).rejects.toThrow(ForbiddenError);
+      expect(
+        issueRepository.listResolvedByOrganizationId,
+      ).not.toHaveBeenCalled();
     });
   });
 });

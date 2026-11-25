@@ -18,9 +18,9 @@ class ApplianceRepository {
     });
   }
 
-  listByUnitId(unitId: string, db: Prisma.TransactionClient = prisma) {
+  listActiveByUnitId(unitId: string, db: Prisma.TransactionClient = prisma) {
     return db.appliance.findMany({
-      where: { unitId },
+      where: { unitId, retiredAt: null },
       orderBy: [{ category: "asc" }, { createdAt: "asc" }],
     });
   }

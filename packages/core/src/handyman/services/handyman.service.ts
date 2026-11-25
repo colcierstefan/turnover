@@ -148,6 +148,21 @@ class HandymanService {
     });
   }
 
+  async requireOrganizationHandyman(
+    organizationId: string,
+    handymanId: string,
+  ) {
+    const handyman = await handymanRepository.findById(handymanId);
+    if (!handyman || handyman.organizationId !== organizationId) {
+      throw new NotFoundError(`Handyman ${handymanId} not found`);
+    }
+    return handyman;
+  }
+
+  async hasMessages(issueId: string) {
+    return (await handymanMessageRepository.countByIssueId(issueId)) > 0;
+  }
+
   async listMessages(userId: string, issueId: string) {
     await issueService.getIssue(userId, issueId);
     return handymanMessageRepository.listByIssueId(issueId);
