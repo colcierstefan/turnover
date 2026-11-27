@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
     proxyClientMaxBodySize: "31mb",
   },
   partialPrefetching: true,
+  // Turbopack cannot bundle @mastra/otel-bridge (it reads a missing @opentelemetry/api export).
+  serverExternalPackages: [
+    "@mastra/ai-sdk",
+    "@mastra/core",
+    "@mastra/observability",
+    "@mastra/otel-bridge",
+  ],
   transpilePackages: ["@turnover/core"],
   turbopack: {
     rules: {

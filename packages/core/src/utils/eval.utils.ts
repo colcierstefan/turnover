@@ -138,7 +138,7 @@ const fetchObservations = async ({
     ...(name ? { name } : {}),
     fromStartTime: fromStartTime.toISOString(),
     fields: "core,usage",
-    limit: "100",
+    limit: "1000",
   }).toString();
   const authorization = `Basic ${Buffer.from(`${env.langfuse.publicKey}:${env.langfuse.secretKey}`).toString("base64")}`;
   const response = await fetch(url, { headers: { authorization } });

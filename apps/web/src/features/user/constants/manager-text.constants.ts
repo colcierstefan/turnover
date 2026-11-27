@@ -59,6 +59,7 @@ type ManagerText = {
   header: {
     units: string;
     issues: string;
+    chat: string;
     team: string;
     handymen: string;
     settings: string;
@@ -70,6 +71,17 @@ type ManagerText = {
   backToUnit: string;
   chooseLanguage: string;
   settings: { title: string; language: string };
+  chat: {
+    title: string;
+    intro: string;
+    examples: ReadonlyArray<string>;
+    you: string;
+    assistant: string;
+    messageLabel: string;
+    send: string;
+    thinking: string;
+    failed: string;
+  };
   home: {
     signedInAs: (name: string) => string;
     createOrganizationTitle: string;
@@ -372,6 +384,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
     header: {
       units: "Units",
       issues: "Issues",
+      chat: "Chat",
       team: "Team",
       handymen: "Handymen",
       settings: "Settings",
@@ -383,6 +396,22 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
     backToUnit: "← Back to unit",
     chooseLanguage: "Choose your language",
     settings: { title: "Settings", language: "Language" },
+    chat: {
+      title: "Chat",
+      intro:
+        "Ask about your issues, units, appliances, handymen and repair costs. The chat only reads; it changes nothing, and it is gone when you leave the page.",
+      examples: [
+        "How much did I spend on repairs this year?",
+        "Which issues have been waiting more than a week?",
+        "How many jobs did each handyman do, and what did they cost?",
+      ],
+      you: "You",
+      assistant: "Turnover",
+      messageLabel: "Your question",
+      send: "Send",
+      thinking: "Looking it up…",
+      failed: "The chat could not answer. Try again.",
+    },
     home: {
       signedInAs: (name) => `Signed in as ${name}`,
       createOrganizationTitle: "Create your organization",
@@ -773,6 +802,7 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
     header: {
       units: "Unități",
       issues: "Probleme",
+      chat: "Chat",
       team: "Echipă",
       handymen: "Meșteri",
       settings: "Setări",
@@ -784,6 +814,22 @@ export const MANAGER_TEXT: Record<UserLanguage, ManagerText> = {
     backToUnit: "← Înapoi la unitate",
     chooseLanguage: "Alege limba",
     settings: { title: "Setări", language: "Limba" },
+    chat: {
+      title: "Chat",
+      intro:
+        "Întreabă despre probleme, unități, aparate, meșteri și costurile reparațiilor. Chatul doar citește; nu schimbă nimic și dispare când părăsești pagina.",
+      examples: [
+        "Cât am cheltuit pe reparații anul acesta?",
+        "Ce probleme așteaptă de mai mult de o săptămână?",
+        "Câte lucrări a făcut fiecare meșter și cât au costat?",
+      ],
+      you: "Tu",
+      assistant: "Turnover",
+      messageLabel: "Întrebarea ta",
+      send: "Trimite",
+      thinking: "Caut…",
+      failed: "Chatul nu a putut răspunde. Încearcă din nou.",
+    },
     home: {
       signedInAs: (name) => `Conectat ca ${name}`,
       createOrganizationTitle: "Creează organizația",
