@@ -124,6 +124,34 @@ class IssueRepository {
     });
   }
 
+  listForQueryByOrganizationId(
+    organizationId: string,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.issue.findMany({
+      where: { unit: { organizationId } },
+      select: {
+        id: true,
+        unitId: true,
+        applianceId: true,
+        description: true,
+        status: true,
+        emergencyType: true,
+        scheduledFor: true,
+        scheduledTime: true,
+        resolution: true,
+        resolvedByHandymanId: true,
+        costRon: true,
+        resolvedAt: true,
+        createdAt: true,
+        unit: { select: { name: true } },
+        appliance: { select: { category: true, brand: true, model: true } },
+        resolvedByHandyman: { select: { name: true } },
+      },
+      orderBy: [{ createdAt: "desc" }, { id: "asc" }],
+    });
+  }
+
   listResolvedByUnitId(unitId: string, db: Prisma.TransactionClient = prisma) {
     return db.issue.findMany({
       where: { unitId, status: "RESOLVED" },

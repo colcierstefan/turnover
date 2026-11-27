@@ -25,6 +25,21 @@ class ApplianceRepository {
     });
   }
 
+  listByOrganizationId(
+    organizationId: string,
+    isRetiredIncluded: boolean,
+    db: Prisma.TransactionClient = prisma,
+  ) {
+    return db.appliance.findMany({
+      where: {
+        unit: { organizationId },
+        ...(isRetiredIncluded ? {} : { retiredAt: null }),
+      },
+      include: { unit: { select: { name: true } } },
+      orderBy: [{ unit: { name: "asc" } }, { category: "asc" }, { id: "asc" }],
+    });
+  }
+
   countByUnitId(unitId: string, db: Prisma.TransactionClient = prisma) {
     return db.appliance.count({ where: { unitId } });
   }

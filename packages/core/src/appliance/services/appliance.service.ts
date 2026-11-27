@@ -14,6 +14,7 @@ import {
 import prisma from "@turnover/core/lib/db";
 import { NotFoundError } from "@turnover/core/lib/errors";
 import { bucket } from "@turnover/core/lib/storage";
+import organizationService from "@turnover/core/organization/services/organization.service";
 import unitService from "@turnover/core/unit/services/unit.service";
 
 class ApplianceService {
@@ -21,6 +22,24 @@ class ApplianceService {
     await unitService.getUnit(userId, unitId);
     const appliances = await applianceRepository.listActiveByUnitId(unitId);
     return appliances.map(toApplianceView);
+  }
+
+  async listOrganizationAppliances(
+    userId: string,
+    filters: Readonly<{ unitId?: string; isRetiredIncluded: boolean }>,
+  ) {
+    const { organizationId } =
+      await organizationService.requireMembership(userId);
+    if (filters.unitId) await unitService.getUnit(userId, filters.unitId);
+    const appliances = await applianceRepository.listByOrganizationId(
+      organizationId,
+      filters.isRetiredIncluded,
+    );
+    return appliances
+      .filter(
+        (appliance) => !filters.unitId || appliance.unitId === filters.unitId,
+      )
+      .map(toApplianceView);
   }
 
   async listAppliancesByReportToken(reportToken: string) {

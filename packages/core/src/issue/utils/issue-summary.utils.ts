@@ -14,7 +14,11 @@ import type {
   IssueSummaryOpenIssue,
   IssueSummaryRepeatProblem,
 } from "@turnover/core/issue/schemas/issue-summary.schema";
-import { toIsoDate } from "@turnover/core/utils/date.utils";
+import {
+  countDaysBetween,
+  toIsoDate,
+  toZonedIsoDate,
+} from "@turnover/core/utils/date.utils";
 
 type OpenIssue = Awaited<
   ReturnType<typeof issueRepository.listOpenForSummaryByOrganizationId>
@@ -29,8 +33,6 @@ type ApplianceName = Readonly<{
   brand: string | null;
   model: string | null;
 }>;
-
-const DAY_MS = 24 * 60 * 60 * 1000;
 
 export const buildIssueSummaryFacts = (
   openIssues: ReadonlyArray<OpenIssue>,
@@ -48,9 +50,7 @@ export const getIssueSummaryFactsFingerprint = (facts: IssueSummaryFacts) =>
   createHash("sha256").update(JSON.stringify(facts)).digest("hex");
 
 const toLocalIsoDate = (date: Date) =>
-  new Intl.DateTimeFormat("en-CA", {
-    timeZone: ISSUE_SUMMARY_TIME_ZONE,
-  }).format(date);
+  toZonedIsoDate(date, ISSUE_SUMMARY_TIME_ZONE);
 
 const toOpenIssueFacts = (
   issue: OpenIssue,
@@ -69,12 +69,12 @@ const toOpenIssueFacts = (
       ISSUE_SUMMARY_DESCRIPTION_MAX_LENGTH,
     ),
     status: issue.status,
-    daysOpen: countDays(toLocalIsoDate(issue.createdAt), today),
+    daysOpen: countDaysBetween(toLocalIsoDate(issue.createdAt), today),
     emergencyType: issue.emergencyType,
     visit:
       issue.status === "SCHEDULED" && issue.scheduledFor
         ? {
-            inDays: countDays(today, toIsoDate(issue.scheduledFor)),
+            inDays: countDaysBetween(today, toIsoDate(issue.scheduledFor)),
             time: issue.scheduledTime,
           }
         : null,
@@ -86,7 +86,7 @@ const toOpenIssueFacts = (
     ),
     newApplianceEstimateRon: diagnosis?.newApplianceCostRon ?? null,
     handymanMessagedDaysAgo: lastMessage
-      ? countDays(toLocalIsoDate(lastMessage.openedInWhatsAppAt), today)
+      ? countDaysBetween(toLocalIsoDate(lastMessage.openedInWhatsAppAt), today)
       : null,
   };
 };
@@ -122,9 +122,6 @@ const formatAppliance = (appliance: ApplianceName) =>
   [appliance.category, appliance.brand, appliance.model]
     .filter(Boolean)
     .join(" ");
-
-const countDays = (fromDate: string, toDate: string) =>
-  Math.round((Date.parse(toDate) - Date.parse(fromDate)) / DAY_MS);
 
 const addRanges = (first: CostRange | null, second: CostRange | null) =>
   first || second

@@ -47,3 +47,11 @@ export const ISSUE_SUMMARY_MAX_POINTS = 5;
 export const ISSUE_SUMMARY_REPEAT_WINDOW_DAYS = 90;
 export const ISSUE_SUMMARY_DESCRIPTION_MAX_LENGTH = 150;
 export const ISSUE_SUMMARY_TIME_ZONE = "Europe/Bucharest";
+export const ISSUE_QUERY_TIME_ZONE = "Europe/Bucharest";
+export const REPAIR_COST_GROUPINGS = [
+  "UNIT",
+  "APPLIANCE",
+  "HANDYMAN",
+  "MONTH",
+] as const;
+export type RepairCostGrouping = (typeof REPAIR_COST_GROUPINGS)[number];

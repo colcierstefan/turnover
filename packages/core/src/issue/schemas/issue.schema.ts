@@ -5,9 +5,10 @@ import {
   MAX_FOLLOW_UP_QUESTIONS,
   MAX_REPORT_PHOTO_BYTES,
   MAX_REPORT_PHOTOS,
+  REPAIR_COST_GROUPINGS,
   REPORT_PHOTO_CONTENT_TYPES,
 } from "@turnover/core/issue/constants/issue.constants";
-import { ReporterLanguage } from "@turnover/db/enums";
+import { IssueStatus, ReporterLanguage } from "@turnover/db/enums";
 
 const reportPhotoSchema = z
   .instanceof(File)
@@ -111,3 +112,28 @@ export const closeIssueInputSchema = z.object({
   retireAppliance: z.stringbool().default(false),
 });
 export type CloseIssueInput = z.infer<typeof closeIssueInputSchema>;
+
+export const issueListFiltersSchema = z.object({
+  unitId: z.string().min(1).optional(),
+  applianceId: z.string().min(1).optional(),
+  resolvedByHandymanId: z.string().min(1).optional(),
+  statuses: z.array(z.enum(IssueStatus)).min(1).optional(),
+  isOpen: z.boolean().optional(),
+  createdFrom: z.iso.date().optional(),
+  createdTo: z.iso.date().optional(),
+  resolvedFrom: z.iso.date().optional(),
+  resolvedTo: z.iso.date().optional(),
+  openLongerThanDays: z.number().int().min(0).optional(),
+});
+export type IssueListFilters = z.infer<typeof issueListFiltersSchema>;
+
+export const repairCostFiltersSchema = issueListFiltersSchema
+  .pick({
+    unitId: true,
+    applianceId: true,
+    resolvedByHandymanId: true,
+    resolvedFrom: true,
+    resolvedTo: true,
+  })
+  .extend({ groupBy: z.enum(REPAIR_COST_GROUPINGS).optional() });
+export type RepairCostFilters = z.infer<typeof repairCostFiltersSchema>;

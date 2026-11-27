@@ -43,7 +43,11 @@ vi.mock("@turnover/core/appliance/services/appliance.service", () => ({
   },
 }));
 vi.mock("@turnover/core/handyman/services/handyman.service", () => ({
-  default: { requireOrganizationHandyman: vi.fn(), hasMessages: vi.fn() },
+  default: {
+    requireOrganizationHandyman: vi.fn(),
+    hasMessages: vi.fn(),
+    getHandyman: vi.fn(),
+  },
 }));
 vi.mock("@turnover/core/organization/services/organization.service", () => ({
   default: { getOwnerLanguage: vi.fn(), requireMembership: vi.fn() },
@@ -76,6 +80,7 @@ vi.mock("@turnover/core/issue/repositories/issue.repository", () => ({
     listResolvedByOrganizationId: vi.fn(),
     listOpenForSummaryByOrganizationId: vi.fn(),
     listResolvedApplianceIssuesSinceByOrganizationId: vi.fn(),
+    listForQueryByOrganizationId: vi.fn(),
     update: vi.fn(),
   },
 }));
@@ -1041,6 +1046,110 @@ describe("IssueService", () => {
       await expect(issueService.getIssueSummary(manager)).resolves.toBeNull();
       expect(logger.error).toHaveBeenCalled();
       expect(issueSummaryRepository.upsert).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("listOrganizationIssues", () => {
+    const queriedIssue = {
+      id: "issue-1",
+      unitId,
+      applianceId: null,
+      description: "The tap drips",
+      status: "RESOLVED" as const,
+      emergencyType: null,
+      scheduledFor: null,
+      scheduledTime: null,
+      resolution: "REPAIRED" as const,
+      resolvedByHandymanId: null,
+      costRon: new Prisma.Decimal(250),
+      resolvedAt: new Date("2026-11-10T10:00:00Z"),
+      createdAt: new Date("2026-11-05T10:00:00Z"),
+      unit: { name: "Old Town Studio" },
+      appliance: null,
+      resolvedByHandyman: null,
+    };
+
+    beforeEach(() => {
+      vi.mocked(organizationService.requireMembership).mockResolvedValue({
+        organizationId: "org-1",
+        userId: manager.id,
+        role: "MANAGER",
+        createdAt: unit.createdAt,
+        organization: unit.organization,
+      });
+      vi.mocked(issueRepository.listForQueryByOrganizationId).mockResolvedValue(
+        [queriedIssue],
+      );
+    });
+
+    it("reads only the signed-in manager's organization", async () => {
+      await issueService.listOrganizationIssues("user-1", {}, "2026-11-15");
+
+      expect(organizationService.requireMembership).toHaveBeenCalledWith(
+        "user-1",
+      );
+      expect(issueRepository.listForQueryByOrganizationId).toHaveBeenCalledWith(
+        "org-1",
+      );
+    });
+
+    it("rejects a unit of another organization", async () => {
+      vi.mocked(unitService.getUnit).mockRejectedValueOnce(
+        new ForbiddenError("User user-1 is not a member of organization org-2"),
+      );
+
+      await expect(
+        issueService.listOrganizationIssues(
+          "user-1",
+          { unitId: "unit-of-org-2" },
+          "2026-11-15",
+        ),
+      ).rejects.toThrow(ForbiddenError);
+      expect(
+        issueRepository.listForQueryByOrganizationId,
+      ).not.toHaveBeenCalled();
+    });
+
+    it("rejects an appliance of another organization", async () => {
+      vi.mocked(applianceService.getAppliance).mockRejectedValueOnce(
+        new ForbiddenError("User user-1 is not a member of organization org-2"),
+      );
+
+      await expect(
+        issueService.listOrganizationIssues(
+          "user-1",
+          { applianceId: "appliance-of-org-2" },
+          "2026-11-15",
+        ),
+      ).rejects.toThrow(ForbiddenError);
+    });
+
+    it("rejects a handyman of another organization", async () => {
+      vi.mocked(handymanService.getHandyman).mockRejectedValueOnce(
+        new ForbiddenError("User user-1 is not a member of organization org-2"),
+      );
+
+      await expect(
+        issueService.getRepairCosts(
+          "user-1",
+          { resolvedByHandymanId: "handyman-of-org-2" },
+          "2026-11-15",
+        ),
+      ).rejects.toThrow(ForbiddenError);
+    });
+
+    it("totals only resolved issues", async () => {
+      vi.mocked(issueRepository.listForQueryByOrganizationId).mockResolvedValue(
+        [queriedIssue, { ...queriedIssue, id: "open", status: "NEW" as const }],
+      );
+
+      await expect(
+        issueService.getRepairCosts(
+          "user-1",
+          { groupBy: "UNIT" },
+          "2026-11-15",
+        ),
+      ).resolves.toMatchObject({ repairCount: 1, totalCostRon: 250 });
     });
   });
 });

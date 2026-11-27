@@ -8,6 +8,7 @@ Mobile-first web app for short-term rental hosts and property managers in Romani
 - Prisma 7 with PostgreSQL (Docker locally)
 - Auth0 for manager login
 - Gemini on Vertex AI through the AI SDK (`ai`, `@ai-sdk/google-vertex`), Zod structured outputs
+- Mastra for the issue chat agent, streamed to the page with `@mastra/ai-sdk` and `@ai-sdk/react`
 - Langfuse for tracing (OpenTelemetry)
 - Vitest, ESLint, Prettier
 
@@ -62,21 +63,23 @@ pnpm dev
 
 ## Available Scripts
 
-| Script                                    | What it does                                                                               |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `pnpm dev`                                | Next.js dev server                                                                         |
-| `pnpm build` / `pnpm start`               | Production build and server                                                                |
-| `pnpm lint`                               | ESLint                                                                                     |
-| `pnpm type-check`                         | TypeScript without emitting                                                                |
-| `pnpm format` / `format:fix`              | Prettier check / write                                                                     |
-| `pnpm test`                               | Vitest unit tests (never calls a model)                                                    |
-| `pnpm db:migrate:create --name`           | Create a migration without applying it                                                     |
-| `pnpm db:migrate`                         | Apply migrations                                                                           |
-| `pnpm check:vertex`                       | One plain and one search-grounded Vertex call, traced to Langfuse                          |
-| `pnpm evals:label-extraction`             | Label extraction evals against Vertex (`--limit N`, `--only id,id`)                        |
-| `pnpm evals:invoice-extraction`           | Invoice extraction evals against Vertex (`--limit N`, `--only id,id`)                      |
-| `pnpm evals:report-triage`                | Report triage evals against Vertex (`--limit N`, `--only id,id`)                           |
-| `pnpm evals:self-help-tips`               | Self-help tips evals against Vertex (`--limit N`, `--only id,id`)                          |
-| `pnpm evals:issue-diagnosis`              | Issue diagnosis evals against Vertex, fields and real prices (`--limit N`, `--only id,id`) |
-| `pnpm evals:handyman-message-draft`       | Handyman message draft evals against Vertex (`--limit N`, `--only id,id`)                  |
-| `pnpm evals:handyman-message-translation` | Handyman message translation evals against Vertex (`--limit N`, `--only id,id`)            |
+| Script                                    | What it does                                                                                             |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `pnpm dev`                                | Next.js dev server                                                                                       |
+| `pnpm build` / `pnpm start`               | Production build and server                                                                              |
+| `pnpm lint`                               | ESLint                                                                                                   |
+| `pnpm type-check`                         | TypeScript without emitting                                                                              |
+| `pnpm format` / `format:fix`              | Prettier check / write                                                                                   |
+| `pnpm test`                               | Vitest unit tests (never calls a model)                                                                  |
+| `pnpm db:migrate:create --name`           | Create a migration without applying it                                                                   |
+| `pnpm db:migrate`                         | Apply migrations                                                                                         |
+| `pnpm check:vertex`                       | One plain and one search-grounded Vertex call, traced to Langfuse                                        |
+| `pnpm evals:label-extraction`             | Label extraction evals against Vertex (`--limit N`, `--only id,id`)                                      |
+| `pnpm evals:invoice-extraction`           | Invoice extraction evals against Vertex (`--limit N`, `--only id,id`)                                    |
+| `pnpm evals:report-triage`                | Report triage evals against Vertex (`--limit N`, `--only id,id`)                                         |
+| `pnpm evals:self-help-tips`               | Self-help tips evals against Vertex (`--limit N`, `--only id,id`)                                        |
+| `pnpm evals:issue-diagnosis`              | Issue diagnosis evals against Vertex, fields and real prices (`--limit N`, `--only id,id`)               |
+| `pnpm evals:handyman-message-draft`       | Handyman message draft evals against Vertex (`--limit N`, `--only id,id`)                                |
+| `pnpm evals:handyman-message-translation` | Handyman message translation evals against Vertex (`--limit N`, `--only id,id`)                          |
+| `pnpm evals:issue-summary`                | Issue summary evals against Vertex (`--limit N`, `--only id,id`)                                         |
+| `pnpm evals:issue-chat`                   | Issue chat agent evals on a seeded test organization in the local database (`--limit N`, `--only id,id`) |

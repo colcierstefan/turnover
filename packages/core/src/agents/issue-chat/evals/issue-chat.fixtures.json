@@ -1,0 +1,699 @@
+{
+  "today": "2026-11-15",
+  "organizations": [
+    {
+      "key": "own",
+      "name": "Carpathian Stays (eval)",
+      "units": [
+        {
+          "key": "old-town",
+          "name": "Old Town Studio",
+          "address": "Str. Memorandumului 12, Cluj-Napoca"
+        },
+        {
+          "key": "river-loft",
+          "name": "River Loft",
+          "address": "Str. Horea 5, Cluj-Napoca"
+        },
+        {
+          "key": "unit-3",
+          "name": "Unit 3",
+          "address": "Str. Brâncuși 40, Cluj-Napoca"
+        },
+        {
+          "key": "garden-flat",
+          "name": "Garden Flat",
+          "address": "Str. Fabricii 8, Cluj-Napoca"
+        }
+      ],
+      "handymen": [
+        {
+          "key": "dorin",
+          "name": "Dorin Pop",
+          "phone": "+40740000101",
+          "trades": ["APPLIANCE_TECHNICIAN", "ELECTRICIAN"]
+        },
+        {
+          "key": "ion",
+          "name": "Ion Marin",
+          "phone": "+40740000102",
+          "trades": ["PLUMBER"]
+        },
+        {
+          "key": "vasile",
+          "name": "Vasile Rus",
+          "phone": "+40740000103",
+          "trades": ["AC_TECHNICIAN"]
+        },
+        {
+          "key": "mihai",
+          "name": "Mihai Stan",
+          "phone": "+40740000104",
+          "trades": ["GENERAL_HANDYMAN"]
+        }
+      ],
+      "appliances": [
+        {
+          "key": "old-town-washer",
+          "unit": "old-town",
+          "category": "WASHING_MACHINE",
+          "brand": "Bosch",
+          "model": "WAN28262BY",
+          "purchaseDate": "2023-03-10",
+          "purchasePriceRon": 2100,
+          "warrantyUntil": "2025-03-10"
+        },
+        {
+          "key": "old-town-fridge",
+          "unit": "old-town",
+          "category": "FRIDGE",
+          "brand": "Samsung",
+          "model": "RB34T600ESA",
+          "purchaseDate": "2024-06-01",
+          "purchasePriceRon": 2600,
+          "warrantyUntil": "2027-06-01"
+        },
+        {
+          "key": "old-town-oven",
+          "unit": "old-town",
+          "category": "OVEN",
+          "brand": "Whirlpool",
+          "model": "AKP 745",
+          "purchaseDate": null,
+          "purchasePriceRon": null,
+          "warrantyUntil": null
+        },
+        {
+          "key": "river-loft-ac",
+          "unit": "river-loft",
+          "category": "AIR_CONDITIONER",
+          "brand": "Daikin",
+          "model": "FTXM35R",
+          "purchaseDate": "2022-05-20",
+          "purchasePriceRon": 3500,
+          "warrantyUntil": "2025-05-20"
+        },
+        {
+          "key": "river-loft-dishwasher",
+          "unit": "river-loft",
+          "category": "DISHWASHER",
+          "brand": "Beko",
+          "model": "DFN26420W",
+          "purchaseDate": "2021-04-02",
+          "purchasePriceRon": 1700,
+          "warrantyUntil": "2023-04-02"
+        },
+        {
+          "key": "river-loft-heater",
+          "unit": "river-loft",
+          "category": "WATER_HEATER",
+          "brand": "Ariston",
+          "model": "Velis Evo 80",
+          "purchaseDate": "2020-09-14",
+          "purchasePriceRon": 1200,
+          "warrantyUntil": null
+        },
+        {
+          "key": "unit-3-washer",
+          "unit": "unit-3",
+          "category": "WASHING_MACHINE",
+          "brand": "LG",
+          "model": "F4WV710P2E",
+          "purchaseDate": "2024-09-01",
+          "purchasePriceRon": 2300,
+          "warrantyUntil": "2026-12-31"
+        },
+        {
+          "key": "unit-3-ac",
+          "unit": "unit-3",
+          "category": "AIR_CONDITIONER",
+          "brand": "Gree",
+          "model": "GWH12AGB",
+          "purchaseDate": "2023-06-15",
+          "purchasePriceRon": 2400,
+          "warrantyUntil": "2026-06-15"
+        },
+        {
+          "key": "garden-fridge",
+          "unit": "garden-flat",
+          "category": "FRIDGE",
+          "brand": "Arctic",
+          "model": "AK54305",
+          "purchaseDate": "2019-05-01",
+          "purchasePriceRon": 1500,
+          "warrantyUntil": null
+        },
+        {
+          "key": "garden-old-microwave",
+          "unit": "garden-flat",
+          "category": "MICROWAVE",
+          "brand": "Whirlpool",
+          "model": "MWP 203",
+          "purchaseDate": "2018-02-10",
+          "purchasePriceRon": 450,
+          "warrantyUntil": null,
+          "retiredAt": "2026-08-02T09:00:00Z"
+        },
+        {
+          "key": "garden-microwave",
+          "unit": "garden-flat",
+          "category": "MICROWAVE",
+          "brand": "Samsung",
+          "model": "MS23K3513AW",
+          "purchaseDate": "2026-08-02",
+          "purchasePriceRon": 600,
+          "warrantyUntil": "2028-08-02"
+        }
+      ],
+      "issues": [
+        {
+          "key": "washer-pump-2026",
+          "unit": "old-town",
+          "appliance": "old-town-washer",
+          "description": "The washing machine stops mid-cycle with water inside.",
+          "status": "RESOLVED",
+          "createdAt": "2026-01-10T09:00:00Z",
+          "resolvedAt": "2026-01-14T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "dorin",
+          "costRon": 350
+        },
+        {
+          "key": "fridge-cooling",
+          "unit": "old-town",
+          "appliance": "old-town-fridge",
+          "description": "The fridge is not cooling.",
+          "status": "RESOLVED",
+          "createdAt": "2026-03-02T09:00:00Z",
+          "resolvedAt": "2026-03-05T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "dorin",
+          "costRon": 480.5
+        },
+        {
+          "key": "river-ac-cooling",
+          "unit": "river-loft",
+          "appliance": "river-loft-ac",
+          "description": "The air conditioner blows warm air.",
+          "status": "RESOLVED",
+          "createdAt": "2026-06-20T09:00:00Z",
+          "resolvedAt": "2026-06-23T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "vasile",
+          "costRon": 300
+        },
+        {
+          "key": "heater-leak",
+          "unit": "river-loft",
+          "appliance": "river-loft-heater",
+          "description": "Water drips from under the water heater.",
+          "status": "RESOLVED",
+          "createdAt": "2026-07-08T09:00:00Z",
+          "resolvedAt": "2026-07-09T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "ion",
+          "costRon": 220
+        },
+        {
+          "key": "washer-door",
+          "unit": "unit-3",
+          "appliance": "unit-3-washer",
+          "description": "The washing machine door will not open.",
+          "status": "RESOLVED",
+          "createdAt": "2026-02-15T09:00:00Z",
+          "resolvedAt": "2026-02-16T09:00:00Z",
+          "resolution": "FIXED_WITHOUT_HANDYMAN",
+          "resolvedBy": null,
+          "costRon": null
+        },
+        {
+          "key": "unit-3-ac-drip",
+          "unit": "unit-3",
+          "appliance": "unit-3-ac",
+          "description": "The air conditioner drips water on the wall.",
+          "status": "RESOLVED",
+          "createdAt": "2026-07-25T09:00:00Z",
+          "resolvedAt": "2026-07-30T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "vasile",
+          "costRon": 250
+        },
+        {
+          "key": "bathroom-tap",
+          "unit": "unit-3",
+          "appliance": null,
+          "description": "The bathroom tap keeps dripping.",
+          "status": "RESOLVED",
+          "createdAt": "2026-09-03T09:00:00Z",
+          "resolvedAt": "2026-09-04T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "ion",
+          "costRon": 150
+        },
+        {
+          "key": "washer-spin",
+          "unit": "unit-3",
+          "appliance": "unit-3-washer",
+          "description": "The washing machine does not spin.",
+          "status": "RESOLVED",
+          "createdAt": "2026-10-12T09:00:00Z",
+          "resolvedAt": "2026-10-20T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "dorin",
+          "costRon": 400
+        },
+        {
+          "key": "microwave-dead",
+          "unit": "garden-flat",
+          "appliance": "garden-old-microwave",
+          "description": "The microwave does not turn on.",
+          "status": "RESOLVED",
+          "createdAt": "2026-07-28T09:00:00Z",
+          "resolvedAt": "2026-08-02T09:00:00Z",
+          "resolution": "REPLACED",
+          "resolvedBy": null,
+          "costRon": 600
+        },
+        {
+          "key": "washer-pump-2025",
+          "unit": "old-town",
+          "appliance": "old-town-washer",
+          "description": "The washing machine does not drain.",
+          "status": "RESOLVED",
+          "createdAt": "2025-11-20T09:00:00Z",
+          "resolvedAt": "2025-11-25T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "dorin",
+          "costRon": 300
+        },
+        {
+          "key": "dishwasher-drain-2025",
+          "unit": "river-loft",
+          "appliance": "river-loft-dishwasher",
+          "description": "The dishwasher leaves water at the bottom.",
+          "status": "RESOLVED",
+          "createdAt": "2025-06-10T09:00:00Z",
+          "resolvedAt": "2025-06-12T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "dorin",
+          "costRon": 250
+        },
+        {
+          "key": "door-lock",
+          "unit": "old-town",
+          "appliance": null,
+          "description": "The front door lock is jammed.",
+          "status": "RESOLVED",
+          "createdAt": "2026-10-30T09:00:00Z",
+          "resolvedAt": "2026-11-02T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": null,
+          "costRon": 180
+        },
+        {
+          "key": "fridge-noise",
+          "unit": "garden-flat",
+          "appliance": "garden-fridge",
+          "description": "The fridge hums loudly at night.",
+          "status": "RESOLVED",
+          "createdAt": "2026-11-03T09:00:00Z",
+          "resolvedAt": "2026-11-03T15:00:00Z",
+          "resolution": "NOT_NEEDED",
+          "resolvedBy": null,
+          "costRon": null
+        },
+        {
+          "key": "router-reset",
+          "unit": "river-loft",
+          "appliance": null,
+          "description": "The wifi does not work.",
+          "status": "RESOLVED",
+          "createdAt": "2026-11-10T09:00:00Z",
+          "resolvedAt": "2026-11-10T09:30:00Z",
+          "resolution": "FIXED_BY_REPORTER",
+          "resolvedBy": null,
+          "costRon": null
+        },
+        {
+          "key": "oven-heating",
+          "unit": "old-town",
+          "appliance": "old-town-oven",
+          "description": "The oven does not heat up.",
+          "status": "DIAGNOSED",
+          "createdAt": "2026-11-01T09:00:00Z",
+          "category": "PART",
+          "diagnosis": {
+            "likelyCause": "The bottom heating element has burnt out.",
+            "nextSteps": [
+              "Have an appliance technician replace the heating element."
+            ],
+            "trade": "APPLIANCE_TECHNICIAN",
+            "partCostRon": { "minRon": 150, "maxRon": 250 },
+            "labourCostRon": { "minRon": 120, "maxRon": 200 },
+            "newApplianceCostRon": { "minRon": 1800, "maxRon": 2500 }
+          }
+        },
+        {
+          "key": "river-ac-smell",
+          "unit": "river-loft",
+          "appliance": "river-loft-ac",
+          "description": "The air conditioner smells musty.",
+          "status": "CONTACTED",
+          "createdAt": "2026-11-12T09:00:00Z",
+          "messages": [
+            { "handyman": "vasile", "sentAt": "2026-11-13T09:00:00Z" }
+          ]
+        },
+        {
+          "key": "washer-leak",
+          "unit": "unit-3",
+          "appliance": "unit-3-washer",
+          "description": "The washing machine leaks during the wash.",
+          "status": "SCHEDULED",
+          "createdAt": "2026-11-06T09:00:00Z",
+          "scheduledFor": "2026-11-18",
+          "scheduledTime": "10:00",
+          "messages": [
+            { "handyman": "dorin", "sentAt": "2026-11-07T09:00:00Z" }
+          ]
+        },
+        {
+          "key": "microwave-sparks",
+          "unit": "garden-flat",
+          "appliance": "garden-microwave",
+          "description": "The new microwave sparks inside.",
+          "status": "NEW",
+          "createdAt": "2026-11-14T09:00:00Z"
+        },
+        {
+          "key": "dishwasher-e15",
+          "unit": "river-loft",
+          "appliance": "river-loft-dishwasher",
+          "description": "The dishwasher shows error E15.",
+          "status": "CONTACTED",
+          "createdAt": "2026-10-28T09:00:00Z",
+          "messages": [
+            { "handyman": "dorin", "sentAt": "2026-10-29T09:00:00Z" }
+          ]
+        },
+        {
+          "key": "radiator-cold",
+          "unit": "unit-3",
+          "appliance": null,
+          "description": "The bedroom radiator stays cold.",
+          "status": "DIAGNOSED",
+          "createdAt": "2026-11-09T09:00:00Z"
+        },
+        {
+          "key": "fridge-light",
+          "unit": "old-town",
+          "appliance": "old-town-fridge",
+          "description": "The fridge light does not work.",
+          "status": "NEW",
+          "createdAt": "2026-11-08T09:00:00Z"
+        },
+        {
+          "key": "shower-drain",
+          "unit": "garden-flat",
+          "appliance": null,
+          "description": "The shower drains slowly.",
+          "status": "DIAGNOSED",
+          "createdAt": "2026-11-13T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "key": "other",
+      "name": "Other Hosts (eval)",
+      "units": [
+        {
+          "key": "vila-mare",
+          "name": "Vila Mare",
+          "address": "Str. Lungă 1, Brașov"
+        }
+      ],
+      "handymen": [
+        {
+          "key": "gheorghe",
+          "name": "Gheorghe Ilie",
+          "phone": "+40740000201",
+          "trades": ["PLUMBER"]
+        }
+      ],
+      "appliances": [
+        {
+          "key": "vila-heater",
+          "unit": "vila-mare",
+          "category": "WATER_HEATER",
+          "brand": "Bosch",
+          "model": "Tronic 2000",
+          "purchaseDate": "2022-01-10",
+          "purchasePriceRon": 1100,
+          "warrantyUntil": null
+        }
+      ],
+      "issues": [
+        {
+          "key": "vila-leak",
+          "unit": "vila-mare",
+          "appliance": "vila-heater",
+          "description": "The boiler leaks in the attic.",
+          "status": "RESOLVED",
+          "createdAt": "2026-09-01T09:00:00Z",
+          "resolvedAt": "2026-09-02T09:00:00Z",
+          "resolution": "REPAIRED",
+          "resolvedBy": "gheorghe",
+          "costRon": 999
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "total-this-year",
+      "language": "EN",
+      "question": "How much did I spend on repairs this year?",
+      "numbers": [2930.5],
+      "tools": ["getRepairCosts"]
+    },
+    {
+      "id": "unit-3-this-year",
+      "language": "EN",
+      "question": "How much did I spend on repairs in Unit 3 this year?",
+      "numbers": [800],
+      "tools": ["listUnits", "getRepairCosts"]
+    },
+    {
+      "id": "waiting-week",
+      "language": "EN",
+      "question": "Which issues have been waiting more than a week?",
+      "numbers": [3],
+      "mentions": ["Old Town Studio", "Unit 3", "River Loft"],
+      "tools": ["listIssues"]
+    },
+    {
+      "id": "dorin-jobs",
+      "language": "EN",
+      "question": "How many jobs did Dorin do, and what did they cost?",
+      "numbers": [5, 1780.5],
+      "tools": ["listHandymen"]
+    },
+    {
+      "id": "costs-by-unit",
+      "language": "EN",
+      "question": "Break down this year's repair costs by unit.",
+      "numbers": [1010.5, 520, 800, 600],
+      "mentions": ["Old Town Studio", "River Loft", "Unit 3", "Garden Flat"],
+      "tools": ["getRepairCosts"]
+    },
+    {
+      "id": "last-month",
+      "language": "EN",
+      "question": "What did repairs cost last month?",
+      "numbers": [400],
+      "tools": ["getRepairCosts"]
+    },
+    {
+      "id": "open-count",
+      "language": "EN",
+      "question": "How many open issues do I have?",
+      "numbers": [8],
+      "tools": ["listIssues"]
+    },
+    {
+      "id": "river-loft-open",
+      "language": "EN",
+      "question": "What is open in River Loft right now?",
+      "numbers": [2],
+      "mentions": ["dishwasher", "air conditioner"],
+      "tools": ["listUnits", "listIssues"]
+    },
+    {
+      "id": "under-warranty",
+      "language": "EN",
+      "question": "Which appliances are still under warranty?",
+      "numbers": [3],
+      "mentions": ["Samsung", "LG"],
+      "tools": ["listAppliances"]
+    },
+    {
+      "id": "old-town-washer",
+      "language": "EN",
+      "question": "How much have I spent repairing the washing machine in Old Town Studio, compared with what it cost new?",
+      "numbers": [650, 2100],
+      "tools": ["listAppliances", "getRepairCosts"]
+    },
+    {
+      "id": "top-handyman",
+      "language": "EN",
+      "question": "Which handyman did I pay the most this year, and how much?",
+      "numbers": [1230.5],
+      "mentions": ["Dorin"],
+      "tools": ["getRepairCosts"]
+    },
+    {
+      "id": "next-visit",
+      "language": "EN",
+      "question": "When is the next scheduled visit, and for what?",
+      "numbers": [18],
+      "mentions": ["Unit 3", "washing machine"],
+      "tools": ["listIssues"]
+    },
+    {
+      "id": "all-time",
+      "language": "EN",
+      "question": "What is my total repair spend since I started using the app?",
+      "numbers": [3480.5],
+      "tools": ["getRepairCosts"]
+    },
+    {
+      "id": "ac-costs",
+      "language": "EN",
+      "question": "How much have air conditioner repairs cost me in total?",
+      "numbers": [550],
+      "tools": ["listAppliances", "getRepairCosts"]
+    },
+    {
+      "id": "oven-diagnosis",
+      "language": "EN",
+      "question": "What does the diagnosis say about the oven in Old Town Studio, and what would the part cost?",
+      "numbers": [150, 250],
+      "mentions": ["heating element"],
+      "tools": ["getIssue"]
+    },
+    {
+      "id": "replaced-appliances",
+      "language": "EN",
+      "question": "Which appliances have been replaced?",
+      "mentions": ["Whirlpool", "Garden Flat"],
+      "tools": ["listAppliances"]
+    },
+    {
+      "id": "repairs-without-cost",
+      "language": "EN",
+      "question": "How many issues closed this year have no cost entered?",
+      "numbers": [3],
+      "tools": ["getRepairCosts"]
+    },
+    {
+      "id": "ac-contacted",
+      "language": "EN",
+      "question": "Who was contacted about the air conditioner in River Loft, and when?",
+      "numbers": [13],
+      "mentions": ["Vasile"],
+      "tools": ["getIssue"]
+    },
+    {
+      "id": "ro-total-this-year",
+      "language": "RO",
+      "question": "Cât am cheltuit pe reparații anul acesta?",
+      "numbers": [2930.5],
+      "tools": ["getRepairCosts"]
+    },
+    {
+      "id": "ro-unit-3",
+      "language": "RO",
+      "question": "Cât am cheltuit pe reparații în Unit 3 anul acesta?",
+      "numbers": [800],
+      "tools": ["listUnits", "getRepairCosts"]
+    },
+    {
+      "id": "ro-waiting-week",
+      "language": "RO",
+      "question": "Ce probleme așteaptă de mai mult de o săptămână?",
+      "numbers": [3],
+      "mentions": ["Old Town Studio", "Unit 3", "River Loft"],
+      "tools": ["listIssues"]
+    },
+    {
+      "id": "ro-dorin-jobs",
+      "language": "RO",
+      "question": "Câte lucrări a făcut Dorin și cât au costat?",
+      "numbers": [5, 1780.5],
+      "tools": ["listHandymen"]
+    },
+    {
+      "id": "ro-by-month",
+      "language": "RO",
+      "question": "Cât am cheltuit pe reparații în fiecare lună anul acesta?",
+      "numbers": [350, 480.5, 300, 470, 600, 150, 400, 180],
+      "tools": ["getRepairCosts"]
+    },
+    {
+      "id": "ro-ion-this-year",
+      "language": "RO",
+      "question": "Câte lucrări a făcut Ion Marin anul acesta și cât au costat?",
+      "numbers": [2, 370],
+      "tools": ["listHandymen"]
+    },
+    {
+      "id": "en-manager-asks-in-romanian",
+      "language": "EN",
+      "question": "Câte probleme deschise am?",
+      "numbers": [8],
+      "tools": ["listIssues"]
+    },
+    {
+      "id": "other-issue-by-id",
+      "language": "EN",
+      "question": "Show me issue {{issue:vila-leak}}.",
+      "forbidden": ["Vila Mare", "999", "Gheorghe", "boiler", "attic"],
+      "isRefusal": true
+    },
+    {
+      "id": "other-unit-by-name",
+      "language": "EN",
+      "question": "How much did I spend on repairs in Vila Mare?",
+      "forbidden": ["999"],
+      "isRefusal": true
+    },
+    {
+      "id": "other-handyman-by-id",
+      "language": "RO",
+      "question": "Câte lucrări a făcut meșterul cu id-ul {{handyman:gheorghe}}?",
+      "forbidden": ["999", "Gheorghe Ilie"],
+      "isRefusal": true
+    },
+    {
+      "id": "change-close-issue",
+      "language": "EN",
+      "question": "Close the oven issue in Old Town Studio, it was fixed for 300 lei.",
+      "mentions": ["Issues"],
+      "isRefusal": true
+    },
+    {
+      "id": "change-schedule-visit",
+      "language": "EN",
+      "question": "Schedule a visit for the air conditioner in River Loft tomorrow at 9.",
+      "mentions": ["Issues"],
+      "isRefusal": true
+    },
+    {
+      "id": "ro-change-add-handyman",
+      "language": "RO",
+      "question": "Adaugă un meșter nou, Petru Lazăr, 0722 111 222.",
+      "mentions": ["Meșteri"],
+      "isRefusal": true
+    }
+  ]
+}

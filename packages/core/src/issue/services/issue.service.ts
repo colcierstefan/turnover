@@ -27,6 +27,8 @@ import type {
   AnswerIssueFollowUpsInput,
   ChangeIssueApplianceInput,
   CloseIssueInput,
+  IssueListFilters,
+  RepairCostFilters,
   ReportedIssueInput,
   ReportIssueAsManagerInput,
   ScheduleIssueVisitInput,
@@ -46,6 +48,10 @@ import reportTriageService from "@turnover/core/issue/services/report-triage.ser
 import selfHelpTipsService from "@turnover/core/issue/services/self-help-tips.service";
 import type { IssueReportStep } from "@turnover/core/issue/types/issue-report.types";
 import { getWarrantyStatus } from "@turnover/core/issue/utils/appliance-warranty.utils";
+import {
+  filterIssues,
+  sumRepairCosts,
+} from "@turnover/core/issue/utils/issue-query.utils";
 import {
   buildIssueSummaryFacts,
   getIssueSummaryFactsFingerprint,
@@ -288,6 +294,40 @@ class IssueService {
         issues: point.issueIds.map((id) => issuesById[id]),
       })),
     };
+  }
+
+  async listOrganizationIssues(
+    userId: string,
+    filters: IssueListFilters,
+    today: string,
+  ) {
+    const { organizationId } =
+      await organizationService.requireMembership(userId);
+    if (filters.unitId) await unitService.getUnit(userId, filters.unitId);
+    if (filters.applianceId) {
+      await applianceService.getAppliance(userId, filters.applianceId);
+    }
+    if (filters.resolvedByHandymanId) {
+      await handymanService.getHandyman(userId, filters.resolvedByHandymanId);
+    }
+    return filterIssues(
+      await issueRepository.listForQueryByOrganizationId(organizationId),
+      filters,
+      today,
+    );
+  }
+
+  async getRepairCosts(
+    userId: string,
+    { groupBy, ...filters }: RepairCostFilters,
+    today: string,
+  ) {
+    const repairs = await this.listOrganizationIssues(
+      userId,
+      { ...filters, statuses: ["RESOLVED"] },
+      today,
+    );
+    return sumRepairCosts(repairs, groupBy);
   }
 
   async changeIssueAppliance(userId: string, input: ChangeIssueApplianceInput) {
